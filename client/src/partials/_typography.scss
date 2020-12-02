@@ -1,0 +1,120 @@
+@import 'variables';
+
+// FONT SIZE variable map and lookup function
+$font-size: (
+    h1-tablet: 2rem,
+    h1-mobile: 1.75rem,
+    h2-tablet: 1.5rem,
+    h2-mobile: 1.25rem,
+    h3-tablet: 0.875rem,
+    h3-mobile: 0.8125rem,
+    h4-tablet: 0.75rem,
+    h4-mobile: 0.6875rem,
+    p1-tablet: 1rem,
+    p1-mobile: 0.9375rem,
+    p2-tablet: 0.875rem,
+    p2-mobile: 0.8125rem,
+    p3-tablet: 0.75rem,
+    p3-mobile: 0.6875rem
+);
+
+@function font-size($element) {
+    @return map-get($font-size, $element);
+}
+
+@mixin m-h1 {
+    font-size: font-size(h1-mobile);
+    font-weight: 600;
+    line-height: 2.25rem;
+    color: inherit;
+}
+
+@mixin h1 {
+    @include m-h1;
+    font-size: font-size(h1-tablet);
+    line-height: 2.5rem;
+}
+
+@mixin m-h2 {
+    font-size: font-size(h2-mobile);
+    font-weight: 600;
+    line-height: 1.75rem;
+    color: inherit;
+}
+
+@mixin h2 {
+    @include m-h2;
+    font-size: font-size(h2-tablet);
+    line-height: 2rem;
+}
+
+// h3 used for labels, links, buttons
+@mixin m-h3 {
+    font-size: font-size(h3-mobile);
+    font-weight: 600;
+    line-height: 1.25rem;
+    color: inherit;
+}
+
+@mixin h3 {
+    @include m-h3;
+    font-size: font-size(h3-tablet);
+    line-height: 1.375rem;
+}
+
+
+// h4 used for table headers
+@mixin m-h4 {
+    font-size: font-size(h4-mobile);
+    font-weight: 600;
+    line-height: 1rem;
+    color: color(table-header-text);
+}
+
+@mixin h4 {
+    @include m-h4;
+    font-size: font-size(h4-tablet);
+    line-height: 1.125rem;
+}
+
+// p1 used for body large
+@mixin m-p1 {
+    font-size: font-size(p1-mobile);
+    font-weight: 400;
+    line-height: 1.625rem;
+    color: inherit;
+}
+
+@mixin p1 {
+    @include m-p1;
+    font-size: font-size(p1-tablet);
+    line-height: 1.75rem;
+}
+
+// p2 used for body medium
+@mixin m-p2 {
+    font-size: font-size(p2-mobile);
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: inherit;
+}
+
+@mixin p2 {
+    @include m-p2;
+    font-size: font-size(p2-tablet);
+    line-height: 1.375rem;
+}
+
+// p3 used for body small
+@mixin m-p3 {
+    font-size: font-size(p3-mobile);
+    font-weight: 400;
+    line-height: 1rem;
+    color: inherit;
+}
+
+@mixin p3 {
+    @include m-p3;
+    font-size: font-size(p3-tablet);
+    line-height: 1.125rem;
+}
