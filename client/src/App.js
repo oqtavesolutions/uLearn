@@ -5,6 +5,7 @@ import Courses from "./pages/Courses/Courses";
 import Explore from "./pages/Explore/Explore";
 import EditCourse from "./pages/EditCourse/EditCourse";
 import EditLecture from "./pages/EditLecture/EditLecture";
+import Course from "./pages/Course/Course";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Courses} />
         <Route exact path='/courses' component={Courses} />
+        <Route exact path='/course' component={Course} />
         <Route exact path='/edit/course' component={EditCourse} />
         <Route exact path='/edit/course/lecture' component={EditLecture} />
         <Route exact path='/explore' component={Explore} />
