@@ -7,11 +7,13 @@ import EditCourse from "./pages/EditCourse/EditCourse";
 import EditLecture from "./pages/EditLecture/EditLecture";
 import Course from "./pages/Course/Course";
 import Lecture from "./pages/Lecture/Lecture";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
   return (
     <Router>
       <Header />
+      <Sidebar />
       <Switch>
         <Route exact path='/' component={Courses} />
         <Route exact path='/courses' component={Courses} />
