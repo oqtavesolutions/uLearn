@@ -6,6 +6,7 @@ import Explore from "./pages/Explore/Explore";
 import EditCourse from "./pages/EditCourse/EditCourse";
 import EditLecture from "./pages/EditLecture/EditLecture";
 import Course from "./pages/Course/Course";
+import Lecture from "./pages/Lecture/Lecture";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path='/edit/course' component={EditCourse} />
         <Route exact path='/edit/course/lecture' component={EditLecture} />
         <Route exact path='/explore' component={Explore} />
+        <Route exact path='/lecture' component={Lecture} />
       </Switch>
     </Router>
   );
