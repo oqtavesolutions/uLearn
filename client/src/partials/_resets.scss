@@ -1,0 +1,21 @@
+@use './variables' as *; 
+
+*, 
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
+}
+
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,a,img,article,aside,footer,header,nav,ul,button,input,textarea,::placeholder,section {
+    color: color(global-black);
+    font-family: $base-font-family;
+    font-size: 16px;
+}

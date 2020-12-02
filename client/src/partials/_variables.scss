@@ -1,0 +1,11 @@
+@use './fonts';
+
+$base-font-family: "Avenir";
+
+$color: (global-black: #13182C,
+    global-white: #FFFFFF,
+    borders: #BDC5D5);
+
+@function color($color-name) {
+    @return map-get($color, $color-name);
+}
