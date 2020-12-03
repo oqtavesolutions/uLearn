@@ -2,6 +2,7 @@
 
 .header {
   padding: $mobile-padding;
+  display: flex;
   border-bottom: 1px solid color(borders);
 
   &__logo-image {
