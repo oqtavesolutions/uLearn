@@ -9,6 +9,7 @@ import EditLecture from "./pages/EditLecture/EditLecture";
 import Course from "./pages/Course/Course";
 import Lecture from "./pages/Lecture/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
+import CreateCourse from "./pages/CreateCourse/CreateCourse";
 
 function App() {
   const isDesktop = useMediaQuery({
@@ -22,6 +23,7 @@ function App() {
         <main className='main-container'>
           <Switch>
             <Route exact path='/' component={Courses} />
+            <Route exact path='/create/course' component={CreateCourse} />
             <Route exact path='/courses' component={Courses} />
             <Route exact path='/course' component={Course} />
             <Route exact path='/edit/course' component={EditCourse} />

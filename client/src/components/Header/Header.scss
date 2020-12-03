@@ -71,6 +71,11 @@
   &__avatar {
     border-radius: 50%;
     cursor: pointer;
+
+    span {
+      @include h3;
+      color: #fff !important;
+    }
   }
 
   &__items {
