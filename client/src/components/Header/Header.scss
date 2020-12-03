@@ -19,6 +19,10 @@
 
   &__logo-image {
     width: 100px;
+
+    // @include desktop {
+    //   width: 150px;
+    // }
   }
 }
 
@@ -29,7 +33,7 @@
   }
 }
 
-.header-menus {
+.header-menus-kebab {
   position: absolute;
   top: 4rem;
   right: 1rem;
@@ -47,5 +51,40 @@
     @include m-p1;
     border-bottom: 1px solid color(borders);
     padding: 1rem;
+  }
+}
+
+.header-menus {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__dashboard {
+    background-color: color(global-black);
+    padding: 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+  }
+
+  &__avatar {
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &__items {
+    position: absolute;
+    min-width: 240px;
+    background: #fff;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    top: 4rem;
+    list-style: none;
+    right: 0rem;
+    padding: 1rem;
+  }
+
+  &__item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 }
