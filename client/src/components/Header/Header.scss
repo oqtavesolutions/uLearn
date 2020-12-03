@@ -9,6 +9,14 @@
   align-items: center;
   border-bottom: 1px solid color(borders);
 
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: 1rem $desktop-padding;
+  }
+
   &__logo-image {
     width: 100px;
   }
