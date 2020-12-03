@@ -11,7 +11,7 @@ function Courses() {
   return (
     <div className='my-courses'>
       <h1 className='my-courses__headline'>My Courses</h1>
-      <Link to='/create-course' className='my-courses__create-course'>
+      <Link to='/create/course' className='my-courses__create-course'>
         Create a course
       </Link>
       <article className='my-courses-card'>
