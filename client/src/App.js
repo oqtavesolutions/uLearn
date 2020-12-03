@@ -19,15 +19,17 @@ function App() {
       <Header />
       <div className='app'>
         {isDesktop && <Sidebar />}
-        <Switch>
-          <Route exact path='/' component={Courses} />
-          <Route exact path='/courses' component={Courses} />
-          <Route exact path='/course' component={Course} />
-          <Route exact path='/edit/course' component={EditCourse} />
-          <Route exact path='/edit/course/lecture' component={EditLecture} />
-          <Route exact path='/explore' component={Explore} />
-          <Route exact path='/lecture' component={Lecture} />
-        </Switch>
+        <main className='main-container'>
+          <Switch>
+            <Route exact path='/' component={Courses} />
+            <Route exact path='/courses' component={Courses} />
+            <Route exact path='/course' component={Course} />
+            <Route exact path='/edit/course' component={EditCourse} />
+            <Route exact path='/edit/course/lecture' component={EditLecture} />
+            <Route exact path='/explore' component={Explore} />
+            <Route exact path='/lecture' component={Lecture} />
+          </Switch>
+        </main>
       </div>
     </Router>
   );
