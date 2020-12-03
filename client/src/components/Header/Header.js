@@ -66,7 +66,6 @@ function Header() {
               onClick={handleCollapsibleClick}
               textSizeRatio={1.75}
               color='#3bc371'
-              fgColor='white'
             />
           </div>
           {showDesktopCollapsible && (
