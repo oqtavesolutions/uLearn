@@ -1,5 +1,10 @@
+@use '../../partials/variables'as *;
+
 .header {
-  &__logo {
+  padding: $mobile-padding;
+  border-bottom: 1px solid color(borders);
+
+  &__logo-image {
     width: 100px;
   }
 }

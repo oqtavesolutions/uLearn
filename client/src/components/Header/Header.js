@@ -4,14 +4,18 @@ import "./Header.scss";
 
 function Header() {
   return (
-    <div>
-      <img src={logo} alt='logo' className='header__logo' />
-      <p>Login</p>
-      <p>Signup</p>
-      <p>Dashboard</p>
-      <p>Notifications</p>
-      <p>User Profile</p>
-    </div>
+    <header className='header'>
+      <div className='header__logo'>
+        <img src={logo} alt='logo' className='header__logo-image' />
+      </div>
+      <nav className='header-menus'>
+        <p>Login</p>
+        <p>Signup</p>
+        <p>Dashboard</p>
+        <p>Notifications</p>
+        <p>User Profile</p>
+      </nav>
+    </header>
   );
 }
 
