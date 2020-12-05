@@ -1,0 +1,22 @@
+@use '../../partials/typography'as *;
+
+.sidebar {
+  margin-right: auto;
+
+  &__list {
+    list-style: none;
+  }
+
+  &__list-item {
+    padding: 1rem 0 1rem 0;
+  }
+
+  &__list-item-icon {
+    margin-right: .5rem;
+  }
+
+  &__list-item-text {
+
+    @include m-h2;
+  }
+}

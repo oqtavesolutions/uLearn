@@ -1,1 +1,24 @@
 @use './partials/resets';
+@use './partials/mixins'as *;
+@use './partials/variables'as *;
+
+.app {
+  padding: $mobile-padding;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+}
+
+.main-container {
+  flex: 0 80%;
+  padding-top: 1rem;
+}

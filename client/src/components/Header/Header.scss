@@ -1,5 +1,97 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
 .header {
-  &__logo {
+  position: relative;
+  padding: $mobile-padding;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid color(borders);
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: 1rem $desktop-padding;
+  }
+
+  &__logo-image {
     width: 100px;
+
+    // @include desktop {
+    //   width: 150px;
+    // }
+  }
+}
+
+.header-menu-bar {
+
+  &__nav-bar-icon {
+    color: color(global-black)
+  }
+}
+
+.header-menus-kebab {
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+  background-color: color(global-white);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, .15);
+  width: 230px;
+  right: 1rem;
+  border-radius: 4px;
+  z-index: 1;
+
+  &__list {
+    list-style: none;
+  }
+
+  &__list-item {
+    @include m-p1;
+    border-bottom: 1px solid color(borders);
+    padding: 1rem;
+  }
+}
+
+.header-menus {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__dashboard {
+    background-color: color(global-black);
+    padding: 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+  }
+
+  &__avatar {
+    border-radius: 50%;
+    cursor: pointer;
+
+    span {
+      @include h3;
+      color: #fff !important;
+    }
+  }
+
+  &__items {
+    position: absolute;
+    min-width: 240px;
+    background: #fff;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    top: 4rem;
+    list-style: none;
+    right: 0rem;
+    padding: 1rem;
+    z-index: 1;
+  }
+
+  &__item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 }

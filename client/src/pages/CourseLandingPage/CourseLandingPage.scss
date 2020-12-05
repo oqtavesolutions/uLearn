@@ -1,0 +1,68 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.course-landing-page-description {
+  padding: $mobile-padding;
+  background-color: color(global-green);
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    padding: $tablet-padding;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
+  }
+
+  &__title {
+    @include m-h1;
+    color: color(global-white);
+    margin-bottom: 1rem;
+  }
+
+  &__text {
+    color: color(global-white);
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    background-color: color(global-black);
+    color: color(global-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    outline: none;
+    border: none;
+    height: 43px;
+    border-radius: 5px;
+  }
+}
+
+.course-landing-page-modules {
+  padding: $mobile-padding;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
+  }
+}
+
+.course-landing-page-author {
+  padding: $mobile-padding;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
+  }
+}

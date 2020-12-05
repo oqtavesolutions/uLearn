@@ -1,6 +1,6 @@
-@use './variables' as *; 
+@use './variables'as *;
 
-*, 
+*,
 *::before,
 *::after {
     box-sizing: border-box;
@@ -14,8 +14,31 @@ a:active {
     text-decoration: none;
 }
 
-html,body,div,span,h1,h2,h3,h4,h5,h6,p,a,img,article,aside,footer,header,nav,ul,button,input,textarea,::placeholder,section {
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+img,
+article,
+aside,
+footer,
+header,
+nav,
+ul,
+button,
+input,
+textarea,
+::placeholder,
+section {
     color: color(global-black);
     font-family: $base-font-family;
-    font-size: 16px;
+    font-size: 1rem;
 }

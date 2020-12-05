@@ -1,0 +1,143 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.course-explore-page-description {
+  padding: $mobile-padding;
+  background-color: color(global-green);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  @include tablet {
+    padding: $tablet-padding;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
+  }
+
+  &__title {
+    @include m-h1;
+    color: color(global-white);
+    margin-bottom: 1rem;
+  }
+
+  &__text {
+    color: color(global-white);
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    background-color: color(global-black);
+    color: color(global-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    outline: none;
+    border: none;
+    height: 43px;
+    border-radius: 5px;
+  }
+}
+
+.course-explore-page-search-form {
+
+  position: relative;
+
+  &__input {
+    width: 200px;
+    height: 43px;
+    padding-left: 1rem;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+  }
+
+  &__button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 43px;
+    height: 43px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+  }
+}
+
+.course-explore-page-categories {
+  padding: $mobile-padding;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
+  }
+
+  &__title {
+    @include m-h1;
+    margin-bottom: 1rem;
+  }
+
+
+}
+
+.course-explore-page-categories-cloud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  &__button {
+    width: 150px;
+    height: 32px;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1.5px solid color(global-green);
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.course-explore-page-categories-highlights {
+  padding: 0 $mobile-padding;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
+  }
+}
+
+.course-explore-page-categories-highlights-card {
+  background-color: color(category-green);
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  width: 300px;
+
+  @include tablet {
+    width: 500px;
+  }
+
+  &__title {
+    @include m-h2;
+  }
+}

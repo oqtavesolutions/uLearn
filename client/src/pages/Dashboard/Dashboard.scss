@@ -1,0 +1,8 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.dashboard-page {
+  &__title {
+    @include m-h1;
+  }
+}
