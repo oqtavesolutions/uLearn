@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import "./EditCourse.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import { Link, Switch, Route, useLocation } from "react-router-dom";
+import { Link, Switch, Route } from "react-router-dom";
 import EditLecture from "../EditLecture/EditLecture";
 
 function EditCourse() {
-  const location = useLocation();
-  console.log(location.pathname + "lecture");
   const [editCourseCollapsible, setEditCourseCollapsible] = useState(false);
   const [editCourseDetails, setEditCourseDetails] = useState(false);
   const [editCourseLecturesList, setEditCourseLecturesList] = useState(false);
@@ -148,7 +146,7 @@ function EditCourse() {
                 {editCourseLecturesCollapsible && (
                   <ul className='edit-course-lectures-list-card__items'>
                     <li className='edit-course-lectures-list-card__item'>
-                      <a href={location.pathname + "lecture"}>Edit</a>
+                      <a href={"/edit/course/lecture"}>Edit</a>
                     </li>
                     <li className='edit-course-lectures-list-card__item'>
                       Duplicate

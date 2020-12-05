@@ -28,7 +28,9 @@ function Header() {
   return (
     <header className='header'>
       <div className='header__logo'>
-        <img src={logo} alt='logo' className='header__logo-image' />
+        <Link to='/' className='header__logo-link'>
+          <img src={logo} alt='logo' className='header__logo-image' />
+        </Link>
       </div>
       {!isDesktop && (
         <div className='header-menu-bar'>
@@ -72,7 +74,9 @@ function Header() {
             <ul className='header-menus__items'>
               <li className='header-menus__item'>Nahid Hossain</li>
               <li className='header-menus__item'>oikantik@gmail.com</li>
-              <li className='header-menus__item'>My Account</li>
+              <li className='header-menus__item'>
+                <Link to='/my-account'>My Account</Link>
+              </li>
               <li className='header-menus__item'>Logout</li>
             </ul>
           )}

@@ -1,7 +1,7 @@
 import React from "react";
-import "./Course.scss";
+import "./CourseLandingPage.scss";
 
-function Course() {
+function CourseLandingPage() {
   return (
     <div className='course-landing-page'>
       <div className='course-landing-page-description'>
@@ -37,4 +37,4 @@ function Course() {
   );
 }
 
-export default Course;
+export default CourseLandingPage;
