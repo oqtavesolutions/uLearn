@@ -25,7 +25,9 @@ function EditLecture() {
         />
         <div className='edit-course-details-form__buttons'>
           <button className='edit-course-details-form__button'>Save</button>
-          <Link className='edit-course-details-form__button edit-course-details-form__button--cancel'>
+          <Link
+            to='/'
+            className='edit-course-details-form__button edit-course-details-form__button--cancel'>
             Cancel
           </Link>
         </div>
