@@ -4,30 +4,30 @@ import "./EditLecture.scss";
 
 function EditLecture() {
   return (
-    <div className='edit-course-details-form-container'>
-      <h1 className='edit-course-details-form-container__title'>
-        Editing Course
+    <div className='edit-lecture-detail-form-container'>
+      <h1 className='edit-lecture-detail-form-container__title'>
+        Editing Lecture
       </h1>
-      <form className='edit-course-details-form'>
+      <form className='edit-lecture-detail-form'>
         <input
           type='text'
           placeholder='Course Title'
-          className='edit-course-details-form__input'
+          className='edit-lecture-detail-form__input'
         />
         <textarea
           type='text'
           placeholder='Course Description'
-          className='edit-course-details-form__text-area'></textarea>
+          className='edit-lecture-detail-form__text-area'></textarea>
         <input
           type='text'
           placeholder='Course Slug'
-          className='edit-course-details-form__input'
+          className='edit-lecture-detail-form__input'
         />
-        <div className='edit-course-details-form__buttons'>
-          <button className='edit-course-details-form__button'>Save</button>
+        <div className='edit-lecture-detail-form__buttons'>
+          <button className='edit-lecture-detail-form__button'>Save</button>
           <Link
             to='/'
-            className='edit-course-details-form__button edit-course-details-form__button--cancel'>
+            className='edit-lecture-detail-form__button edit-lecture-detail-form__button--cancel'>
             Cancel
           </Link>
         </div>
