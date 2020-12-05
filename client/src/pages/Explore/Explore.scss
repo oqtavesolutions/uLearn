@@ -72,6 +72,10 @@
 
 .course-explore-page-categories {
   padding: $mobile-padding;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   @include tablet {
     padding: $tablet-padding;
@@ -90,6 +94,11 @@
 }
 
 .course-explore-page-categories-cloud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
   &__button {
     width: 150px;
     height: 32px;
@@ -103,6 +112,10 @@
 
 .course-explore-page-categories-highlights {
   padding: 0 $mobile-padding;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   @include tablet {
     padding: $tablet-padding;
@@ -118,6 +131,11 @@
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
+  width: 300px;
+
+  @include tablet {
+    width: 500px;
+  }
 
   &__title {
     @include m-h2;

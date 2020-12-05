@@ -11,6 +11,7 @@ import Lecture from "./pages/Lecture/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CreateCourse from "./pages/CreateCourse/CreateCourse";
 import React, { Fragment } from "react";
+import MyLearning from "./pages/MyLearning/MyLearning";
 
 function App() {
   const courseRoute = useRouteMatch("/course");
@@ -32,6 +33,7 @@ function App() {
             <main className='main-container'>
               <Route exact path='/create/course' component={CreateCourse} />
               <Route exact path='/courses' component={Courses} />
+              <Route exact path='/my-learning' component={MyLearning} />
               <Route exact path='/edit/course' component={EditCourse} />
               <Route
                 exact
