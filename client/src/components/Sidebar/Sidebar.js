@@ -7,6 +7,7 @@ import {
   faGraduationCap,
   faUserCog,
   faSchool,
+  faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Sidebar.scss";
 
@@ -53,12 +54,22 @@ function Sidebar() {
         </li>
 
         <li className='sidebar__list-item'>
-          <Link to='/my-settings' className='sidebar__list-item-link'>
+          <Link to='/my-page' className='sidebar__list-item-link'>
             <FontAwesomeIcon
               icon={faUserCog}
               className='sidebar__list-item-icon'
             />
-            <span className='sidebar__list-item-text'>My Settings</span>
+            <span className='sidebar__list-item-text'>My Page</span>
+          </Link>
+        </li>
+
+        <li className='sidebar__list-item'>
+          <Link to='/my-account' className='sidebar__list-item-link'>
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              className='sidebar__list-item-icon'
+            />
+            <span className='sidebar__list-item-text'>My Account</span>
           </Link>
         </li>
       </ul>

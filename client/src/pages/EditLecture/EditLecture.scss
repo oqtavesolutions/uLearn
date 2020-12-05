@@ -1,0 +1,248 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+
+.edit-lecture-detail-card-container {
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.edit-lecture-detail-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    @include m-h2;
+  }
+
+  &__date {
+    @include m-p2;
+  }
+
+  &__collapsible {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    cursor: pointer;
+  }
+
+  &__button {
+    width: 100%;
+    background-color: color(global-black);
+    padding: .5rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+    width: 100%;
+
+    @include tablet {
+      width: 150px;
+    }
+
+    &--cancel {
+      background-color: transparent;
+    }
+
+  }
+
+  &__items {
+    background-color: color(global-white);
+    list-style: none;
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    padding: 1rem;
+  }
+
+  &__item {
+    padding: .125rem;
+    @include m-p1;
+  }
+}
+
+
+.edit-lecture-detail-form-container {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    @include m-h1;
+    margin-bottom: 1rem;
+  }
+}
+
+.edit-lecture-detail-form {
+  display: flex;
+  flex-direction: column;
+
+  &__input {
+    outline: none;
+    height: 48px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: .225rem 1rem 0;
+    background: #fff;
+    margin-bottom: 1rem;
+  }
+
+  &__text-area {
+    outline: none;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 1rem 1rem 0;
+    background: #fff;
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    background-color: color(global-black);
+    padding: 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+
+    @include tablet {
+      width: 250px;
+    }
+
+    &--cancel {
+      background-color: transparent;
+      color: color(global-black);
+      border: 1px solid color(global-black);
+    }
+  }
+}
+
+
+.edit-lecture-lectures-card-container {
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-lecture-lectures-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    @include m-h2;
+  }
+
+  &__date {
+    @include m-p2;
+  }
+
+  &__collapsible {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    cursor: pointer;
+  }
+
+  &__button {
+    width: 100%;
+    background-color: color(global-black);
+    padding: .5rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+    width: 100%;
+
+    @include tablet {
+      width: 150px;
+    }
+
+  }
+
+  &__items {
+    background-color: color(global-white);
+    list-style: none;
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    padding: 1rem;
+  }
+
+  &__item {
+    padding: .125rem;
+    @include m-p1;
+  }
+}
+
+.edit-lecture-lectures-list-card {
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    @include m-h2;
+  }
+
+  &__items {
+    background-color: color(global-white);
+    list-style: none;
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    padding: 1rem;
+  }
+
+  &__item {
+    padding: .125rem;
+    @include m-p1;
+  }
+
+}

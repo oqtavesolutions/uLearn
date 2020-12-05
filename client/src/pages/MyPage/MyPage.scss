@@ -1,0 +1,58 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+
+.mypage-page {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    @include m-h1;
+    margin-bottom: 1rem;
+  }
+}
+
+.mypage-page-form {
+  display: flex;
+  flex-direction: column;
+
+  &__input {
+    outline: none;
+    height: 48px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: .225rem 1rem 0;
+    background: #fff;
+    margin-bottom: 1rem;
+  }
+
+  &__text-area {
+    outline: none;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 1rem 1rem 0;
+    background: #fff;
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    background-color: color(global-black);
+    padding: 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+
+    @include tablet {
+      width: 250px;
+    }
+
+    &--cancel {
+      background-color: transparent;
+      color: color(global-black);
+      border: 1px solid color(global-black);
+    }
+  }
+}
