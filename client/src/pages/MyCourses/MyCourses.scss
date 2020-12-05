@@ -1,6 +1,6 @@
 @use '../../partials/typography'as *;
 
-.my-courses {
+.my-courses-page {
 
   &__headline {
     @include m-h1;
@@ -27,7 +27,7 @@
 
 }
 
-.my-courses-card {
+.my-courses-page-card {
   position: relative;
   box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
   padding: 1rem;

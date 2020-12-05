@@ -1,13 +1,66 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faChalkboardTeacher,
+  faGraduationCap,
+  faUserCog,
+  faSchool,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Sidebar.scss";
 
 function Sidebar() {
   return (
     <div className='sidebar'>
       <ul className='sidebar__list'>
-        <li className='sidebar__list-item'>Dashboard</li>
-        <li className='sidebar__list-item'>My Courses</li>
-        <li className='sidebar__list-item'>My Learning</li>
+        <li className='sidebar__list-item'>
+          <Link to='/dashboard' className='sidebar__list-item-link'>
+            <FontAwesomeIcon
+              icon={faHome}
+              className='sidebar__list-item-icon'
+            />
+            <span className='sidebar__list-item-text'>Dashboard</span>
+          </Link>
+        </li>
+        <li className='sidebar__list-item'>
+          <Link to='/my-courses' className='sidebar__list-item-link'>
+            <FontAwesomeIcon
+              icon={faChalkboardTeacher}
+              className='sidebar__list-item-icon'
+            />
+            <span className='sidebar__list-item-text'>My Course</span>
+          </Link>
+        </li>
+        <li className='sidebar__list-item'>
+          <Link to='/my-learning' className='sidebar__list-item-link'>
+            <FontAwesomeIcon
+              icon={faGraduationCap}
+              className='sidebar__list-item-icon'
+            />
+            <span className='sidebar__list-item-text'>My Learning</span>
+          </Link>
+        </li>
+
+        <li className='sidebar__list-item'>
+          <Link to='/explore' className='sidebar__list-item-link'>
+            <FontAwesomeIcon
+              icon={faSchool}
+              className='sidebar__list-item-icon'
+            />
+            <span className='sidebar__list-item-text'>Explore</span>
+          </Link>
+        </li>
+
+        <li className='sidebar__list-item'>
+          <Link to='/my-settings' className='sidebar__list-item-link'>
+            <FontAwesomeIcon
+              icon={faUserCog}
+              className='sidebar__list-item-icon'
+            />
+            <span className='sidebar__list-item-text'>My Settings</span>
+          </Link>
+        </li>
       </ul>
     </div>
   );
