@@ -14,6 +14,7 @@ import React, { Fragment } from "react";
 
 function App() {
   const courseRoute = useRouteMatch("/course");
+  const exploreRoute = useRouteMatch("/explore");
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 1280px)",
   });
@@ -24,8 +25,10 @@ function App() {
         <React.Fragment>
           <Route exact path='/course' component={Course} />
           <Route exact path='/' component={Courses} />
+          <Route exact path='/explore' component={Explore} />
+          <Route exact path='/lecture' component={Lecture} />
           <div className='app'>
-            {isDesktop && !courseRoute && <Sidebar />}
+            {isDesktop && !courseRoute && !exploreRoute && <Sidebar />}
             <main className='main-container'>
               <Route exact path='/create/course' component={CreateCourse} />
               <Route exact path='/courses' component={Courses} />
@@ -35,8 +38,6 @@ function App() {
                 path='/edit/course/lecture'
                 component={EditLecture}
               />
-              <Route exact path='/explore' component={Explore} />
-              <Route exact path='/lecture' component={Lecture} />
             </main>
           </div>
         </React.Fragment>
