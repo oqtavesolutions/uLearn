@@ -97,6 +97,9 @@ function EditCourse() {
                   placeholder='Course Slug'
                   className='edit-course-details-form__input'
                 />
+                <select className='edit-course-details-form__category'>
+                  <option>Please Select a Category</option>
+                </select>
                 <div className='edit-course-details-form__buttons'>
                   <button className='edit-course-details-form__button'>
                     Save

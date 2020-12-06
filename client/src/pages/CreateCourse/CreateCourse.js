@@ -20,6 +20,9 @@ function CreateCourse() {
           placeholder='Course Slug'
           className='create-course-form__input'
         />
+        <select className='create-course-form__category'>
+          <option>Please Select a Category</option>
+        </select>
         <button className='create-course-form__button'>SUBMIT</button>
       </form>
     </div>
