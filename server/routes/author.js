@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const authorController = require("../controllers/author");
+const authorControllers = require("../controllers/author");
 
-router.post("/", authorController.updateAuthor);
+router.post("/", authorControllers.createUpdate);
 
 module.exports = router;
