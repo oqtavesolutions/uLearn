@@ -2,6 +2,7 @@ const db = require("../db");
 
 const Course = db.model("Course", {
   tableName: "courses",
+  requireFetch: false,
   users: function () {
     return this.belongsTo("User");
   },
