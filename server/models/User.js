@@ -5,6 +5,9 @@ const User = db.model("User", {
   authors: function () {
     return this.hasOne("Author");
   },
+  courses: function () {
+    return this.hasMany("Course");
+  },
 });
 
 module.exports = User;
