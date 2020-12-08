@@ -9,14 +9,16 @@ module.exports = {
       throw error;
     }
   },
-  create: async ({ email, password }) => {
+  create: async ({ email, id }) => {
+    console.log(email, id);
     try {
       const user = new User({
         email,
-        password,
+        id,
       });
-      return await user.save();
+      return await user.save(null, { method: "insert" });
     } catch (error) {
+      console.log(error);
       throw error;
     }
   },

@@ -10,9 +10,14 @@ const orderRoutes = require("./routes/order");
 
 dotenv.config();
 const PORT = process.env.PORT || process.env.API_PORT;
-
-app.use(cors());
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.get("/", (_, res) => {
   res.status(404).json({

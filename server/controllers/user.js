@@ -15,7 +15,8 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      await userServices.create(req.body);
+      console.log(req.user);
+      await userServices.create({ email: req.user.email, id: req.user.uid });
       return res.status(200).json({ message: "user was created succesfully" });
     } catch (error) {
       return res.status(400).json({
