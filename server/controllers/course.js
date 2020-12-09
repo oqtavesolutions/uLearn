@@ -25,7 +25,7 @@ module.exports = {
       await courseServices.create({
         ...req.body,
         course_categories: "IT & Software",
-        user_id: "54c53ff6-375e-11eb-a573-e82b1f1b2a80",
+        user_id: req.user.uid,
       });
       res.status(200).json({ message: "course created successfully" });
     } catch (error) {

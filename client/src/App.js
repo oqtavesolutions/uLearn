@@ -16,11 +16,15 @@ import MyPage from "./pages/MyPage/MyPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Signup from "./pages/Signup/Signup";
+import Login from "./pages/Login/Login";
 
 function App() {
   const courseRoute = useRouteMatch("/course");
   const exploreRoute = useRouteMatch("/explore");
   const lectureRoute = useRouteMatch("/lecture");
+  const loginRoute = useRouteMatch("/login");
+  const signupRoute = useRouteMatch("/signup");
   const homeRoute = useRouteMatch({
     path: "/",
     exact: true,
@@ -39,8 +43,12 @@ function App() {
           <Route exact path='/course' component={CourseLandingPage} />
           <Route exact path='/explore' component={Explore} />
           <Route exact path='/lecture' component={Lecture} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/signup' component={Signup} />
           <div className='app'>
             {isDesktop &&
+              !loginRoute &&
+              !signupRoute &&
               !homeRoute &&
               !courseRoute &&
               !exploreRoute &&

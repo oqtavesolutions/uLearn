@@ -29,11 +29,11 @@ module.exports = {
   createUpdate: async (req, res) => {
     try {
       const author = await authorServices.find({
-        user_id: "54c53ff6-375e-11eb-a573-e82b1f1b2a80",
+        user_id: req.user.uid,
       });
       if (!author) {
         await authorServices.create({
-          user_id: "54c53ff6-375e-11eb-a573-e82b1f1b2a80",
+          user_id: req.user.uid,
           ...req.body,
         });
         return res.status(200).json({ message: "author created successfully" });

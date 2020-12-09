@@ -17,7 +17,7 @@ exports.up = async function (knex) {
         "Others",
       ])
       .notNullable();
-    table.uuid("user_id").notNullable().references("id").inTable("users");
+    table.string("user_id").notNullable().references("id").inTable("users");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });
