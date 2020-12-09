@@ -4,10 +4,11 @@ import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
 import logo from "../../assets/logo/logo.svg";
 import "./Header.scss";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Avatar from "react-avatar";
+import firebase from "../../config";
 
-function Header() {
+function Header({ history }) {
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 1280px)",
   });
@@ -25,6 +26,10 @@ function Header() {
       : setShowDesktopCollapsible(true);
   };
 
+  const handleLogout = async () => {
+    await firebase.auth().signOut();
+    history.push("/login");
+  };
   return (
     <header className='header'>
       <div className='header__logo'>
@@ -77,7 +82,9 @@ function Header() {
               <li className='header-menus__item'>
                 <Link to='/my-account'>My Account</Link>
               </li>
-              <li className='header-menus__item'>Logout</li>
+              <li className='header-menus__item' onClick={handleLogout}>
+                Logout
+              </li>
             </ul>
           )}
         </nav>
@@ -86,4 +93,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default withRouter(Header);
