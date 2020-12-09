@@ -16,7 +16,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Signup from "./pages/Signup/Signup";
+import Signup from "./pages/Signup";
 import Login from "./pages/Login/Login";
 
 function App() {
