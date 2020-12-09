@@ -18,6 +18,7 @@ import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const courseRoute = useRouteMatch("/course");
@@ -41,10 +42,10 @@ function App() {
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/course' component={CourseLandingPage} />
-          <Route exact path='/explore' component={Explore} />
           <Route exact path='/lecture' component={Lecture} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
+          <PrivateRoute path='/explore' component={Explore}></PrivateRoute>
           <div className='app'>
             {isDesktop &&
               !loginRoute &&
