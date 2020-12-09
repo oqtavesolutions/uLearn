@@ -32,9 +32,64 @@ function App() {
     strict: true,
     sensitive: true,
   });
+  const createCourseRoute = useRouteMatch("/create/course");
+  const dashboardRoute = useRouteMatch("/dashboard");
+  const myCoursesRoute = useRouteMatch("/my-courses");
+  const myLearningRoute = useRouteMatch("/my-learning");
+  const myPageRoute = useRouteMatch("/my-page");
+  const editCourseRoute = useRouteMatch("/edit/course");
+  const editLectureRoute = useRouteMatch("/edit/course/lecture");
+  const myAccountRoute = useRouteMatch("/my-account");
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 1280px)",
   });
+
+  if (
+    createCourseRoute ||
+    dashboardRoute ||
+    myCoursesRoute ||
+    myLearningRoute ||
+    myPageRoute ||
+    editCourseRoute ||
+    editLectureRoute ||
+    myAccountRoute
+  ) {
+    return (
+      <Fragment>
+        <Header />
+        <div className='app'>
+          {isDesktop &&
+            !loginRoute &&
+            !signupRoute &&
+            !homeRoute &&
+            !courseRoute &&
+            !exploreRoute &&
+            !lectureRoute && <Sidebar />}
+          <main className='main-container'>
+            <Switch>
+              <PrivateRoute
+                exact
+                path='/create/course'
+                component={CreateCourse}
+              />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute exact path='/my-courses' component={MyCourses} />
+              <PrivateRoute exact path='/my-learning' component={MyLearning} />
+              <PrivateRoute exact path='/my-page' component={MyPage} />
+              <PrivateRoute exact path='/edit/course' component={EditCourse} />
+              <PrivateRoute
+                exact
+                path='/edit/course/lecture'
+                component={EditLecture}
+              />
+              <PrivateRoute exact path='/my-account' component={MyAccount} />
+            </Switch>
+          </main>
+        </div>
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
       <Header />
@@ -42,33 +97,10 @@ function App() {
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/course' component={CourseLandingPage} />
+          <Route exact path='/explore' component={Explore} />
           <Route exact path='/lecture' component={Lecture} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
-          <PrivateRoute path='/explore' component={Explore}></PrivateRoute>
-          <div className='app'>
-            {isDesktop &&
-              !loginRoute &&
-              !signupRoute &&
-              !homeRoute &&
-              !courseRoute &&
-              !exploreRoute &&
-              !lectureRoute && <Sidebar />}
-            <main className='main-container'>
-              <Route exact path='/dashboard' component={Dashboard} />
-              <Route exact path='/create/course' component={CreateCourse} />
-              <Route exact path='/my-courses' component={MyCourses} />
-              <Route exact path='/my-learning' component={MyLearning} />
-              <Route exact path='/my-page' component={MyPage} />
-              <Route exact path='/edit/course' component={EditCourse} />
-              <Route
-                exact
-                path='/edit/course/lecture'
-                component={EditLecture}
-              />
-              <Route exact path='/my-account' component={MyAccount} />
-            </main>
-          </div>
         </React.Fragment>
       </Switch>
     </Fragment>
