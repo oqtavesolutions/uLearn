@@ -17,7 +17,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Signup from "./pages/Signup";
-import Login from "./pages/Login/Login";
+import Login from "./pages/Login";
 
 function App() {
   const courseRoute = useRouteMatch("/course");

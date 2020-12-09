@@ -1,3 +1,4 @@
 import { combineReducers } from "redux";
 import userSignup from "../pages/Signup/redux/reducers";
-export default combineReducers({ userSignup });
+import userLogin from "../pages/Login/redux/reducers";
+export default combineReducers({ userSignup, userLogin });

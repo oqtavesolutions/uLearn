@@ -11,7 +11,7 @@ function Signup({ handleSignup }) {
   );
 }
 
-Signup.prototypes = {
+Signup.propTypes = {
   handleSignup: PropTypes.func.isRequired,
 };
 
