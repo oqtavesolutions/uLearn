@@ -1,29 +1,31 @@
 import React from "react";
 import "./Login.scss";
-import firebase from "../../config";
-function Login() {
-  const handleClick = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword("oikantik+test4@gmail.com", "12345678910")
-      .then((user) => user.user.getIdToken().then((t) => console.log(t)))
-      .catch((error) => console.log(error));
-  };
+import PropTypes from "prop-types";
+import { Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-  const handleClickLogout = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then((res) => console.log(res));
-  };
+function Login({ handleLogin, isLoggedIn }) {
+  if (isLoggedIn) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <div>
       A registration form will go here
-      <button onClick={handleClick}>Login</button>
-      <button onClick={handleClickLogout}>logout</button>
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
 
-export default Login;
+Login.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.userStatus.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Login));

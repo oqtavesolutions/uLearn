@@ -4,10 +4,13 @@ import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
 import logo from "../../assets/logo/logo.svg";
 import "./Header.scss";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Avatar from "react-avatar";
+import firebase from "../../config";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function Header() {
+function Header({ history, isLoggedIn }) {
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 1280px)",
   });
@@ -25,6 +28,11 @@ function Header() {
       : setShowDesktopCollapsible(true);
   };
 
+  const handleLogout = async () => {
+    await firebase.auth().signOut();
+    history.push("/login");
+  };
+
   return (
     <header className='header'>
       <div className='header__logo'>
@@ -32,7 +40,13 @@ function Header() {
           <img src={logo} alt='logo' className='header__logo-image' />
         </Link>
       </div>
-      {!isDesktop && (
+      {!isLoggedIn && (
+        <div className='header__login-register'>
+          <Link>Login</Link>
+          <Link>Signup</Link>
+        </div>
+      )}
+      {!isDesktop && isLoggedIn && (
         <div className='header-menu-bar'>
           <FontAwesomeIcon
             icon={showMenus ? faTimesCircle : faBars}
@@ -41,19 +55,25 @@ function Header() {
           />
         </div>
       )}
-      {!isDesktop && showMenus && (
+      {!isDesktop && isLoggedIn && showMenus && (
         <nav className='header-menus-kebab'>
           <ul className='header-menus-kebab__list'>
-            <li className='header-menus-kebab__list-item'>Login</li>
-            <li className='header-menus-kebab__list-item'>Signup</li>
-            <li className='header-menus-kebab__list-item'>Dashboard</li>
-            <li className='header-menus-kebab__list-item'>Notifications</li>
-            <li className='header-menus-kebab__list-item'>User Profile</li>
+            <li className='header-menus-kebab__list-item'>
+              <Link to='/dashboard'>Dashboard</Link>
+            </li>
+            <li className='header-menus-kebab__list-item'>
+              <Link to='/my-account'>My Account</Link>
+            </li>
+            <li
+              className='header-menus-kebab__list-item'
+              onClick={handleLogout}>
+              Logout
+            </li>
           </ul>
         </nav>
       )}
 
-      {isDesktop && (
+      {isLoggedIn && isDesktop && (
         <nav className='header-menus'>
           <div className='header-menus__buttons'>
             <Link to='/dashboard' className='header-menus__dashboard'>
@@ -77,7 +97,9 @@ function Header() {
               <li className='header-menus__item'>
                 <Link to='/my-account'>My Account</Link>
               </li>
-              <li className='header-menus__item'>Logout</li>
+              <li className='header-menus__item' onClick={handleLogout}>
+                Logout
+              </li>
             </ul>
           )}
         </nav>
@@ -86,4 +108,15 @@ function Header() {
   );
 }
 
-export default Header;
+Header.proptype = {
+  history: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.userStatus.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Header));

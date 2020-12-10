@@ -19,4 +19,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Signup));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Signup));
