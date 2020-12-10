@@ -10,7 +10,7 @@ import CourseLandingPage from "./pages/CourseLandingPage/CourseLandingPage";
 import Lecture from "./pages/Lecture/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CreateCourse from "./pages/CreateCourse/CreateCourse";
-import React, { Fragment } from "react";
+import React from "react";
 import MyLearning from "./pages/MyLearning/MyLearning";
 import MyPage from "./pages/MyPage/MyPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -19,19 +19,20 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
-  const courseRoute = useRouteMatch("/course");
-  const exploreRoute = useRouteMatch("/explore");
-  const lectureRoute = useRouteMatch("/lecture");
-  const loginRoute = useRouteMatch("/login");
-  const signupRoute = useRouteMatch("/signup");
-  const homeRoute = useRouteMatch({
-    path: "/",
-    exact: true,
-    strict: true,
-    sensitive: true,
-  });
+  //const exploreRoute = useRouteMatch("/explore");
+  // const courseRoute = useRouteMatch("/course");
+  // const lectureRoute = useRouteMatch("/lecture");
+  // const loginRoute = useRouteMatch("/login");
+  // const signupRoute = useRouteMatch("/signup");
+  // const homeRoute = useRouteMatch({
+  //   path: "/",
+  //   exact: true,
+  //   strict: true,
+  //   sensitive: true,
+  // });
   const createCourseRoute = useRouteMatch("/create/course");
   const dashboardRoute = useRouteMatch("/dashboard");
   const myCoursesRoute = useRouteMatch("/my-courses");
@@ -55,55 +56,45 @@ function App() {
     myAccountRoute
   ) {
     return (
-      <Fragment>
+      <PrivateRoute>
         <Header />
         <div className='app'>
-          {isDesktop &&
-            !loginRoute &&
-            !signupRoute &&
-            !homeRoute &&
-            !courseRoute &&
-            !exploreRoute &&
-            !lectureRoute && <Sidebar />}
+          {isDesktop && <Sidebar />}
           <main className='main-container'>
             <Switch>
-              <PrivateRoute
-                exact
-                path='/create/course'
-                component={CreateCourse}
-              />
-              <PrivateRoute exact path='/dashboard' component={Dashboard} />
-              <PrivateRoute exact path='/my-courses' component={MyCourses} />
-              <PrivateRoute exact path='/my-learning' component={MyLearning} />
-              <PrivateRoute exact path='/my-page' component={MyPage} />
-              <PrivateRoute exact path='/edit/course' component={EditCourse} />
-              <PrivateRoute
+              <Route exact path='/create/course' component={CreateCourse} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/my-courses' component={MyCourses} />
+              <Route exact path='/my-learning' component={MyLearning} />
+              <Route exact path='/my-page' component={MyPage} />
+              <Route exact path='/edit/course' component={EditCourse} />
+              <Route
                 exact
                 path='/edit/course/lecture'
                 component={EditLecture}
               />
-              <PrivateRoute exact path='/my-account' component={MyAccount} />
+              <Route exact path='/my-account' component={MyAccount} />
             </Switch>
           </main>
         </div>
-      </Fragment>
+      </PrivateRoute>
     );
   }
 
   return (
-    <Fragment>
+    <ErrorBoundary>
       <Header />
       <Switch>
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />
-          <Route exact path='/course' component={CourseLandingPage} />
           <Route exact path='/explore' component={Explore} />
+          <Route exact path='/course' component={CourseLandingPage} />
           <Route exact path='/lecture' component={Lecture} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
         </React.Fragment>
       </Switch>
-    </Fragment>
+    </ErrorBoundary>
   );
 }
 

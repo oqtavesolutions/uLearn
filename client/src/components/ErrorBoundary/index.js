@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { userStatus } from "../../redux/actions";
 
-function PrivateRoute({ children, handleGetUserStatus, loading, isLoggedIn }) {
+function LoggedInRoute({ children, handleGetUserStatus, loading }) {
   useEffect(() => {
     handleGetUserStatus();
   }, [handleGetUserStatus]);
@@ -13,14 +13,10 @@ function PrivateRoute({ children, handleGetUserStatus, loading, isLoggedIn }) {
     return <p>Loading...</p>;
   }
 
-  if (!loading && !isLoggedIn) {
-    return <Redirect to='/login' />;
-  }
-
   return <Fragment>{children}</Fragment>;
 }
 
-PrivateRoute.propTypes = {
+LoggedInRoute.propTypes = {
   children: PropTypes.node.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -47,4 +43,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(PrivateRoute));
+)(withRouter(LoggedInRoute));
