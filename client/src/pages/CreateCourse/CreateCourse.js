@@ -1,11 +1,13 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import "./CreateCourse.scss";
+import PropTypes from "prop-types";
 
-function CreateCourse() {
+function CreateCourse({ handleSubmit }) {
   return (
     <div className='create-course'>
       <h1 className='create-course__title'>Create Course</h1>
-      <form className='create-course-form'>
+      <form className='create-course-form' onSubmit={handleSubmit}>
         <input
           type='text'
           placeholder='Course Title'
@@ -29,4 +31,8 @@ function CreateCourse() {
   );
 }
 
-export default CreateCourse;
+CreateCourse.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
+
+export default withRouter(CreateCourse);

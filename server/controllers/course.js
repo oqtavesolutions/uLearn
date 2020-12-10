@@ -22,12 +22,12 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      await courseServices.create({
+      const data = await courseServices.create({
         ...req.body,
         course_categories: "IT & Software",
-        user_id: req.user.uid,
+        user_id: req.user.id,
       });
-      res.status(200).json({ message: "course created successfully" });
+      res.status(200).json({ message: "course created successfully", data });
     } catch (error) {
       console.log(error);
       res.status(400).json({

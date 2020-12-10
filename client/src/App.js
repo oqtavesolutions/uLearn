@@ -9,7 +9,7 @@ import EditLecture from "./pages/EditLecture/EditLecture";
 import CourseLandingPage from "./pages/CourseLandingPage/CourseLandingPage";
 import Lecture from "./pages/Lecture/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
-import CreateCourse from "./pages/CreateCourse/CreateCourse";
+import CreateCourse from "./pages/CreateCourse";
 import React from "react";
 import MyLearning from "./pages/MyLearning/MyLearning";
 import MyPage from "./pages/MyPage/MyPage";

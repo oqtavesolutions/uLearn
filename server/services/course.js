@@ -1,9 +1,9 @@
 const Course = require("../models/Course");
 
 module.exports = {
-  find: async ({ id }) => {
+  find: async ({ order_id }) => {
     try {
-      const course = await Course.where({ id }).fetch();
+      const course = await Course.where({ order_id }).fetch();
       return course;
     } catch (error) {
       throw error;
@@ -38,7 +38,11 @@ module.exports = {
         course_categories,
         user_id,
       });
-      return await course.save();
+      const data = await course.save(null, {
+        method: "insert",
+      });
+      console.log(data);
+      return data.attributes;
     } catch (error) {
       throw error;
     }

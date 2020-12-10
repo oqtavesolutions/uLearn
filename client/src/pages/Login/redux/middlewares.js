@@ -4,7 +4,7 @@ import firebase from "../../../config";
 const userLogin = async () => {
   const user = await firebase
     .auth()
-    .signInWithEmailAndPassword("oikantik+test4@gmail.com", "12345678910");
+    .signInWithEmailAndPassword("oikantik+test5@gmail.com", "12345678910");
 
   await user.user.getIdToken();
 

@@ -9,35 +9,39 @@ admin.initializeApp({
 const authService = admin.auth();
 
 exports.requiresAuth = async (req, res, next) => {
-  const { firebase_token } = req.headers;
-  // https://firebase.google.com/docs/reference/admin/node/admin.auth.DecodedIdToken
-  let decodedIdToken;
   try {
-    decodedIdToken = await authService.verifyIdToken(firebase_token);
+    const { firebase_token } = req.headers;
+    console.log(firebase_token);
+    const { email_verified, uid, email } = await authService.verifyIdToken(
+      firebase_token
+    );
+    const authenticatedUser = await user.findById({ user_id: uid });
+
+    req.user = {
+      id: authenticatedUser.id,
+      email_verified,
+      user_uuid: authenticatedUser.attributes.user_id,
+      email,
+    };
+
+    console.log(req.user);
+
+    next();
   } catch (error) {
     next(error);
     return;
   }
-
-  // if (user.email_verified === false) {
-
-  // }
-  req.user = decodedIdToken;
-  next();
 };
 
 exports.requiresAuthRegistration = async (req, res, next) => {
-  const { firebase_token } = req.headers;
   // https://firebase.google.com/docs/reference/admin/node/admin.auth.DecodedIdToken
-  let decodedIdToken;
   try {
-    decodedIdToken = await authService.verifyIdToken(firebase_token);
+    const { firebase_token } = req.headers;
+    const decodedIdToken = await authService.verifyIdToken(firebase_token);
+    req.user = decodedIdToken;
+    next();
   } catch (error) {
     next(error);
     return;
   }
-
-  req.user = decodedIdToken;
-
-  next();
 };

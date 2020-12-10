@@ -1,6 +1,7 @@
 exports.up = async function (knex) {
   await knex.schema.createTable("courses", function (table) {
-    table.uuid("id").primary().defaultTo(knex.raw("(UUID())"));
+    table.increments("id").primary();
+    table.uuid("course_id").defaultTo(knex.raw("(UUID())"));
     table.string("course_title").notNullable();
     table.string("course_description", 1000).notNullable();
     table.string("course_slug").notNullable();
@@ -17,7 +18,12 @@ exports.up = async function (knex) {
         "Others",
       ])
       .notNullable();
-    table.string("user_id").notNullable().references("id").inTable("users");
+    table
+      .integer("user_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("users");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });

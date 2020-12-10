@@ -1,6 +1,7 @@
 import { fork, call, takeLatest, put } from "redux-saga/effects";
 import watchUserLogin from "../pages/Login/redux/sagas";
 import watchUserSignup from "../pages/Signup/redux/sagas";
+import watchCreateCourse from "../pages/CreateCourse/redux/sagas";
 import userStatus from "./middleware";
 import * as types from "./constants";
 
@@ -27,4 +28,6 @@ export default function* rootSaga() {
   yield fork(watchUserSignup);
   yield fork(watchUserLogin);
   yield fork(watchUserStatusSaga);
+  // create course
+  yield fork(watchCreateCourse);
 }
