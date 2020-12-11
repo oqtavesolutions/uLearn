@@ -5,6 +5,7 @@ import watchCreateCourse from "../pages/CreateCourse/redux/sagas";
 import userStatus from "./middleware";
 import * as types from "./constants";
 import watchGetCourseEditSaga from "../pages/EditCourse/redux/sagas";
+import watchGetCoursesByUserSaga from "../pages/MyCourses/redux/sagas";
 
 function* userStatusSaga(action) {
   try {
@@ -33,4 +34,6 @@ export default function* rootSaga() {
   yield fork(watchCreateCourse);
   // edit course
   yield fork(watchGetCourseEditSaga);
+  // get all course
+  yield fork(watchGetCoursesByUserSaga);
 }

@@ -2,7 +2,7 @@ import "./App.scss";
 import { Switch, Route, withRouter, useRouteMatch } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Header from "./components/Header/Header";
-import MyCourses from "./pages/MyCourses/MyCourses";
+import MyCourses from "./pages/MyCourses";
 import Explore from "./pages/Explore/Explore";
 import EditCourse from "./pages/EditCourse";
 import EditLecture from "./pages/EditLecture/EditLecture";
