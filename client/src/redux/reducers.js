@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import userSignup from "../pages/Signup/redux/reducers";
 import userLogin from "../pages/Login/redux/reducers";
 import createCourse from "../pages/CreateCourse/redux/reducers";
+import getEditCourse from "../pages/EditCourse/redux/reducers";
 import * as types from "./constants";
 
 const initialState = {
@@ -44,4 +45,5 @@ export default combineReducers({
   userLogin,
   userStatus,
   createCourse,
+  getEditCourse,
 });

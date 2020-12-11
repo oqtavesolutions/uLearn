@@ -1,11 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EditCourse.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch, Route, withRouter } from "react-router-dom";
 import EditLecture from "../EditLecture/EditLecture";
+import PropTypes from "prop-types";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { connect } from "react-redux";
+import * as Yup from "yup";
 
-function EditCourse() {
+const validationSchema = Yup.object().shape({
+  course_title: Yup.string().required("Required"),
+  course_description: Yup.string().required("Required"),
+  course_categories: Yup.string()
+    .oneOf(
+      [
+        "IT & Software",
+        "Business",
+        "Finance & Accounting",
+        "Productivity",
+        "Design",
+        "Marketing",
+        "Health",
+        "Music",
+        "Others",
+      ],
+      "Please choose category"
+    )
+    .required("Please choose category"),
+});
+
+function EditCourse({ handleGetCourseEdit, match, success, course }) {
+  useEffect(() => {
+    handleGetCourseEdit(match.params.courseId);
+  }, [handleGetCourseEdit, match]);
   const [editCourseCollapsible, setEditCourseCollapsible] = useState(false);
   const [editCourseDetails, setEditCourseDetails] = useState(false);
   const [editCourseLecturesList, setEditCourseLecturesList] = useState(false);
@@ -77,40 +105,79 @@ function EditCourse() {
             )}
           </article>
 
-          {editCourseDetails && (
+          {success && editCourseDetails && (
             <div className='edit-course-details-form-container'>
               <h1 className='edit-course-details-form-container__title'>
                 Editing Course
               </h1>
-              <form className='edit-course-details-form'>
-                <input
-                  type='text'
-                  placeholder='Course Title'
-                  className='edit-course-details-form__input'
-                />
-                <textarea
-                  type='text'
-                  placeholder='Course Description'
-                  className='edit-course-details-form__text-area'></textarea>
-                <input
-                  type='text'
-                  placeholder='Course Slug'
-                  className='edit-course-details-form__input'
-                />
-                <select className='edit-course-details-form__category'>
-                  <option>Please Select a Category</option>
-                </select>
-                <div className='edit-course-details-form__buttons'>
-                  <button className='edit-course-details-form__button'>
-                    Save
-                  </button>
-                  <Link
-                    className='edit-course-details-form__button edit-course-details-form__button--cancel'
-                    onClick={handleShowEditCourseDetails}>
-                    Cancel
-                  </Link>
-                </div>
-              </form>
+              <Formik
+                initialValues={{
+                  course_title: course.course_title,
+                  course_description: course.course_description,
+                  course_slug: course.course_slug,
+                  course_categories: course.course_categories,
+                }}
+                validationSchema={validationSchema}
+                onSubmit={(e) => console.log(e)}>
+                {({ isSubmitting }) => (
+                  <Form className='edit-course-details-form'>
+                    <Field
+                      type='text'
+                      name='course_title'
+                      placeholder='Course Title'
+                      className='edit-course-details-form__input'
+                    />
+                    <ErrorMessage name='course_title' component='div' />
+                    <Field
+                      as='textarea'
+                      name='course_description'
+                      placeholder='Course Description'
+                      className='edit-course-details-form__text-area'
+                    />
+                    <ErrorMessage name='course_description' component='div' />
+                    <Field
+                      type='text'
+                      name='course_slug'
+                      placeholder='Course Slug'
+                      className='edit-course-details-form__input edit-course-details-form__input--disabled'
+                      disabled={true}
+                    />
+                    <ErrorMessage name='course_slug' component='div' />
+                    <Field
+                      as='select'
+                      name='course_categories'
+                      className='edit-course-details-form__category'>
+                      <option>Please Select a Category</option>
+                      <option value='IT & Software'>IT & Software</option>
+                      <option value='Business'>Business</option>
+                      <option value='Finance & Accounting'>
+                        Finance & Accounting
+                      </option>
+                      <option value='Productivity'>Productivity</option>
+                      <option value='Design'>Design</option>
+                      <option value='Marketing'>Marketing</option>
+                      <option value='Health'>Health</option>
+                      <option value='Music'>Music</option>
+                      <option value='Others'>Others</option>
+                    </Field>
+                    <ErrorMessage name='course_categories' component='div' />
+                    <div className='edit-course-details-form__buttons'>
+                      <button
+                        disabled={isSubmitting}
+                        type='submit'
+                        className='edit-course-details-form__button'>
+                        Save
+                      </button>
+                      <Link
+                        to='/'
+                        className='edit-course-details-form__button edit-course-details-form__button--cancel'
+                        onClick={handleShowEditCourseDetails}>
+                        Cancel
+                      </Link>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             </div>
           )}
         </div>
@@ -173,4 +240,17 @@ function EditCourse() {
   );
 }
 
-export default EditCourse;
+EditCourse.propTypes = {
+  handleGetCourseEdit: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  success: PropTypes.bool.isRequired,
+  course: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    course: state.getEditCourse.course,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(EditCourse));

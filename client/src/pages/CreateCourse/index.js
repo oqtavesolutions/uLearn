@@ -5,13 +5,18 @@ import { createCourse } from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSubmit: (e) => {
-      e.preventDefault();
+    handleSubmit: ({
+      course_title,
+      course_description,
+      course_slug,
+      course_categories,
+    }) => {
       dispatch(
         createCourse({
-          course_title: "course 1",
-          course_description: "course description 1",
-          course_slug: "course slug 1",
+          course_title,
+          course_description,
+          course_slug,
+          course_categories,
         })
       );
     },

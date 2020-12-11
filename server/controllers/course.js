@@ -3,7 +3,7 @@ const courseServices = require("../services/course");
 module.exports = {
   find: async (req, res) => {
     try {
-      const course = await courseServices.find({ id: req.params.id });
+      const course = await courseServices.find({ course_id: req.params.id });
       console.log(course);
       if (!course)
         return res.status(400).json({

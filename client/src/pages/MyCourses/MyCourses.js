@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./MyCourses.scss";
 
-function MyCourses() {
+function MyCourses({ match }) {
   const [showNav, setShowNav] = useState(false);
   const handleClick = () => {
     showNav ? setShowNav(false) : setShowNav(true);
@@ -32,7 +32,7 @@ function MyCourses() {
           {showNav && (
             <ul className='my-courses-page-card__items'>
               <li className='my-courses-page-card__item'>
-                <Link to='/edit/course'>Edit</Link>
+                <Link to={"/edit/course/" + match.params.courseId}>Edit</Link>
               </li>
               <li className='my-courses-page-card__item'>View</li>
               <li className='my-courses-page-card__item'>Subscribers</li>

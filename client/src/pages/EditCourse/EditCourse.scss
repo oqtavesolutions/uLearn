@@ -130,7 +130,13 @@
     padding: .225rem 1rem 0;
     background: color(global-white);
     margin-bottom: 1rem;
+
+    &--disabled {
+      background: color(borders);
+    }
   }
+
+
 
   &__text-area {
     outline: none;
