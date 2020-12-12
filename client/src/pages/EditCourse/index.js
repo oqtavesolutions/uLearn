@@ -1,22 +1,35 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import EditCourse from "./EditCourse";
-import { getCourseEdit } from "./redux/actions";
+import {
+  getCourseEdit,
+  getCourseLectureList,
+  updateCourse,
+} from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleGetCourseEdit: (courseId) => {
       dispatch(getCourseEdit(courseId));
     },
+    handleGetCourseLectures: (courseId) => {
+      dispatch(getCourseLectureList(courseId));
+    },
+    handleUpdateCourse: (payload) => {
+      dispatch(
+        updateCourse({
+          ...payload,
+        })
+      );
+    },
   };
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.getCourseEdit);
   return {
-    success: state.getEditCourse.success,
-    loading: state.getEditCourse.loading,
-    error: state.getEditCourse.error,
+    success: state.getCourseEdit.success,
+    loading: state.getCourseEdit.loading,
+    error: state.getCourseEdit.error,
   };
 };
 

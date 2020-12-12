@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import userSignup from "../pages/Signup/redux/reducers";
 import userLogin from "../pages/Login/redux/reducers";
 import createCourse from "../pages/CreateCourse/redux/reducers";
-import getEditCourse from "../pages/EditCourse/redux/reducers";
+import getCourseEdit from "../pages/EditCourse/redux/reducers";
 import getCoursesByUser from "../pages/MyCourses/redux/reducers";
 import * as types from "./constants";
 
@@ -46,6 +46,6 @@ export default combineReducers({
   userLogin,
   userStatus,
   createCourse,
-  getEditCourse,
+  getCourseEdit,
   getCoursesByUser,
 });

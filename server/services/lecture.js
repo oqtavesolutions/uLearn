@@ -9,6 +9,16 @@ module.exports = {
       throw error;
     }
   },
+
+  findAllByCourse: async ({ course_id }) => {
+    try {
+      const lectures = await Lecture.where({ course_id }).fetchAll();
+      return lectures;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   update: async (
     lecture,
     { lecture_title, lecture_description, lecture_attachment }

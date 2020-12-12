@@ -1,6 +1,10 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
-import getCourseEdit from "./middlewares";
+import {
+  getCourseEdit,
+  getCourseLectureList,
+  updateCourse,
+} from "./middlewares";
 //import history from "../../../utils/history";
 
 // function forwardTo(location) {
@@ -25,6 +29,52 @@ function* getCourseEditSaga(action) {
   }
 }
 
-export default function* watchGetCourseEditSaga() {
+function* getCourseLectureListSaga(action) {
+  console.log("Edit course");
+
+  try {
+    const payload = yield call(getCourseLectureList, action.payload);
+
+    yield put({
+      type: types.GET_COURSE_LECTURE_LIST_SUCCESSFUL,
+      payload,
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.GET_COURSE_LECTURE_LIST_FAILURE,
+    });
+  }
+}
+
+function* updateCourseSaga(action) {
+  console.log("update course");
+
+  try {
+    const payload = yield call(updateCourse, action.payload);
+
+    yield put({
+      type: types.UPDATE_COURSE_SUCCESSFUL,
+      payload,
+    });
+
+    yield put({
+      type: types.RESET_COURSE_UPDATE_SUCCESS,
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.UPDATE_COURSE_FAILURE,
+    });
+  }
+}
+
+export function* watchGetCourseEditSaga() {
   yield takeLatest(types.GET_COURSE_EDIT, getCourseEditSaga);
+}
+export function* watchGetCourseLectureListSaga() {
+  yield takeLatest(types.GET_COURSE_LECTURE_LIST, getCourseLectureListSaga);
+}
+export function* watchUpdateCourseSaga() {
+  yield takeLatest(types.UPDATE_COURSE, updateCourseSaga);
 }

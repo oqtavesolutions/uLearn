@@ -4,7 +4,11 @@ import watchUserSignup from "../pages/Signup/redux/sagas";
 import watchCreateCourse from "../pages/CreateCourse/redux/sagas";
 import userStatus from "./middleware";
 import * as types from "./constants";
-import watchGetCourseEditSaga from "../pages/EditCourse/redux/sagas";
+import {
+  watchGetCourseEditSaga,
+  watchGetCourseLectureListSaga,
+  watchUpdateCourseSaga,
+} from "../pages/EditCourse/redux/sagas";
 import watchGetCoursesByUserSaga from "../pages/MyCourses/redux/sagas";
 
 function* userStatusSaga(action) {
@@ -32,8 +36,12 @@ export default function* rootSaga() {
   yield fork(watchUserStatusSaga);
   // create course
   yield fork(watchCreateCourse);
-  // edit course
+  // get edit course
   yield fork(watchGetCourseEditSaga);
   // get all course
   yield fork(watchGetCoursesByUserSaga);
+  // get all lectures for that course
+  yield fork(watchGetCourseLectureListSaga);
+  // update course
+  yield fork(watchUpdateCourseSaga);
 }

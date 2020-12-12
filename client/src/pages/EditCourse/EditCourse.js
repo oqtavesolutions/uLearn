@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./EditCourse.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import { Link, Switch, Route, withRouter } from "react-router-dom";
-import EditLecture from "../EditLecture/EditLecture";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import * as Yup from "yup";
+import LectureList from "./components/LectureList";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -30,41 +30,46 @@ const validationSchema = Yup.object().shape({
     .required("Please choose category"),
 });
 
-function EditCourse({ handleGetCourseEdit, match, success, course }) {
-  useEffect(() => {
-    handleGetCourseEdit(match.params.courseId);
-  }, [handleGetCourseEdit, match]);
+function EditCourse({
+  handleGetCourseEdit,
+  match,
+  success,
+  course,
+  handleGetCourseLectures,
+  handleUpdateCourse,
+  updateSuccess,
+}) {
   const [editCourseCollapsible, setEditCourseCollapsible] = useState(false);
   const [editCourseDetails, setEditCourseDetails] = useState(false);
   const [editCourseLecturesList, setEditCourseLecturesList] = useState(false);
-  const [
-    editCourseLecturesCollapsible,
-    setEditCourseLecturesCollapsible,
-  ] = useState(false);
+
+  useEffect(() => {
+    handleGetCourseEdit(match.params.courseId);
+  }, [handleGetCourseEdit, match]);
+
+  useEffect(() => {
+    updateSuccess && setEditCourseDetails(false);
+  }, [updateSuccess, editCourseDetails]);
 
   const handleShowEditCourseCollapsible = () => {
-    editCourseCollapsible
-      ? setEditCourseCollapsible(false)
-      : setEditCourseCollapsible(true);
+    setEditCourseCollapsible(!editCourseCollapsible);
   };
 
-  const handleShowEditCourseDetails = () => {
-    editCourseDetails
-      ? setEditCourseDetails(false)
-      : setEditCourseDetails(true);
+  const handleShowEditCourseDetails = (e) => {
+    e.preventDefault();
+    setEditCourseDetails(!editCourseDetails);
   };
 
   const handleShowEditLecturesList = () => {
-    editCourseLecturesList
-      ? setEditCourseLecturesList(false)
-      : setEditCourseLecturesList(true);
-    setEditCourseLecturesCollapsible(false);
+    handleGetCourseLectures(match.params.courseId);
+    setEditCourseLecturesList(!editCourseLecturesList);
   };
 
-  const handleShowEditLecturesCollapsible = () => {
-    editCourseLecturesCollapsible
-      ? setEditCourseLecturesCollapsible(false)
-      : setEditCourseLecturesCollapsible(true);
+  const handleFormSubmit = (values) => {
+    handleUpdateCourse({
+      ...values,
+      course_id: match.params.courseId,
+    });
   };
 
   return (
@@ -118,7 +123,7 @@ function EditCourse({ handleGetCourseEdit, match, success, course }) {
                   course_categories: course.course_categories,
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(e) => console.log(e)}>
+                onSubmit={handleFormSubmit}>
                 {({ isSubmitting }) => (
                   <Form className='edit-course-details-form'>
                     <Field
@@ -199,41 +204,7 @@ function EditCourse({ handleGetCourseEdit, match, success, course }) {
             </button>
           </article>
 
-          {editCourseLecturesList && (
-            <div className='edit-course-lectures-list'>
-              <article className='edit-course-lectures-list-card'>
-                <p className='edit-course-lectures-list-card__description'>
-                  <span className='edit-course-lectures-list-card__title'>
-                    Lecture #1
-                  </span>
-                </p>
-                <FontAwesomeIcon
-                  icon={faEllipsisH}
-                  className='edit-course-lectures-list-card__collapsible'
-                  onClick={handleShowEditLecturesCollapsible}
-                />
-
-                {editCourseLecturesCollapsible && (
-                  <ul className='edit-course-lectures-list-card__items'>
-                    <li className='edit-course-lectures-list-card__item'>
-                      <a href={"/edit/course/lecture"}>Edit</a>
-                    </li>
-                    <li className='edit-course-lectures-list-card__item'>
-                      Duplicate
-                    </li>
-                    <li className='edit-course-lectures-list-card__item'>
-                      Delete
-                    </li>
-                  </ul>
-                )}
-              </article>
-            </div>
-          )}
-          <Switch>
-            <Route path='/edit/course/lecture'>
-              <EditLecture />
-            </Route>
-          </Switch>
+          {editCourseLecturesList && <LectureList />}
         </div>
       </div>
     </div>
@@ -242,14 +213,18 @@ function EditCourse({ handleGetCourseEdit, match, success, course }) {
 
 EditCourse.propTypes = {
   handleGetCourseEdit: PropTypes.func.isRequired,
+  handleGetCourseLectures: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   success: PropTypes.bool.isRequired,
   course: PropTypes.object.isRequired,
+  handleUpdateCourse: PropTypes.func.isRequired,
+  updateSuccess: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    course: state.getEditCourse.course,
+    course: state.getCourseEdit.course,
+    updateSuccess: state.getCourseEdit.updatedCourse.success,
   };
 };
 

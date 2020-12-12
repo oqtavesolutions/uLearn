@@ -74,7 +74,7 @@ function App() {
               />
               <Route
                 exact
-                path='/edit/course/lecture'
+                path='/edit/course/:courseId/lecture/:lectureId'
                 component={EditLecture}
               />
               <Route exact path='/my-account' component={MyAccount} />

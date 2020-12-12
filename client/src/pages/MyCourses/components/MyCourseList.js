@@ -60,7 +60,7 @@ function MyCourseList({ course }) {
 }
 
 MyCourseList.propTypes = {
-  course: PropTypes.array.isRequired,
+  course: PropTypes.object.isRequired,
 };
 
 export default withRouter(MyCourseList);
