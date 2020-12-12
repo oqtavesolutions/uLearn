@@ -10,6 +10,10 @@ import {
   watchUpdateCourseSaga,
 } from "../pages/EditCourse/redux/sagas";
 import watchGetCoursesByUserSaga from "../pages/MyCourses/redux/sagas";
+import {
+  watchGetLectureEditSaga,
+  watchUpdateLectureSaga,
+} from "../pages/EditLecture/redux/sagas";
 
 function* userStatusSaga(action) {
   try {
@@ -44,4 +48,8 @@ export default function* rootSaga() {
   yield fork(watchGetCourseLectureListSaga);
   // update course
   yield fork(watchUpdateCourseSaga);
+  // get edit lecture
+  yield fork(watchGetLectureEditSaga);
+  // update lecture
+  yield fork(watchUpdateLectureSaga);
 }

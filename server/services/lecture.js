@@ -1,9 +1,9 @@
 const Lecture = require("../models/Lecture");
 
 module.exports = {
-  find: async ({ id }) => {
+  find: async ({ lecture_id }) => {
     try {
-      const lecture = await Lecture.where({ id }).fetch();
+      const lecture = await Lecture.where({ lecture_id }).fetch();
       return lecture;
     } catch (error) {
       throw error;

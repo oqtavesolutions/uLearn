@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import MyCourses from "./pages/MyCourses";
 import Explore from "./pages/Explore/Explore";
 import EditCourse from "./pages/EditCourse";
-import EditLecture from "./pages/EditLecture/EditLecture";
+import EditLecture from "./pages/EditLecture";
 import CourseLandingPage from "./pages/CourseLandingPage/CourseLandingPage";
 import Lecture from "./pages/Lecture/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
