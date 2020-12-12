@@ -14,6 +14,7 @@ import {
   watchGetLectureEditSaga,
   watchUpdateLectureSaga,
 } from "../pages/EditLecture/redux/sagas";
+import watchCreateLectureSaga from "../pages/CreateLecture/redux/sagas";
 
 function* userStatusSaga(action) {
   try {
@@ -52,4 +53,6 @@ export default function* rootSaga() {
   yield fork(watchGetLectureEditSaga);
   // update lecture
   yield fork(watchUpdateLectureSaga);
+  // create lecture
+  yield fork(watchCreateLectureSaga);
 }

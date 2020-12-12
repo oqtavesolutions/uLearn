@@ -20,6 +20,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
+import CreateLecture from "./pages/CreateLecture";
 
 function App() {
   //const exploreRoute = useRouteMatch("/explore");
@@ -33,7 +34,14 @@ function App() {
   //   strict: true,
   //   sensitive: true,
   // });
+
   const createCourseRoute = useRouteMatch("/create/course");
+  const createLectureRoute = useRouteMatch({
+    path: "/create/:courseId/lecture",
+    exact: true,
+    strict: true,
+    sensitive: true,
+  });
   const dashboardRoute = useRouteMatch("/dashboard");
   const myCoursesRoute = useRouteMatch("/my-courses");
   const myLearningRoute = useRouteMatch("/my-learning");
@@ -53,7 +61,8 @@ function App() {
     myPageRoute ||
     editCourseRoute ||
     editLectureRoute ||
-    myAccountRoute
+    myAccountRoute ||
+    createLectureRoute
   ) {
     return (
       <PrivateRoute>
@@ -63,6 +72,11 @@ function App() {
           <main className='main-container'>
             <Switch>
               <Route exact path='/create/course' component={CreateCourse} />
+              <Route
+                exact
+                path='/create/:courseId/lecture'
+                component={CreateLecture}
+              />
               <Route exact path='/dashboard' component={Dashboard} />
               <Route exact path='/my-courses' component={MyCourses} />
               <Route exact path='/my-learning' component={MyLearning} />

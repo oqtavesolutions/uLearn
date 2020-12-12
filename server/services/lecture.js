@@ -37,7 +37,6 @@ module.exports = {
     lecture_title,
     lecture_description,
     lecture_slug,
-    lecture_attachment,
     course_id,
   }) => {
     try {
@@ -45,7 +44,6 @@ module.exports = {
         lecture_title,
         lecture_description,
         lecture_slug,
-        lecture_attachment,
         course_id,
       });
       return await lecture.save();

@@ -38,6 +38,7 @@ function EditCourse({
   handleGetCourseLectures,
   handleUpdateCourse,
   updateSuccess,
+  lectures,
 }) {
   const [editCourseCollapsible, setEditCourseCollapsible] = useState(false);
   const [editCourseDetails, setEditCourseDetails] = useState(false);
@@ -203,8 +204,14 @@ function EditCourse({
               {editCourseLecturesList ? "Cancel" : "View"}
             </button>
           </article>
-
-          {editCourseLecturesList && <LectureList />}
+          {editCourseLecturesList && (
+            <div className='edit-course-lectures-list'>
+              {lectures &&
+                lectures.map((lecture) => (
+                  <LectureList key={lecture.id} lecture={lecture} />
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -219,12 +226,14 @@ EditCourse.propTypes = {
   course: PropTypes.object.isRequired,
   handleUpdateCourse: PropTypes.func.isRequired,
   updateSuccess: PropTypes.bool.isRequired,
+  lectures: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     course: state.getCourseEdit.course,
     updateSuccess: state.getCourseEdit.updatedCourse.success,
+    lectures: state.getCourseEdit.lectures.lectures,
   };
 };
 

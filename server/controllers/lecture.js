@@ -105,7 +105,11 @@ module.exports = {
         course_id: course.id,
       });
 
-      return res.status(200).json({ message: "lecture created successfully" });
+      console.log("rest cours", course.attributes.course_id);
+      return res.status(200).json({
+        message: "lecture created successfully",
+        course_id: course.attributes.course_id,
+      });
     } catch (error) {
       console.log(error);
       return res.status(400).json({
