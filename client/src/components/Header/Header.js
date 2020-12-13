@@ -135,7 +135,7 @@ function Header({ history, isLoggedIn }) {
               className='header-menus__avatar'
               onClick={handleCollapsibleClick}
               textSizeRatio={1.75}
-              color='#3bc371'
+              color='#323232'
             />
           </div>
           {showDesktopCollapsible && (

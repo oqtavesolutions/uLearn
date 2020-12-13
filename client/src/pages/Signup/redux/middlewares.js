@@ -1,15 +1,12 @@
 import { Request } from "../../../utils/axios";
 import firebase from "../../../config";
 
-const userSignup = async () => {
+const userSignup = async ({ email, password }) => {
   console.log("middle");
   try {
     const user = await firebase
       .auth()
-      .createUserWithEmailAndPassword(
-        "oikantik+test5@gmail.com",
-        "12345678910"
-      );
+      .createUserWithEmailAndPassword(email, password);
 
     //await user.user.sendVerification()
 
