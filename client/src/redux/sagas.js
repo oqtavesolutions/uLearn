@@ -30,6 +30,8 @@ import {
   watchGetExplorePageCoursesSaga,
 } from "../pages/Explore/redux/sagas";
 
+import watchGetMyLearningSaga from "../pages/MyLearning/redux/sagas";
+
 function* userStatusSaga(action) {
   try {
     const payload = yield call(userStatus, action.payload);
@@ -85,4 +87,6 @@ export default function* rootSaga() {
   yield fork(watchGetExplorePageCoursesByCategorySaga);
   // enroll button on course page
   yield fork(watchEnrollInCourseSaga);
+  // get all my learnings
+  yield fork(watchGetMyLearningSaga);
 }

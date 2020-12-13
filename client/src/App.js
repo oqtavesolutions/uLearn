@@ -11,7 +11,7 @@ import Lecture from "./pages/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CreateCourse from "./pages/CreateCourse";
 import React from "react";
-import MyLearning from "./pages/MyLearning/MyLearning";
+import MyLearning from "./pages/MyLearning";
 import MyPage from "./pages/MyPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import MyAccount from "./pages/MyAccount/MyAccount";

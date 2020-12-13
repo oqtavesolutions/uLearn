@@ -9,6 +9,16 @@ module.exports = {
       throw error;
     }
   },
+
+  findByPrimaryKey: async ({ id }) => {
+    try {
+      const course = await Course.where({ id }).fetchAll();
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   findAllNonAuth: async () => {
     try {
       const course = await Course.fetchAll();

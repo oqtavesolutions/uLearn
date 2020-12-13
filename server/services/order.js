@@ -13,6 +13,17 @@ module.exports = {
     }
   },
 
+  findAllCourses: async ({ user_id }) => {
+    try {
+      const order = await Order.where({
+        user_id,
+      }).fetchAll({ withRelated: ["courses"] });
+      return order;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   create: async ({ user_id, course_id }) => {
     try {
       const order = new Order({
