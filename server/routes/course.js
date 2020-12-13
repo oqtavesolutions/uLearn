@@ -5,6 +5,12 @@ const { requiresAuth } = require("../middlewares/authentication");
 
 router.post("/create", requiresAuth, courseControllers.create);
 router.get("/courses", requiresAuth, courseControllers.findAllByUser);
+router.get("/content/:courseSlug", courseControllers.findBySlug);
+router.get(
+  "/auth/content/:courseSlug",
+  requiresAuth,
+  courseControllers.findBySlugAuth
+);
 router.get("/:id", courseControllers.find);
 router.put("/edit/:id", courseControllers.update);
 module.exports = router;

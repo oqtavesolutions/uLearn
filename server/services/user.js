@@ -17,6 +17,15 @@ module.exports = {
       throw error;
     }
   },
+  findByPrimaryKey: async ({ id }) => {
+    try {
+      console.log(id);
+      const user = User.where({ id }).fetch();
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
   create: async ({ email, user_id }) => {
     try {
       const user = new User({

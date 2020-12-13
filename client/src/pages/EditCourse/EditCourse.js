@@ -198,6 +198,12 @@ function EditCourse({
                 Date Created: 12/03/2020
               </span>
             </p>
+            <Link
+              to={"/create/" + match.params.courseId + "/lecture"}
+              className='edit-course-lectures-card__button'
+              onClick={handleShowEditLecturesList}>
+              Create Lecture
+            </Link>
             <button
               className='edit-course-lectures-card__button'
               onClick={handleShowEditLecturesList}>

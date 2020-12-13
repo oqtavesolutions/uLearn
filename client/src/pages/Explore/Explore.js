@@ -1,7 +1,7 @@
 import React from "react";
 import "./Explore.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function Explore() {
   return (
@@ -12,7 +12,7 @@ function Explore() {
           <p className='course-explore-page-description__text'>
             Explore available courses
           </p>
-          <form className='course-explore-page-search-form'>
+          {/* <form className='course-explore-page-search-form'>
             <input
               type='text'
               name='search'
@@ -22,7 +22,7 @@ function Explore() {
             <button className='course-explore-page-search-form__button'>
               <FontAwesomeIcon icon={faSearch} />
             </button>
-          </form>
+  </form> */}
         </div>
       </div>
 

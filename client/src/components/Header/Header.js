@@ -74,7 +74,9 @@ function Header({ history, isLoggedIn }) {
   return (
     <header className='header'>
       <div className='header__logo'>
-        <Link to='/' className='header__logo-link'>
+        <Link
+          to={isLoggedIn ? "/dashboard" : "/"}
+          className='header__logo-link'>
           <img src={logo} alt='logo' className='header__logo-image' />
         </Link>
       </div>

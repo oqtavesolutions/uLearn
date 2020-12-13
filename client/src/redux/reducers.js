@@ -6,6 +6,7 @@ import createLecture from "../pages/CreateLecture/redux/reducers";
 import getCourseEdit from "../pages/EditCourse/redux/reducers";
 import getCoursesByUser from "../pages/MyCourses/redux/reducers";
 import getLectureEdit from "../pages/EditLecture/redux/reducers";
+import getCourseLandingPage from "../pages/CourseLandingPage/redux/reducers";
 import * as types from "./constants";
 
 const initialState = {
@@ -52,4 +53,5 @@ export default combineReducers({
   getCoursesByUser,
   getLectureEdit,
   createLecture,
+  getCourseLandingPage,
 });

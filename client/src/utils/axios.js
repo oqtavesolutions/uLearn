@@ -4,6 +4,7 @@ import firebase from "../config";
 const Request = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
+  params: {},
 });
 
 const AuthenticatedRequest = axios.create({

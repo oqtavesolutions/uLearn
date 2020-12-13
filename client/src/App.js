@@ -6,7 +6,7 @@ import MyCourses from "./pages/MyCourses";
 import Explore from "./pages/Explore/Explore";
 import EditCourse from "./pages/EditCourse";
 import EditLecture from "./pages/EditLecture";
-import CourseLandingPage from "./pages/CourseLandingPage/CourseLandingPage";
+import CourseLandingPage from "./pages/CourseLandingPage";
 import Lecture from "./pages/Lecture/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CreateCourse from "./pages/CreateCourse";
@@ -106,7 +106,11 @@ function App() {
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/explore' component={Explore} />
-          <Route exact path='/course' component={CourseLandingPage} />
+          <Route
+            exact
+            path='/course/:courseSlug'
+            component={CourseLandingPage}
+          />
           <Route exact path='/lecture' component={Lecture} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />

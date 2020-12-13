@@ -9,6 +9,16 @@ module.exports = {
       throw error;
     }
   },
+  findBySlug: async ({ course_slug }) => {
+    try {
+      const course = await Course.where({ course_slug }).fetch({
+        withRelated: ["lectures"],
+      });
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
   findAllByUser: async ({ user_id }) => {
     try {
       const course = await Course.where({ user_id }).fetchAll();

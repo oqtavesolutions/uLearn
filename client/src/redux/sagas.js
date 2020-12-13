@@ -15,6 +15,10 @@ import {
   watchUpdateLectureSaga,
 } from "../pages/EditLecture/redux/sagas";
 import watchCreateLectureSaga from "../pages/CreateLecture/redux/sagas";
+import {
+  watchGetCourseLandingPageLoggedInUserSaga,
+  watchGetCourseLandingPageSaga,
+} from "../pages/CourseLandingPage/redux/sagas";
 
 function* userStatusSaga(action) {
   try {
@@ -55,4 +59,8 @@ export default function* rootSaga() {
   yield fork(watchUpdateLectureSaga);
   // create lecture
   yield fork(watchCreateLectureSaga);
+  // get Course Landing page content
+  yield fork(watchGetCourseLandingPageSaga);
+  // get course landing page content user
+  yield fork(watchGetCourseLandingPageLoggedInUserSaga);
 }
