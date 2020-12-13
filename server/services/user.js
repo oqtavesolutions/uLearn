@@ -9,12 +9,28 @@ module.exports = {
       throw error;
     }
   },
-  create: async ({ email, id }) => {
-    console.log(email, id);
+  findById: async ({ user_id }) => {
+    try {
+      const user = User.where({ user_id }).fetch();
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
+  findByPrimaryKey: async ({ id }) => {
+    try {
+      console.log(id);
+      const user = User.where({ id }).fetch();
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  },
+  create: async ({ email, user_id }) => {
     try {
       const user = new User({
         email,
-        id,
+        user_id,
       });
       return await user.save(null, { method: "insert" });
     } catch (error) {

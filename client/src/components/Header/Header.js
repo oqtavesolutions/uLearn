@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
@@ -15,17 +15,17 @@ function Header({ history, isLoggedIn }) {
     query: "(min-device-width: 1280px)",
   });
 
+  const hamburgerMenu = useRef(null);
+  const hamburgerMenuMobile = useRef(null);
   const [showMenus, setShowMenus] = useState(false);
   const [showDesktopCollapsible, setShowDesktopCollapsible] = useState(false);
 
   const handleNavBarClick = () => {
-    showMenus ? setShowMenus(false) : setShowMenus(true);
+    setShowMenus(!showMenus);
   };
 
   const handleCollapsibleClick = () => {
-    showDesktopCollapsible
-      ? setShowDesktopCollapsible(false)
-      : setShowDesktopCollapsible(true);
+    setShowDesktopCollapsible(!showDesktopCollapsible);
   };
 
   const handleLogout = async () => {
@@ -33,10 +33,50 @@ function Header({ history, isLoggedIn }) {
     history.push("/login");
   };
 
+  useEffect(() => {
+    document.addEventListener("mousedown", (e) => {
+      if (
+        hamburgerMenu.current !== null &&
+        !hamburgerMenu.current.contains(e.target)
+      ) {
+        setShowDesktopCollapsible(false);
+        setShowMenus(false);
+      }
+    });
+    // returned function will be called on component unmount
+    return () => {
+      document.removeEventListener("mousedown", () => {
+        setShowMenus(false);
+        setShowDesktopCollapsible(false);
+      });
+    };
+  }, [hamburgerMenu, showMenus]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", (e) => {
+      if (
+        hamburgerMenuMobile.current !== null &&
+        !hamburgerMenuMobile.current.contains(e.target)
+      ) {
+        setShowDesktopCollapsible(false);
+        setShowMenus(false);
+      }
+    });
+    // returned function will be called on component unmount
+    return () => {
+      document.removeEventListener("mousedown", () => {
+        setShowMenus(false);
+        setShowDesktopCollapsible(false);
+      });
+    };
+  }, [hamburgerMenuMobile, showMenus]);
+
   return (
     <header className='header'>
       <div className='header__logo'>
-        <Link to='/' className='header__logo-link'>
+        <Link
+          to={isLoggedIn ? "/dashboard" : "/"}
+          className='header__logo-link'>
           <img src={logo} alt='logo' className='header__logo-image' />
         </Link>
       </div>
@@ -48,29 +88,37 @@ function Header({ history, isLoggedIn }) {
       )}
       {!isDesktop && isLoggedIn && (
         <div className='header-menu-bar'>
-          <FontAwesomeIcon
-            icon={showMenus ? faTimesCircle : faBars}
-            className='header-menu-bar__nav-bar-icon'
-            onClick={handleNavBarClick}
-          />
+          {!showMenus && (
+            <FontAwesomeIcon
+              icon={faBars}
+              className='header-menu-bar__nav-bar-icon'
+              onClick={handleNavBarClick}
+            />
+          )}
         </div>
       )}
       {!isDesktop && isLoggedIn && showMenus && (
-        <nav className='header-menus-kebab'>
-          <ul className='header-menus-kebab__list'>
-            <li className='header-menus-kebab__list-item'>
-              <Link to='/dashboard'>Dashboard</Link>
-            </li>
-            <li className='header-menus-kebab__list-item'>
-              <Link to='/my-account'>My Account</Link>
-            </li>
-            <li
-              className='header-menus-kebab__list-item'
-              onClick={handleLogout}>
-              Logout
-            </li>
-          </ul>
-        </nav>
+        <Fragment>
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            className='header-menu-bar__nav-bar-icon'
+          />
+          <nav className='header-menus-kebab' ref={hamburgerMenuMobile}>
+            <ul className='header-menus-kebab__list'>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/dashboard'>Dashboard</Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/my-account'>My Account</Link>
+              </li>
+              <li
+                className='header-menus-kebab__list-item'
+                onClick={handleLogout}>
+                Logout
+              </li>
+            </ul>
+          </nav>
+        </Fragment>
       )}
 
       {isLoggedIn && isDesktop && (
@@ -91,7 +139,7 @@ function Header({ history, isLoggedIn }) {
             />
           </div>
           {showDesktopCollapsible && (
-            <ul className='header-menus__items'>
+            <ul className='header-menus__items' ref={hamburgerMenu}>
               <li className='header-menus__item'>Nahid Hossain</li>
               <li className='header-menus__item'>oikantik@gmail.com</li>
               <li className='header-menus__item'>

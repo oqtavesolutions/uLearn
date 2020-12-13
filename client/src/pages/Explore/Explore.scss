@@ -101,7 +101,9 @@
 
   &__button {
     width: 150px;
-    height: 32px;
+    height: auto;
+    padding: 1rem;
+    outline: none;
     background-color: transparent;
     border-radius: 20px;
     border: 1.5px solid color(global-green);

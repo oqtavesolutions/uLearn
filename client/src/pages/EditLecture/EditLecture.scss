@@ -101,6 +101,10 @@
     padding: .225rem 1rem 0;
     background: #fff;
     margin-bottom: 1rem;
+
+    &--disabled {
+      background-color: color(borders)
+    }
   }
 
   &__text-area {

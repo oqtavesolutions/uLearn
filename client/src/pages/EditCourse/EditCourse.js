@@ -1,42 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EditCourse.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import { Link, Switch, Route } from "react-router-dom";
-import EditLecture from "../EditLecture/EditLecture";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { connect } from "react-redux";
+import * as Yup from "yup";
+import LectureList from "./components/LectureList";
 
-function EditCourse() {
+const validationSchema = Yup.object().shape({
+  course_title: Yup.string().required("Required"),
+  course_description: Yup.string().required("Required"),
+  course_categories: Yup.string()
+    .oneOf(
+      [
+        "IT & Software",
+        "Business",
+        "Finance & Accounting",
+        "Productivity",
+        "Design",
+        "Marketing",
+        "Health",
+        "Music",
+        "Others",
+      ],
+      "Please choose category"
+    )
+    .required("Please choose category"),
+});
+
+function EditCourse({
+  handleGetCourseEdit,
+  match,
+  success,
+  course,
+  handleGetCourseLectures,
+  handleUpdateCourse,
+  updateSuccess,
+  lectures,
+}) {
   const [editCourseCollapsible, setEditCourseCollapsible] = useState(false);
   const [editCourseDetails, setEditCourseDetails] = useState(false);
   const [editCourseLecturesList, setEditCourseLecturesList] = useState(false);
-  const [
-    editCourseLecturesCollapsible,
-    setEditCourseLecturesCollapsible,
-  ] = useState(false);
+
+  useEffect(() => {
+    handleGetCourseEdit(match.params.courseId);
+  }, [handleGetCourseEdit, match]);
+
+  useEffect(() => {
+    updateSuccess && setEditCourseDetails(false);
+  }, [updateSuccess, editCourseDetails]);
 
   const handleShowEditCourseCollapsible = () => {
-    editCourseCollapsible
-      ? setEditCourseCollapsible(false)
-      : setEditCourseCollapsible(true);
+    setEditCourseCollapsible(!editCourseCollapsible);
   };
 
-  const handleShowEditCourseDetails = () => {
-    editCourseDetails
-      ? setEditCourseDetails(false)
-      : setEditCourseDetails(true);
+  const handleShowEditCourseDetails = (e) => {
+    e.preventDefault();
+    setEditCourseDetails(!editCourseDetails);
   };
 
   const handleShowEditLecturesList = () => {
-    editCourseLecturesList
-      ? setEditCourseLecturesList(false)
-      : setEditCourseLecturesList(true);
-    setEditCourseLecturesCollapsible(false);
+    handleGetCourseLectures(match.params.courseId);
+    setEditCourseLecturesList(!editCourseLecturesList);
   };
 
-  const handleShowEditLecturesCollapsible = () => {
-    editCourseLecturesCollapsible
-      ? setEditCourseLecturesCollapsible(false)
-      : setEditCourseLecturesCollapsible(true);
+  const handleFormSubmit = (values) => {
+    handleUpdateCourse({
+      ...values,
+      course_id: match.params.courseId,
+    });
   };
 
   return (
@@ -77,40 +111,79 @@ function EditCourse() {
             )}
           </article>
 
-          {editCourseDetails && (
+          {success && editCourseDetails && (
             <div className='edit-course-details-form-container'>
               <h1 className='edit-course-details-form-container__title'>
                 Editing Course
               </h1>
-              <form className='edit-course-details-form'>
-                <input
-                  type='text'
-                  placeholder='Course Title'
-                  className='edit-course-details-form__input'
-                />
-                <textarea
-                  type='text'
-                  placeholder='Course Description'
-                  className='edit-course-details-form__text-area'></textarea>
-                <input
-                  type='text'
-                  placeholder='Course Slug'
-                  className='edit-course-details-form__input'
-                />
-                <select className='edit-course-details-form__category'>
-                  <option>Please Select a Category</option>
-                </select>
-                <div className='edit-course-details-form__buttons'>
-                  <button className='edit-course-details-form__button'>
-                    Save
-                  </button>
-                  <Link
-                    className='edit-course-details-form__button edit-course-details-form__button--cancel'
-                    onClick={handleShowEditCourseDetails}>
-                    Cancel
-                  </Link>
-                </div>
-              </form>
+              <Formik
+                initialValues={{
+                  course_title: course.course_title,
+                  course_description: course.course_description,
+                  course_slug: course.course_slug,
+                  course_categories: course.course_categories,
+                }}
+                validationSchema={validationSchema}
+                onSubmit={handleFormSubmit}>
+                {({ isSubmitting }) => (
+                  <Form className='edit-course-details-form'>
+                    <Field
+                      type='text'
+                      name='course_title'
+                      placeholder='Course Title'
+                      className='edit-course-details-form__input'
+                    />
+                    <ErrorMessage name='course_title' component='div' />
+                    <Field
+                      as='textarea'
+                      name='course_description'
+                      placeholder='Course Description'
+                      className='edit-course-details-form__text-area'
+                    />
+                    <ErrorMessage name='course_description' component='div' />
+                    <Field
+                      type='text'
+                      name='course_slug'
+                      placeholder='Course Slug'
+                      className='edit-course-details-form__input edit-course-details-form__input--disabled'
+                      disabled={true}
+                    />
+                    <ErrorMessage name='course_slug' component='div' />
+                    <Field
+                      as='select'
+                      name='course_categories'
+                      className='edit-course-details-form__category'>
+                      <option>Please Select a Category</option>
+                      <option value='IT & Software'>IT & Software</option>
+                      <option value='Business'>Business</option>
+                      <option value='Finance & Accounting'>
+                        Finance & Accounting
+                      </option>
+                      <option value='Productivity'>Productivity</option>
+                      <option value='Design'>Design</option>
+                      <option value='Marketing'>Marketing</option>
+                      <option value='Health'>Health</option>
+                      <option value='Music'>Music</option>
+                      <option value='Others'>Others</option>
+                    </Field>
+                    <ErrorMessage name='course_categories' component='div' />
+                    <div className='edit-course-details-form__buttons'>
+                      <button
+                        disabled={isSubmitting}
+                        type='submit'
+                        className='edit-course-details-form__button'>
+                        Save
+                      </button>
+                      <Link
+                        to='/'
+                        className='edit-course-details-form__button edit-course-details-form__button--cancel'
+                        onClick={handleShowEditCourseDetails}>
+                        Cancel
+                      </Link>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             </div>
           )}
         </div>
@@ -125,52 +198,49 @@ function EditCourse() {
                 Date Created: 12/03/2020
               </span>
             </p>
+            <Link
+              to={"/create/" + match.params.courseId + "/lecture"}
+              className='edit-course-lectures-card__button'
+              onClick={handleShowEditLecturesList}>
+              Create Lecture
+            </Link>
             <button
               className='edit-course-lectures-card__button'
               onClick={handleShowEditLecturesList}>
               {editCourseLecturesList ? "Cancel" : "View"}
             </button>
           </article>
-
           {editCourseLecturesList && (
             <div className='edit-course-lectures-list'>
-              <article className='edit-course-lectures-list-card'>
-                <p className='edit-course-lectures-list-card__description'>
-                  <span className='edit-course-lectures-list-card__title'>
-                    Lecture #1
-                  </span>
-                </p>
-                <FontAwesomeIcon
-                  icon={faEllipsisH}
-                  className='edit-course-lectures-list-card__collapsible'
-                  onClick={handleShowEditLecturesCollapsible}
-                />
-
-                {editCourseLecturesCollapsible && (
-                  <ul className='edit-course-lectures-list-card__items'>
-                    <li className='edit-course-lectures-list-card__item'>
-                      <a href={"/edit/course/lecture"}>Edit</a>
-                    </li>
-                    <li className='edit-course-lectures-list-card__item'>
-                      Duplicate
-                    </li>
-                    <li className='edit-course-lectures-list-card__item'>
-                      Delete
-                    </li>
-                  </ul>
-                )}
-              </article>
+              {lectures &&
+                lectures.map((lecture) => (
+                  <LectureList key={lecture.id} lecture={lecture} />
+                ))}
             </div>
           )}
-          <Switch>
-            <Route path='/edit/course/lecture'>
-              <EditLecture />
-            </Route>
-          </Switch>
         </div>
       </div>
     </div>
   );
 }
 
-export default EditCourse;
+EditCourse.propTypes = {
+  handleGetCourseEdit: PropTypes.func.isRequired,
+  handleGetCourseLectures: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  success: PropTypes.bool.isRequired,
+  course: PropTypes.object.isRequired,
+  handleUpdateCourse: PropTypes.func.isRequired,
+  updateSuccess: PropTypes.bool.isRequired,
+  lectures: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    course: state.getCourseEdit.course,
+    updateSuccess: state.getCourseEdit.updatedCourse.success,
+    lectures: state.getCourseEdit.lectures.lectures,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(EditCourse));
