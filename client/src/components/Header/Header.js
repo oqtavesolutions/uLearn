@@ -1,59 +1,127 @@
-import React, { useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
 import logo from "../../assets/logo/logo.svg";
 import "./Header.scss";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Avatar from "react-avatar";
+import firebase from "../../config";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-function Header() {
+function Header({ history, isLoggedIn }) {
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 1280px)",
   });
 
+  const hamburgerMenu = useRef(null);
+  const hamburgerMenuMobile = useRef(null);
   const [showMenus, setShowMenus] = useState(false);
   const [showDesktopCollapsible, setShowDesktopCollapsible] = useState(false);
 
   const handleNavBarClick = () => {
-    showMenus ? setShowMenus(false) : setShowMenus(true);
+    setShowMenus(!showMenus);
   };
 
   const handleCollapsibleClick = () => {
-    showDesktopCollapsible
-      ? setShowDesktopCollapsible(false)
-      : setShowDesktopCollapsible(true);
+    setShowDesktopCollapsible(!showDesktopCollapsible);
   };
+
+  const handleLogout = async () => {
+    await firebase.auth().signOut();
+    history.push("/login");
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", (e) => {
+      if (
+        hamburgerMenu.current !== null &&
+        !hamburgerMenu.current.contains(e.target)
+      ) {
+        setShowDesktopCollapsible(false);
+        setShowMenus(false);
+      }
+    });
+    // returned function will be called on component unmount
+    return () => {
+      document.removeEventListener("mousedown", () => {
+        setShowMenus(false);
+        setShowDesktopCollapsible(false);
+      });
+    };
+  }, [hamburgerMenu, showMenus]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", (e) => {
+      if (
+        hamburgerMenuMobile.current !== null &&
+        !hamburgerMenuMobile.current.contains(e.target)
+      ) {
+        setShowDesktopCollapsible(false);
+        setShowMenus(false);
+      }
+    });
+    // returned function will be called on component unmount
+    return () => {
+      document.removeEventListener("mousedown", () => {
+        setShowMenus(false);
+        setShowDesktopCollapsible(false);
+      });
+    };
+  }, [hamburgerMenuMobile, showMenus]);
 
   return (
     <header className='header'>
       <div className='header__logo'>
-        <Link to='/' className='header__logo-link'>
+        <Link
+          to={isLoggedIn ? "/dashboard" : "/"}
+          className='header__logo-link'>
           <img src={logo} alt='logo' className='header__logo-image' />
         </Link>
       </div>
-      {!isDesktop && (
-        <div className='header-menu-bar'>
-          <FontAwesomeIcon
-            icon={showMenus ? faTimesCircle : faBars}
-            className='header-menu-bar__nav-bar-icon'
-            onClick={handleNavBarClick}
-          />
+      {!isLoggedIn && (
+        <div className='header__login-register'>
+          <Link>Login</Link>
+          <Link>Signup</Link>
         </div>
       )}
-      {!isDesktop && showMenus && (
-        <nav className='header-menus-kebab'>
-          <ul className='header-menus-kebab__list'>
-            <li className='header-menus-kebab__list-item'>Login</li>
-            <li className='header-menus-kebab__list-item'>Signup</li>
-            <li className='header-menus-kebab__list-item'>Dashboard</li>
-            <li className='header-menus-kebab__list-item'>Notifications</li>
-            <li className='header-menus-kebab__list-item'>User Profile</li>
-          </ul>
-        </nav>
+      {!isDesktop && isLoggedIn && (
+        <div className='header-menu-bar'>
+          {!showMenus && (
+            <FontAwesomeIcon
+              icon={faBars}
+              className='header-menu-bar__nav-bar-icon'
+              onClick={handleNavBarClick}
+            />
+          )}
+        </div>
+      )}
+      {!isDesktop && isLoggedIn && showMenus && (
+        <Fragment>
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            className='header-menu-bar__nav-bar-icon'
+          />
+          <nav className='header-menus-kebab' ref={hamburgerMenuMobile}>
+            <ul className='header-menus-kebab__list'>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/dashboard'>Dashboard</Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/my-account'>My Account</Link>
+              </li>
+              <li
+                className='header-menus-kebab__list-item'
+                onClick={handleLogout}>
+                Logout
+              </li>
+            </ul>
+          </nav>
+        </Fragment>
       )}
 
-      {isDesktop && (
+      {isLoggedIn && isDesktop && (
         <nav className='header-menus'>
           <div className='header-menus__buttons'>
             <Link to='/dashboard' className='header-menus__dashboard'>
@@ -71,13 +139,15 @@ function Header() {
             />
           </div>
           {showDesktopCollapsible && (
-            <ul className='header-menus__items'>
+            <ul className='header-menus__items' ref={hamburgerMenu}>
               <li className='header-menus__item'>Nahid Hossain</li>
               <li className='header-menus__item'>oikantik@gmail.com</li>
               <li className='header-menus__item'>
                 <Link to='/my-account'>My Account</Link>
               </li>
-              <li className='header-menus__item'>Logout</li>
+              <li className='header-menus__item' onClick={handleLogout}>
+                Logout
+              </li>
             </ul>
           )}
         </nav>
@@ -86,4 +156,15 @@ function Header() {
   );
 }
 
-export default Header;
+Header.proptype = {
+  history: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.userStatus.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Header));

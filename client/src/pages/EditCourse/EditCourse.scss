@@ -128,18 +128,34 @@
     border: 1px solid;
     border-radius: 5px;
     padding: .225rem 1rem 0;
-    background: #fff;
+    background: color(global-white);
     margin-bottom: 1rem;
+
+    &--disabled {
+      background: color(borders);
+    }
   }
+
+
 
   &__text-area {
     outline: none;
     border: 1px solid;
     border-radius: 5px;
     padding: 1rem 1rem 0;
-    background: #fff;
+    background: color(global-white);
     margin-bottom: 1rem;
     max-width: 100%;
+  }
+
+  &__category {
+    outline: none;
+    height: 48px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: .225rem 1rem 0;
+    background: color(global-white);
+    margin-bottom: 1rem;
   }
 
   &__button {
@@ -234,44 +250,4 @@
     padding: .125rem;
     @include m-p1;
   }
-}
-
-.edit-course-lectures-list-card {
-
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  @include tablet {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-
-  &__description {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  &__title {
-    @include m-h2;
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 2rem;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
-  }
-
 }

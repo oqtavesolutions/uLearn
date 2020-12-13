@@ -1,0 +1,43 @@
+@use '../../../partials/typography'as *;
+@use '../../../partials/mixins'as *;
+
+.edit-course-lectures-list-card {
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    @include m-h2;
+  }
+
+  &__items {
+    background-color: color(global-white);
+    list-style: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    padding: 1rem;
+    z-index: 1;
+  }
+
+  &__item {
+    padding: .125rem;
+    @include m-p1;
+  }
+
+}
