@@ -16,6 +16,7 @@ import {
 } from "../pages/EditLecture/redux/sagas";
 import watchCreateLectureSaga from "../pages/CreateLecture/redux/sagas";
 import {
+  watchEnrollInCourseSaga,
   watchGetCourseLandingPageLoggedInUserSaga,
   watchGetCourseLandingPageSaga,
 } from "../pages/CourseLandingPage/redux/sagas";
@@ -82,4 +83,6 @@ export default function* rootSaga() {
   yield fork(watchGetExplorePageCoursesSaga);
   // get courses for explore page by category
   yield fork(watchGetExplorePageCoursesByCategorySaga);
+  // enroll button on course page
+  yield fork(watchEnrollInCourseSaga);
 }

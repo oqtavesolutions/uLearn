@@ -66,3 +66,38 @@
     padding: $desktop-padding;
   }
 }
+
+.enrollment-modal {
+
+  &__header {
+    width: 100%;
+    @include m-h1;
+    text-align: center;
+  }
+
+  &__content {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  &__actions {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: color(global-white);
+    border-radius: 18px;
+    border: 1px solid color(borders);
+    outline: none;
+  }
+}

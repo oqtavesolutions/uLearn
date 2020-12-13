@@ -13,3 +13,10 @@ export const getCourseLandingPageLoggedInUser = (courseSlug) => {
     payload: courseSlug,
   };
 };
+
+export const enrollInCourse = (courseSlug) => {
+  return {
+    type: types.ENROLL_IN_COURSE,
+    payload: courseSlug,
+  };
+};

@@ -4,6 +4,7 @@ import CourseLandingPage from "./CourseLandingPage";
 import {
   getCourseLandingPage,
   getCourseLandingPageLoggedInUser,
+  enrollInCourse,
 } from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
@@ -13,6 +14,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleGetCourseDetailsLoggedInUser: (courseSlug) => {
       dispatch(getCourseLandingPageLoggedInUser(courseSlug));
+    },
+
+    handleEnrollInCourse: (courseSlug) => {
+      dispatch(enrollInCourse(courseSlug));
     },
   };
 };

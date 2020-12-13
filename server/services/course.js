@@ -20,10 +20,10 @@ module.exports = {
 
   findByCategoryNonAuth: async (category) => {
     try {
-      const course = await Course.where({
+      const courses = await Course.where({
         course_categories: category,
       }).fetchAll();
-      return course;
+      return courses;
     } catch (error) {
       throw error;
     }

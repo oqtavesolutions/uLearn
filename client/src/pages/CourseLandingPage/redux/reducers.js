@@ -7,6 +7,11 @@ const initialState = {
   relation: "",
   isOwner: false,
   isSubscribed: false,
+  order: {
+    loading: false,
+    success: false,
+    error: "",
+  },
   error: "",
 };
 
@@ -34,6 +39,35 @@ const getCourseLandingPage = (state = initialState, action) => {
         course: false,
         relation: "",
         error: action.payload.message,
+      };
+
+    // order reducer
+    case types.ENROLL_IN_COURSE:
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          loading: true,
+        },
+      };
+    case types.ENROLL_IN_COURSE_SUCCESSFUL:
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          loading: false,
+          success: true,
+        },
+      };
+    case types.ENROLL_IN_COURSE_FAILURE:
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          loading: false,
+          success: false,
+          error: action.payload.message,
+        },
       };
     default:
       return state;

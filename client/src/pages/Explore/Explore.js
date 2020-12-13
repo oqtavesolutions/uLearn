@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./Explore.scss";
 import PropTypes from "prop-types";
 import { categories } from "../../utils/categories";
@@ -58,16 +58,16 @@ function Explore({
         {success &&
           courses.map((course) => {
             return (
-              <article
-                className='course-explore-page-categories-highlights-card'
-                key={course.course_id}>
-                <p className='course-explore-page-categories-highlights-card__title'>
-                  {course.course_title}
-                </p>
-                <p className='course-explore-page-categories-highlights-card__description'>
-                  {course.course_description}
-                </p>
-              </article>
+              <Link to={`/course/${course.course_slug}`} key={course.course_id}>
+                <article className='course-explore-page-categories-highlights-card'>
+                  <p className='course-explore-page-categories-highlights-card__title'>
+                    {course.course_title}
+                  </p>
+                  <p className='course-explore-page-categories-highlights-card__description'>
+                    {course.course_description}
+                  </p>
+                </article>
+              </Link>
             );
           })}
       </div>

@@ -3,6 +3,8 @@ import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import "./CourseLandingPage.scss";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 function CourseLandingPage({
   course,
@@ -11,8 +13,11 @@ function CourseLandingPage({
   isLoggedIn,
   handleGetCourseDetails,
   handleGetCourseDetailsLoggedInUser,
+  handleEnrollInCourse,
   isOwner,
   isSubscribed,
+  history,
+  enrollSuccess,
 }) {
   useEffect(() => {
     isLoggedIn
@@ -24,6 +29,10 @@ function CourseLandingPage({
     handleGetCourseDetailsLoggedInUser,
     isLoggedIn,
   ]);
+
+  const handleEnroll = () => {
+    handleEnrollInCourse(match.params.courseSlug);
+  };
   return (
     <Fragment>
       {success && (
@@ -37,9 +46,53 @@ function CourseLandingPage({
                 {course.course_description}
               </p>
             </div>
-            <button className='course-landing-page-description__button'>
-              Enroll
-            </button>
+            <Popup
+              trigger={
+                <button className='course-landing-page-description__button'>
+                  Enroll{" "}
+                </button>
+              }
+              modal>
+              {(close) =>
+                enrollSuccess ? (
+                  <div className='enrollment-modal'>
+                    <button className='enrollment-modal__close' onClick={close}>
+                      &times;
+                    </button>
+                    <h1 className='enrollment-modal__header'>Success</h1>
+                    <div className='enrollment-modal__content'>
+                      Successfully enrolled, you can close and refresh this page
+                      now
+                    </div>
+                  </div>
+                ) : isLoggedIn ? (
+                  <div className='enrollment-modal'>
+                    <button className='enrollment-modal__close' onClick={close}>
+                      &times;
+                    </button>
+                    <h1 className='enrollment-modal__header'>Please Confirm</h1>
+                    <div className='enrollment-modal__content'>
+                      Are you sure you want to enroll into this course?
+                    </div>
+                    <button
+                      className='enrollment-modal__actions'
+                      onClick={handleEnroll}>
+                      Enroll Now
+                    </button>
+                  </div>
+                ) : (
+                  <div className='enrollment-modal'>
+                    <button className='enrollment-modal__close' onClick={close}>
+                      &times;
+                    </button>
+                    <h1 className='enrollment-modal__header'>Please Login</h1>
+                    <div className='enrollment-modal__content'>
+                      Please login to continue
+                    </div>
+                  </div>
+                )
+              }
+            </Popup>
             {/*!isOwner && !isSubscribed && (
               <button className='course-landing-page-description__button'>
                 Enroll
@@ -79,6 +132,7 @@ function CourseLandingPage({
 CourseLandingPage.propTypes = {
   handleGetCourseDetails: PropTypes.func.isRequired,
   handleGetCourseDetailsLoggedInUser: PropTypes.func.isRequired,
+  handleEnrollInCourse: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   success: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -86,12 +140,15 @@ CourseLandingPage.propTypes = {
   course: PropTypes.object.isRequired,
   isOwner: PropTypes.bool.isRequired,
   isSubscribed: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired,
+  enrollSuccess: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     isOwner: state.getCourseLandingPage.isOwner,
     isSubscribed: state.getCourseLandingPage.isSubscribed,
+    enrollSuccess: state.getCourseLandingPage.order.success,
   };
 };
 export default connect(mapStateToProps)(withRouter(CourseLandingPage));

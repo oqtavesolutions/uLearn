@@ -20,4 +20,18 @@ const getCourseLandingPageLoggedInUser = async (courseSlug) => {
   };
 };
 
-export { getCourseLandingPage, getCourseLandingPageLoggedInUser };
+const enrollInCourse = async (courseSlug) => {
+  const response = await AuthenticatedRequest.post(
+    `/order/create/${courseSlug}`
+  );
+  return {
+    message: "enrolled successfully",
+    order: response.data,
+  };
+};
+
+export {
+  getCourseLandingPage,
+  getCourseLandingPageLoggedInUser,
+  enrollInCourse,
+};

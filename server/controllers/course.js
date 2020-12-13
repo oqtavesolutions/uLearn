@@ -134,10 +134,12 @@ module.exports = {
       const courses = await courseServices.findByCategoryNonAuth(
         req.params.category
       );
+      console.log("why not you come?", courses);
       if (!courses)
         return res.status(200).json({
           courses: [],
         });
+      // console.lo
       res.status(200).json(courses);
     } catch (error) {
       res.status(400).json({
@@ -152,7 +154,6 @@ module.exports = {
     try {
       const data = await courseServices.create({
         ...req.body,
-        course_categories: "IT & Software",
         user_id: req.user.id,
       });
       res.status(200).json({ message: "course created successfully", data });
