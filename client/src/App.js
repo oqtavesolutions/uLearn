@@ -3,16 +3,16 @@ import { Switch, Route, withRouter, useRouteMatch } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Header from "./components/Header/Header";
 import MyCourses from "./pages/MyCourses";
-import Explore from "./pages/Explore/Explore";
+import Explore from "./pages/Explore";
 import EditCourse from "./pages/EditCourse";
 import EditLecture from "./pages/EditLecture";
 import CourseLandingPage from "./pages/CourseLandingPage";
-import Lecture from "./pages/Lecture/Lecture";
+import Lecture from "./pages/Lecture";
 import Sidebar from "./components/Sidebar/Sidebar";
 import CreateCourse from "./pages/CreateCourse";
 import React from "react";
 import MyLearning from "./pages/MyLearning/MyLearning";
-import MyPage from "./pages/MyPage/MyPage";
+import MyPage from "./pages/MyPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import MyAccount from "./pages/MyAccount/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -47,6 +47,9 @@ function App() {
   const myLearningRoute = useRouteMatch("/my-learning");
   const myPageRoute = useRouteMatch("/my-page");
   const editCourseRoute = useRouteMatch("/edit/course/:courseId");
+  const lectureRoute = useRouteMatch(
+    "/course/:courseSlug/lecture/:lectureSlug"
+  );
   const editLectureRoute = useRouteMatch("/edit/course/lecture");
   const myAccountRoute = useRouteMatch("/my-account");
   const isDesktop = useMediaQuery({
@@ -99,6 +102,25 @@ function App() {
     );
   }
 
+  if (lectureRoute) {
+    return (
+      <PrivateRoute>
+        <Header />
+        <div className='app'>
+          <main className='main-container'>
+            <Switch>
+              <Route
+                exact
+                path='/course/:courseSlug/lecture/:lectureSlug'
+                component={Lecture}
+              />
+            </Switch>
+          </main>
+        </div>
+      </PrivateRoute>
+    );
+  }
+
   return (
     <ErrorBoundary>
       <Header />
@@ -111,7 +133,6 @@ function App() {
             path='/course/:courseSlug'
             component={CourseLandingPage}
           />
-          <Route exact path='/lecture' component={Lecture} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
         </React.Fragment>

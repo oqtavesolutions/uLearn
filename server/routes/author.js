@@ -4,6 +4,6 @@ const authorControllers = require("../controllers/author");
 const { requiresAuth } = require("../middlewares/authentication");
 
 router.post("/", requiresAuth, authorControllers.createUpdate);
-router.get("/", authorControllers.find);
+router.get("/", requiresAuth, authorControllers.find);
 
 module.exports = router;

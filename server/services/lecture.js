@@ -19,6 +19,15 @@ module.exports = {
     }
   },
 
+  findBySlug: async ({ lecture_slug }) => {
+    try {
+      const lecture = await Lecture.where({ lecture_slug }).fetch();
+      return lecture;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   update: async (
     lecture,
     { lecture_title, lecture_description, lecture_attachment }

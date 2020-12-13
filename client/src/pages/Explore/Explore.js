@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import "./Explore.scss";
+import PropTypes from "prop-types";
+import { categories } from "../../utils/categories";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function Explore() {
+function Explore({
+  success,
+  handleGetExplorePageCourses,
+  handleGetExplorePageCoursesByCategory,
+  courses,
+}) {
+  useEffect(() => {
+    handleGetExplorePageCourses();
+  }, [handleGetExplorePageCourses]);
+
+  const handleCategoryClick = (e) => {
+    handleGetExplorePageCoursesByCategory(e.target.innerText);
+  };
   return (
     <div className='course-explore-page'>
       <div className='course-explore-page-description'>
@@ -29,37 +44,42 @@ function Explore() {
       <div className='course-explore-page-categories'>
         <h1 className='course-explore-page-categories__title'>Categories</h1>
         <div className='course-explore-page-categories-cloud'>
-          <button className='course-explore-page-categories-cloud__button'>
-            Category 1
-          </button>
-          <button className='course-explore-page-categories-cloud__button'>
-            Category 2
-          </button>
-          <button className='course-explore-page-categories-cloud__button'>
-            Category 2
-          </button>
+          {categories.map((category) => (
+            <button
+              className='course-explore-page-categories-cloud__button'
+              key={category.id}
+              onClick={handleCategoryClick}>
+              {category.value}
+            </button>
+          ))}
         </div>
       </div>
       <div className='course-explore-page-categories-highlights'>
-        <article className='course-explore-page-categories-highlights-card'>
-          <p className='course-explore-page-categories-highlights-card__title'>
-            Course Title
-          </p>
-          <p className='course-explore-page-categories-highlights-card__description'>
-            Course Description
-          </p>
-        </article>
-        <article className='course-explore-page-categories-highlights-card'>
-          <p className='course-explore-page-categories-highlights-card__title'>
-            Course Title 2
-          </p>
-          <p className='course-explore-page-categories-highlights-card__description'>
-            Course Description 2
-          </p>
-        </article>
+        {success &&
+          courses.map((course) => {
+            return (
+              <article
+                className='course-explore-page-categories-highlights-card'
+                key={course.course_id}>
+                <p className='course-explore-page-categories-highlights-card__title'>
+                  {course.course_title}
+                </p>
+                <p className='course-explore-page-categories-highlights-card__description'>
+                  {course.course_description}
+                </p>
+              </article>
+            );
+          })}
       </div>
     </div>
   );
 }
 
-export default Explore;
+Explore.propTypes = {
+  courses: PropTypes.array.isRequired,
+  success: PropTypes.bool.isRequired,
+  handleGetExplorePageCourses: PropTypes.func.isRequired,
+  handleGetExplorePageCoursesByCategory: PropTypes.func.isRequired,
+};
+
+export default withRouter(Explore);

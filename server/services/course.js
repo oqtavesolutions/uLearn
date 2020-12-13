@@ -9,6 +9,26 @@ module.exports = {
       throw error;
     }
   },
+  findAllNonAuth: async () => {
+    try {
+      const course = await Course.fetchAll();
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  findByCategoryNonAuth: async (category) => {
+    try {
+      const course = await Course.where({
+        course_categories: category,
+      }).fetchAll();
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   findBySlug: async ({ course_slug }) => {
     try {
       const course = await Course.where({ course_slug }).fetch({

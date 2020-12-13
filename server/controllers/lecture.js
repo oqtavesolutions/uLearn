@@ -64,6 +64,31 @@ module.exports = {
     }
   },
 
+  findBySlugAuth: async (req, res) => {
+    try {
+      const lecture = await lectureServices.findBySlug({
+        lecture_slug: req.params.lectureSlug,
+      });
+
+      if (!lecture)
+        return res.status(400).json({
+          statusCode: 400,
+          error: error.message,
+          messasge: "operation failed",
+        });
+
+      // check if user owns the lecture or not. If not, show error
+
+      res.status(200).json(lecture);
+    } catch (error) {
+      res.status(400).json({
+        statusCode: 400,
+        error: error.message,
+        messasge: "operation failed",
+      });
+    }
+  },
+
   findAllByCourse: async (req, res) => {
     try {
       const course = await courseServices.find({ course_id: req.params.id });

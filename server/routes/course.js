@@ -4,6 +4,8 @@ const courseControllers = require("../controllers/course");
 const { requiresAuth } = require("../middlewares/authentication");
 
 router.post("/create", requiresAuth, courseControllers.create);
+router.get("/explore", courseControllers.findAllNonAuth);
+router.get("/explore/:category", courseControllers.findByCategoryNonAuth);
 router.get("/courses", requiresAuth, courseControllers.findAllByUser);
 router.get("/content/:courseSlug", courseControllers.findBySlug);
 router.get(

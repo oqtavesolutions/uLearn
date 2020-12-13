@@ -19,6 +19,15 @@ import {
   watchGetCourseLandingPageLoggedInUserSaga,
   watchGetCourseLandingPageSaga,
 } from "../pages/CourseLandingPage/redux/sagas";
+import { watchGetSingleLectureSaga } from "../pages/Lecture/redux/sagas";
+import {
+  watchGetAuthorEditSaga,
+  watchUpdateAuthorSaga,
+} from "../pages/MyPage/redux/sagas";
+import {
+  watchGetExplorePageCoursesByCategorySaga,
+  watchGetExplorePageCoursesSaga,
+} from "../pages/Explore/redux/sagas";
 
 function* userStatusSaga(action) {
   try {
@@ -63,4 +72,14 @@ export default function* rootSaga() {
   yield fork(watchGetCourseLandingPageSaga);
   // get course landing page content user
   yield fork(watchGetCourseLandingPageLoggedInUserSaga);
+  // get lecture after enroll
+  yield fork(watchGetSingleLectureSaga);
+  // get edit author
+  yield fork(watchGetAuthorEditSaga);
+  // get edit update
+  yield fork(watchUpdateAuthorSaga);
+  // get courses for explore page
+  yield fork(watchGetExplorePageCoursesSaga);
+  // get courses for explore page by category
+  yield fork(watchGetExplorePageCoursesByCategorySaga);
 }

@@ -41,14 +41,12 @@ module.exports = {
       });
       console.log(user);
 
-      res
-        .status(200)
-        .json({
-          course,
-          user_id: user.attributes.user_id,
-          isOwner: false,
-          isSubscribed: false,
-        });
+      res.status(200).json({
+        course,
+        user_id: user.attributes.user_id,
+        isOwner: false,
+        isSubscribed: false,
+      });
     } catch (error) {
       res.status(400).json({
         statusCode: 400,
@@ -104,6 +102,41 @@ module.exports = {
           statusCode: 400,
           error: error.message,
           messasge: "operation failed",
+        });
+      res.status(200).json(courses);
+    } catch (error) {
+      res.status(400).json({
+        statusCode: 400,
+        error: error.message,
+        messasge: "operation failed",
+      });
+    }
+  },
+
+  findAllNonAuth: async (req, res) => {
+    try {
+      const courses = await courseServices.findAllNonAuth();
+      if (!courses)
+        return res.status(200).json({
+          courses: [],
+        });
+      res.status(200).json(courses);
+    } catch (error) {
+      res.status(400).json({
+        statusCode: 400,
+        error: error.message,
+        messasge: "operation failed",
+      });
+    }
+  },
+  findByCategoryNonAuth: async (req, res) => {
+    try {
+      const courses = await courseServices.findByCategoryNonAuth(
+        req.params.category
+      );
+      if (!courses)
+        return res.status(200).json({
+          courses: [],
         });
       res.status(200).json(courses);
     } catch (error) {

@@ -12,6 +12,11 @@ router.get(
   lectureControllers.findByCourseAndLectureId
 );
 router.get("/:id", requiresAuth, lectureControllers.find);
+router.get(
+  "/auth/content/:lectureSlug",
+  requiresAuth,
+  lectureControllers.findBySlugAuth
+);
 router.put(
   "/edit/course/:courseId/:lectureId",
   requiresAuth,

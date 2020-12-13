@@ -7,6 +7,9 @@ import getCourseEdit from "../pages/EditCourse/redux/reducers";
 import getCoursesByUser from "../pages/MyCourses/redux/reducers";
 import getLectureEdit from "../pages/EditLecture/redux/reducers";
 import getCourseLandingPage from "../pages/CourseLandingPage/redux/reducers";
+import getSingleLecture from "../pages/Lecture/redux/reducers";
+import getAuthorEdit from "../pages/MyPage/redux/reducers";
+import getExplorePageCourses from "../pages/Explore/redux/reducers";
 import * as types from "./constants";
 
 const initialState = {
@@ -54,4 +57,7 @@ export default combineReducers({
   getLectureEdit,
   createLecture,
   getCourseLandingPage,
+  getSingleLecture,
+  getAuthorEdit,
+  getExplorePageCourses,
 });
