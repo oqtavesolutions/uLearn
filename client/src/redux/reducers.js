@@ -11,6 +11,7 @@ import getSingleLecture from "../pages/Lecture/redux/reducers";
 import getAuthorEdit from "../pages/MyPage/redux/reducers";
 import getExplorePageCourses from "../pages/Explore/redux/reducers";
 import getMyLearning from "../pages/MyLearning/redux/reducers";
+import changePassword from "../pages/MyAccount/redux/reducers";
 import * as types from "./constants";
 
 const initialState = {
@@ -62,4 +63,5 @@ export default combineReducers({
   getAuthorEdit,
   getExplorePageCourses,
   getMyLearning,
+  changePassword,
 });

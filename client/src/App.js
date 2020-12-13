@@ -14,7 +14,7 @@ import React from "react";
 import MyLearning from "./pages/MyLearning";
 import MyPage from "./pages/MyPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import MyAccount from "./pages/MyAccount/MyAccount";
+import MyAccount from "./pages/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
