@@ -41,9 +41,9 @@ function* userStatusSaga(action) {
       payload,
     });
   } catch (error) {
-    console.log("errror", error);
     yield put({
       type: types.GET_USER_STATUS_FAILURE,
+      payload: error,
     });
   }
 }

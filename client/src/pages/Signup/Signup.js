@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -19,6 +20,19 @@ function Signup({ handleSignup, isLoggedIn }) {
 
   return (
     <div className='signup-page'>
+      <ToastContainer
+        position='top-right'
+        autoClose={2000}
+        newestOnTop
+        hideProgressBar={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {/* Same as */}
+      <ToastContainer />
       <h1 className='signup-page__title'>Sign up</h1>
       <p className='signup-page__sub'>
         Enter your name, email and password below to signup, it's free!
@@ -33,30 +47,48 @@ function Signup({ handleSignup, isLoggedIn }) {
         onSubmit={handleSignup}>
         {({ isSubmitting }) => (
           <Form className='signup-page-form'>
-            <Field
-              type='text'
-              name='name'
-              placeholder='Name'
-              className='signup-page-form__input'
-            />
-            <ErrorMessage name='name' component='div' />
-            <Field
-              type='text'
-              name='email'
-              placeholder='Email'
-              className='signup-page-form__input'
-            />
-            <ErrorMessage name='email' component='div' />
-            <Field
-              type='password'
-              name='password'
-              placeholder='password'
-              className='signup-page-form__input'
-            />
-            <ErrorMessage name='password' component='div' />
+            <div className='signup-page-form__input-container'>
+              <Field
+                type='text'
+                name='name'
+                placeholder='Name'
+                className='signup-page-form__input'
+              />
+              <ErrorMessage
+                name='name'
+                component='div'
+                className='signup-page-form__input-error'
+              />
+            </div>
+            <div className='signup-page-form__input-container'>
+              <Field
+                type='text'
+                name='email'
+                placeholder='Email'
+                className='signup-page-form__input'
+              />
+              <ErrorMessage
+                name='email'
+                component='div'
+                className='signup-page-form__input-error'
+              />
+            </div>
+            <div className='signup-page-form__input-container'>
+              <Field
+                type='password'
+                name='password'
+                placeholder='password'
+                className='signup-page-form__input'
+              />
+              <ErrorMessage
+                name='password'
+                component='div'
+                className='signup-page-form__input-error'
+              />
+            </div>
             <button
               type='submit'
-              className='login-page-form__button'
+              className='signup-page-form__button'
               disabled={isSubmitting}>
               Signup
             </button>

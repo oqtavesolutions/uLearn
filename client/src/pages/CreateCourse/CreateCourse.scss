@@ -25,6 +25,36 @@
     margin-bottom: 1rem;
   }
 
+  &__editor {
+
+    margin-bottom: 1rem;
+    position: relative;
+
+    &>.ql-toolbar {
+
+      outline: none;
+      border-top: 1px solid color(global-black) !important;
+      border-left: 1px solid color(global-black) !important;
+      border-right: 1px solid color(global-black) !important;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      padding: 1rem 1rem 0;
+      background: color(global-white);
+      max-width: 100%;
+    }
+
+    &>.ql-container {
+      height: 150px;
+      outline: none;
+      border: 1px solid color(global-black) !important;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      background: color(global-white);
+      max-width: 100%;
+    }
+
+  }
+
   &__text-area {
     outline: none;
     border: 1px solid;

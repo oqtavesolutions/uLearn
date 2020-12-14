@@ -1,4 +1,3 @@
-import "./App.scss";
 import { Switch, Route, withRouter, useRouteMatch } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Header from "./components/Header/Header";
@@ -21,6 +20,8 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import CreateLecture from "./pages/CreateLecture";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.scss";
 
 function App() {
   //const exploreRoute = useRouteMatch("/explore");
