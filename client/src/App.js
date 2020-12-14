@@ -53,7 +53,7 @@ function App() {
   const editLectureRoute = useRouteMatch("/edit/course/lecture");
   const myAccountRoute = useRouteMatch("/my-account");
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 1280px)",
+    query: "(min-device-width: 768px)",
   });
 
   if (

@@ -10,9 +10,9 @@ import firebase from "../../config";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-function Header({ history, isLoggedIn }) {
+function Header({ history, isLoggedIn, email, displayName }) {
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 1280px)",
+    query: "(min-device-width: 768px)",
   });
 
   const hamburgerMenu = useRef(null);
@@ -82,8 +82,12 @@ function Header({ history, isLoggedIn }) {
       </div>
       {!isLoggedIn && (
         <div className='header__login-register'>
-          <Link>Login</Link>
-          <Link>Signup</Link>
+          <Link to='/login' className='header__login'>
+            Login
+          </Link>
+          <Link to='/signup' className='header__signup'>
+            Signup
+          </Link>
         </div>
       )}
       {!isDesktop && isLoggedIn && (
@@ -109,6 +113,18 @@ function Header({ history, isLoggedIn }) {
                 <Link to='/dashboard'>Dashboard</Link>
               </li>
               <li className='header-menus-kebab__list-item'>
+                <Link to='/my-courses'>My Courses</Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/my-learning'>My Learning</Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/explore'>Explore</Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/my-page'>My Page</Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
                 <Link to='/my-account'>My Account</Link>
               </li>
               <li
@@ -130,7 +146,7 @@ function Header({ history, isLoggedIn }) {
           </div>
           <div className='header-menus__collapse'>
             <Avatar
-              name='Nahid Hossain'
+              name={displayName}
               size='50'
               className='header-menus__avatar'
               onClick={handleCollapsibleClick}
@@ -140,12 +156,18 @@ function Header({ history, isLoggedIn }) {
           </div>
           {showDesktopCollapsible && (
             <ul className='header-menus__items' ref={hamburgerMenu}>
-              <li className='header-menus__item'>Nahid Hossain</li>
-              <li className='header-menus__item'>oikantik@gmail.com</li>
-              <li className='header-menus__item'>
+              <li className='header-menus__item header-menus__item--display-name'>
+                {displayName}
+              </li>
+              <li className='header-menus__item header-menus__item--email'>
+                {email}
+              </li>
+              <li className='header-menus__item header-menus__item--my-account'>
                 <Link to='/my-account'>My Account</Link>
               </li>
-              <li className='header-menus__item' onClick={handleLogout}>
+              <li
+                className='header-menus__item header-menus__item--logout'
+                onClick={handleLogout}>
                 Logout
               </li>
             </ul>
@@ -159,11 +181,15 @@ function Header({ history, isLoggedIn }) {
 Header.proptype = {
   history: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  displayName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.userStatus.isLoggedIn,
+    displayName: state.userStatus.displayName,
+    email: state.userStatus.email,
   };
 };
 

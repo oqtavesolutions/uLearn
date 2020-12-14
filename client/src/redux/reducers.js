@@ -18,6 +18,9 @@ const initialState = {
   loading: true,
   isLoggedIn: false,
   success: false,
+  displayName: "",
+  email: "",
+  emailVerified: false,
   error: "",
 };
 
@@ -29,11 +32,15 @@ const userStatus = (state = initialState, action) => {
         loading: true,
       };
     case types.GET_USER_STATUS_SUCCESSFUL:
+      console.log(action.payload);
       return {
         ...state,
         loading: false,
         success: true,
         isLoggedIn: true,
+        displayName: action.payload.displayName,
+        email: action.payload.email,
+        emailVerified: action.payload.emailVerified,
         error: "",
       };
     case types.GET_USER_STATUS_FAILURE:
@@ -42,6 +49,9 @@ const userStatus = (state = initialState, action) => {
         loading: false,
         success: false,
         isLoggedIn: false,
+        displayName: "",
+        email: "",
+        emailVerified: false,
         error: "",
       };
     default:

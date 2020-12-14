@@ -4,11 +4,20 @@
   margin-right: auto;
 
   &__list {
-    list-style: none;
+    display: flex;
+    flex-direction: column;
   }
 
   &__list-item {
-    padding: 1rem 0 1rem 0;
+
+    padding: 1rem;
+    border-radius: 20px;
+
+    &--selected {
+      background-color: rgba(255, 129, 63, .05);
+      color: color(global-orange);
+    }
+
   }
 
   &__list-item-icon {
@@ -18,5 +27,7 @@
   &__list-item-text {
 
     @include m-h2;
+
   }
+
 }
