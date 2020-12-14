@@ -11,7 +11,17 @@ function MyLearning({ handleGetCoursesByUser, courses, success }) {
   return (
     <div className='my-learning-page'>
       <h1 className='my-learning-page__headline'>My Learning</h1>
+      {success && courses.length === 0 && (
+        <p className='my-learning-page__sub'>
+          You have not enrolled into any course yet.{" "}
+          <Link to='/explore' className='my-learning-page__sub-link'>
+            Click here
+          </Link>{" "}
+          to explore and find courses that you may like.
+        </p>
+      )}
       {success &&
+        courses.length > 0 &&
         courses.map((course) => (
           <Link
             to={`/course/${course.course_slug}`}

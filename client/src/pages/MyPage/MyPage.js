@@ -31,6 +31,10 @@ function MyPage({ success, handleUpdateAuthor, handleGetAuthorEdit, author }) {
   };
   return (
     <div className='mypage-page-page'>
+      <h1 className='mypage-page__title'>Update your author page</h1>
+      <p className='mypage-page__sub'>
+        This is what appears for the courses you create.
+      </p>
       {success && (
         <Fragment>
           <Formik

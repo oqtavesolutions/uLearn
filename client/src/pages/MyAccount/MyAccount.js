@@ -21,44 +21,54 @@ const validationSchema = Yup.object().shape({
 
 function MyAccount({ handleChangePassword }) {
   return (
-    <Formik
-      initialValues={{
-        old_password: "",
-        new_password: "",
-        new_password_again: "",
-      }}
-      validationSchema={validationSchema}
-      onSubmit={handleChangePassword}>
-      {({ isSubmitting }) => (
-        <Form>
-          <Field
-            type='password'
-            name='old_password'
-            placeholder='Old Password'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='old_password' component='div' />
-          <Field
-            type='password'
-            name='new_password'
-            placeholder='New Password'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='new_password' component='div' />
+    <div className='my-account-page'>
+      <h1 className='my-account-page__title'>Update your password</h1>
+      <p className='my-account-page__sub'>
+        Enter your current password and new password. Must be longer than 8
+        characters.
+      </p>
+      <Formik
+        initialValues={{
+          old_password: "",
+          new_password: "",
+          new_password_again: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleChangePassword}>
+        {({ isSubmitting }) => (
+          <Form className='my-account-page-form'>
+            <Field
+              type='password'
+              name='old_password'
+              placeholder='Old Password'
+              className='my-account-page-form__input'
+            />
+            <ErrorMessage name='old_password' component='div' />
+            <Field
+              type='password'
+              name='new_password'
+              placeholder='New Password'
+              className='my-account-page-form__input'
+            />
+            <ErrorMessage name='new_password' component='div' />
 
-          <Field
-            type='password'
-            name='new_password_again'
-            placeholder='New Password Again'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='new_password_again' component='div' />
-          <button type='submit' className='' disabled={isSubmitting}>
-            Login
-          </button>
-        </Form>
-      )}
-    </Formik>
+            <Field
+              type='password'
+              name='new_password_again'
+              placeholder='New Password Again'
+              className='my-account-page-form__input'
+            />
+            <ErrorMessage name='new_password_again' component='div' />
+            <button
+              type='submit'
+              className='my-account-page-form__button'
+              disabled={isSubmitting}>
+              Update Password
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 }
 

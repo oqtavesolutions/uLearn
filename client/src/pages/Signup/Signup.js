@@ -3,7 +3,8 @@ import "./Signup.scss";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -11,7 +12,11 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().min(8).required("Required"),
 });
 
-function Signup({ handleSignup }) {
+function Signup({ handleSignup, isLoggedIn }) {
+  if (isLoggedIn) {
+    return <Redirect to='/dashboard' />;
+  }
+
   return (
     <div className='signup-page'>
       <h1 className='signup-page__title'>Sign up</h1>
@@ -70,6 +75,13 @@ function Signup({ handleSignup }) {
 
 Signup.propTypes = {
   handleSignup: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
-export default Signup;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.userStatus.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Signup));

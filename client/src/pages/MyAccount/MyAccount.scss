@@ -1,0 +1,55 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.my-account-page {
+  padding: $mobile-padding;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    padding: 0;
+  }
+
+  &__title {
+    @include m-h1;
+    margin-bottom: 1rem;
+  }
+
+  &__sub {
+    margin-bottom: 2rem;
+  }
+
+  &__sub-link {
+    color: color(global-orange)
+  }
+}
+
+.my-account-page-form {
+  display: flex;
+  flex-direction: column;
+
+  &__input {
+    width: 100%;
+    outline: none;
+    height: 48px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: .225rem 1rem 0;
+    background: color(global-white);
+    margin-bottom: 1rem;
+  }
+
+  &__button {
+    width: 240px;
+    background-color: color(global-black);
+    padding: 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+
+    @include tablet {
+      margin-right: 0;
+    }
+  }
+
+}
