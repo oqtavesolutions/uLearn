@@ -1,7 +1,7 @@
 import React from "react";
 import "./Login.scss";
 import PropTypes from "prop-types";
-import { Redirect, withRouter } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -17,35 +17,50 @@ function Login({ handleLogin, isLoggedIn }) {
   }
 
   return (
-    <Formik
-      initialValues={{
-        email: "",
-        password: "",
-      }}
-      validationSchema={validationSchema}
-      onSubmit={handleLogin}>
-      {({ isSubmitting }) => (
-        <Form>
-          <Field
-            type='text'
-            name='email'
-            placeholder='Email'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='email' component='div' />
-          <Field
-            type='password'
-            name='password'
-            placeholder='password'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='password' component='div' />
-          <button type='submit' className='' disabled={isSubmitting}>
-            Login
-          </button>
-        </Form>
-      )}
-    </Formik>
+    <div className='login-page'>
+      <h1 className='login-page__title'>Login</h1>
+      <p className='login-page__sub'>
+        Enter your email and password below to login
+      </p>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}>
+        {({ isSubmitting }) => (
+          <Form className='login-page-form'>
+            <Field
+              type='text'
+              name='email'
+              placeholder='Email'
+              className='login-page-form__input'
+            />
+            <ErrorMessage name='email' component='div' />
+            <Field
+              type='password'
+              name='password'
+              placeholder='password'
+              className='login-page-form__input'
+            />
+            <ErrorMessage name='password' component='div' />
+            <button
+              type='submit'
+              className='login-page-form__button'
+              disabled={isSubmitting}>
+              Login
+            </button>
+          </Form>
+        )}
+      </Formik>
+      <p className='login-page__sub'>
+        Need a new account?{" "}
+        <Link to='/signup' className='login-page__sub-link'>
+          Sign up here
+        </Link>
+      </p>
+    </div>
   );
 }
 

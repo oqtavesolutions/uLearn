@@ -10,7 +10,14 @@ import firebase from "../../config";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-function Header({ history, isLoggedIn, email, displayName }) {
+function Header({
+  history,
+  isLoggedIn,
+  email,
+  displayName,
+  signupRoute,
+  loginRoute,
+}) {
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 768px)",
   });
@@ -80,7 +87,7 @@ function Header({ history, isLoggedIn, email, displayName }) {
           <img src={logo} alt='logo' className='header__logo-image' />
         </Link>
       </div>
-      {!isLoggedIn && (
+      {!isLoggedIn && !signupRoute && !loginRoute && (
         <div className='header__login-register'>
           <Link to='/login' className='header__login'>
             Login

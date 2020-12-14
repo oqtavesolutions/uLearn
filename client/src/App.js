@@ -35,6 +35,8 @@ function App() {
   //   sensitive: true,
   // });
 
+  const loginRoute = useRouteMatch("/login");
+  const signupRoute = useRouteMatch("/signup");
   const createCourseRoute = useRouteMatch("/create/course");
   const createLectureRoute = useRouteMatch({
     path: "/create/:courseId/lecture",
@@ -123,7 +125,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Header />
+      <Header loginRoute={loginRoute} signupRoute={signupRoute} />
       <Switch>
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />

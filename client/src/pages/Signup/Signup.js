@@ -3,6 +3,7 @@ import "./Signup.scss";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -12,43 +13,58 @@ const validationSchema = Yup.object().shape({
 
 function Signup({ handleSignup }) {
   return (
-    <Formik
-      initialValues={{
-        name: "",
-        email: "",
-        password: "",
-      }}
-      validationSchema={validationSchema}
-      onSubmit={handleSignup}>
-      {({ isSubmitting }) => (
-        <Form>
-          <Field
-            type='text'
-            name='name'
-            placeholder='Name'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='name' component='div' />
-          <Field
-            type='text'
-            name='email'
-            placeholder='Email'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='email' component='div' />
-          <Field
-            type='password'
-            name='password'
-            placeholder='password'
-            className='create-course-form__input'
-          />
-          <ErrorMessage name='password' component='div' />
-          <button type='submit' className='' disabled={isSubmitting}>
-            Login
-          </button>
-        </Form>
-      )}
-    </Formik>
+    <div className='signup-page'>
+      <h1 className='signup-page__title'>Sign up</h1>
+      <p className='signup-page__sub'>
+        Enter your name, email and password below to signup, it's free!
+      </p>
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSignup}>
+        {({ isSubmitting }) => (
+          <Form className='signup-page-form'>
+            <Field
+              type='text'
+              name='name'
+              placeholder='Name'
+              className='signup-page-form__input'
+            />
+            <ErrorMessage name='name' component='div' />
+            <Field
+              type='text'
+              name='email'
+              placeholder='Email'
+              className='signup-page-form__input'
+            />
+            <ErrorMessage name='email' component='div' />
+            <Field
+              type='password'
+              name='password'
+              placeholder='password'
+              className='signup-page-form__input'
+            />
+            <ErrorMessage name='password' component='div' />
+            <button
+              type='submit'
+              className='login-page-form__button'
+              disabled={isSubmitting}>
+              Signup
+            </button>
+          </Form>
+        )}
+      </Formik>
+      <p className='signup-page__sub'>
+        Already signed up?{" "}
+        <Link to='/login' className='signup-page__sub-link'>
+          Login here
+        </Link>
+      </p>
+    </div>
   );
 }
 
