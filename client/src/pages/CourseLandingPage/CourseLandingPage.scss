@@ -1,22 +1,47 @@
 @use '../../partials/typography'as *;
 @use '../../partials/mixins'as *;
 
+.course-landing-page {
+
+  &__container {
+    padding: $mobile-padding;
+    background-color: color(global-black);
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    @include tablet {
+      text-align: initial;
+      min-height: 400px;
+      padding: $tablet-padding;
+    }
+
+    @include desktop {
+      padding: $desktop-padding;
+    }
+  }
+
+
+}
+
 .course-landing-page-description {
-  padding: $mobile-padding;
-  background-color: color(global-green);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 
   @include tablet {
-    padding: $tablet-padding;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    margin: 0 auto;
+    width: 80%;
   }
 
-  @include desktop {
-    padding: $desktop-padding;
-  }
 
   &__title {
     @include m-h1;
@@ -30,8 +55,8 @@
   }
 
   &__button {
-    background-color: color(global-black);
-    color: color(global-white);
+    background-color: color(borders);
+    color: color(global-black);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,30 +65,45 @@
     border: none;
     height: 43px;
     border-radius: 5px;
+    cursor: pointer;
   }
 }
 
 .course-landing-page-modules {
-  padding: $mobile-padding;
+  color: inherit;
+}
+
+.course-landing-page-module {
+  background-color: rgb(182 182 182 / 11%);
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 1rem auto;
+  width: 100%;
+  border: 1px solid color(borders);
 
   @include tablet {
-    padding: $tablet-padding;
+    width: 500px;
   }
 
-  @include desktop {
-    padding: $desktop-padding;
+  &__title {
+    @include m-h2;
   }
 }
 
 .course-landing-page-author {
-  padding: $mobile-padding;
+  background-color: rgb(182 182 182 / 11%);
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 1rem auto;
+  width: 100%;
+  border: 1px solid color(borders);
 
   @include tablet {
-    padding: $tablet-padding;
+    width: 500px;
   }
 
-  @include desktop {
-    padding: $desktop-padding;
+  &__title {
+    @include m-h2;
   }
 }
 
@@ -99,5 +139,22 @@
     border-radius: 18px;
     border: 1px solid color(borders);
     outline: none;
+  }
+}
+
+.course-landing-page-modules-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: $mobile-padding;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $desktop-padding;
   }
 }
