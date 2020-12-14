@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { userStatus } from "../../redux/actions";
+import Loading from "../Loading/Loading";
 
 function LoggedInRoute({ children, handleGetUserStatus, loading }) {
   useEffect(() => {
@@ -10,7 +11,7 @@ function LoggedInRoute({ children, handleGetUserStatus, loading }) {
   }, [handleGetUserStatus]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return <Fragment>{children}</Fragment>;
