@@ -28,13 +28,13 @@ module.exports = {
         user_id: req.user.id,
       });
       if (!findAuthor) {
-        const author = await authorServices.create({
+        const createAuthor = await authorServices.create({
           user_id: req.user.id,
           ...req.body,
         });
-        return res.status(200).json(author);
+        return res.status(200).json(createAuthor);
       }
-      const author = await authorServices.update({ author, ...req.body });
+      const author = await authorServices.update(findAuthor, { ...req.body });
       return res.status(200).json(author);
     } catch (error) {
       console.log(error);

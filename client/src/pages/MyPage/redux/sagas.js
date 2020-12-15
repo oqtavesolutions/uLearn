@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
 import { getAuthorEdit, updateAuthor } from "./middlewares";
+import { toast } from "react-toastify";
 
 function* getAuthorEditSaga(action) {
   console.log("saga");
@@ -25,10 +26,13 @@ function* updateAuthorSaga(action) {
       type: types.UPDATE_AUTHOR_SUCCESSFUL,
       payload,
     });
+    yield call(toast.dark, "Successfully updated page details!");
   } catch (error) {
     yield put({
       type: types.UPDATE_AUTHOR_FAILURE,
+      payload: error,
     });
+    yield call(toast.error, "Update failed! Please try again!");
   }
 }
 
