@@ -12,7 +12,7 @@ import CreateCourse from "./pages/CreateCourse";
 import React from "react";
 import MyLearning from "./pages/MyLearning";
 import MyPage from "./pages/MyPage";
-import LandingPage from "./pages/LandingPage/LandingPage";
+import LandingPage from "./pages/LandingPage";
 import MyAccount from "./pages/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Signup from "./pages/Signup";

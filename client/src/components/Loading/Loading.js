@@ -14,7 +14,7 @@ function Loading() {
         <div className='loader'></div>
       </div>
 
-      <p className='loading__description'>We're loading your data...</p>
+      <p className='loading__description'>Please wait while it loads...</p>
     </div>
   );
 }
