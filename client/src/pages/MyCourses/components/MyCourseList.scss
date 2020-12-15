@@ -6,6 +6,9 @@
   box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
   padding: 1rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   &__description {
     display: flex;
@@ -22,9 +25,7 @@
   }
 
   &__collapsible {
-    position: absolute;
-    top: 0;
-    right: 1rem;
+    margin-left: auto;
     cursor: pointer;
   }
 

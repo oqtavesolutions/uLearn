@@ -3,8 +3,8 @@ exports.up = async function (knex) {
     table.increments("id").primary();
     table.uuid("lecture_id").defaultTo(knex.raw("(UUID())"));
     table.string("lecture_title").notNullable();
-    table.string("lecture_short_description", 1000).notNullable();
     table.string("lecture_description", 1000).notNullable();
+    table.string("lecture_content", 1000);
     table.string("lecture_google_slide", 1000);
     table.string("lecture_video_embed", 1000);
     table.string("lecture_slug").notNullable();

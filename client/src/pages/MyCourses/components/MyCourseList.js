@@ -3,6 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import "./MyCourseList.scss";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 
 function MyCourseList({ course }) {
   const [showNav, setShowNav] = useState(false);
@@ -39,12 +41,12 @@ function MyCourseList({ course }) {
           Date Created: {format(new Date(course.created_at), "MM/dd/yyyy")}
         </span>
       </p>
+      <FontAwesomeIcon
+        icon={faEllipsisH}
+        className='my-courses-page-card__collapsible'
+        onClick={handleClick}
+      />
       <nav className='my-courses-page-card__nav'>
-        <span
-          onClick={handleClick}
-          className='my-courses-page-card__collapsible'>
-          ...
-        </span>
         {showNav && (
           <ul className='my-courses-page-card__items' ref={kebabWrapper}>
             <li className='my-courses-page-card__item'>
