@@ -50,6 +50,7 @@ function Header({
         setShowMenus(false);
       }
     });
+
     // returned function will be called on component unmount
     return () => {
       document.removeEventListener("mousedown", () => {
@@ -117,22 +118,34 @@ function Header({
           <nav className='header-menus-kebab' ref={hamburgerMenuMobile}>
             <ul className='header-menus-kebab__list'>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/dashboard'>Dashboard</Link>
+                <Link to='/dashboard' onClick={handleNavBarClick}>
+                  Dashboard
+                </Link>
               </li>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/my-courses'>My Courses</Link>
+                <Link to='/my-courses' onClick={handleNavBarClick}>
+                  My Courses
+                </Link>
               </li>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/my-learning'>My Learning</Link>
+                <Link to='/my-learning' onClick={handleNavBarClick}>
+                  My Learning
+                </Link>
               </li>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/explore'>Explore</Link>
+                <Link to='/explore' onClick={handleNavBarClick}>
+                  Explore
+                </Link>
               </li>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/my-page'>My Page</Link>
+                <Link to='/my-page' onClick={handleNavBarClick}>
+                  My Page
+                </Link>
               </li>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/my-account'>My Account</Link>
+                <Link to='/my-account' onClick={handleNavBarClick}>
+                  My Account
+                </Link>
               </li>
               <li
                 className='header-menus-kebab__list-item'
@@ -170,7 +183,9 @@ function Header({
                 {email}
               </li>
               <li className='header-menus__item header-menus__item--my-account'>
-                <Link to='/my-account'>My Account</Link>
+                <Link to='/my-account' onClick={handleCollapsibleClick}>
+                  My Account
+                </Link>
               </li>
               <li
                 className='header-menus__item header-menus__item--logout'
