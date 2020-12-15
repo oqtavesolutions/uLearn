@@ -34,5 +34,9 @@
 }
 
 .Toastify__toast-body {
-  color: color(global-white)
+  color: color(global-white);
+}
+
+.Toastify__toast--dark {
+  background-color: color(global-black);
 }

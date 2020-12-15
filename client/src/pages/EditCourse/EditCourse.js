@@ -8,6 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import * as Yup from "yup";
 import LectureList from "./components/LectureList";
+import { ToastContainer, toast } from "react-toastify";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -38,6 +39,7 @@ function EditCourse({
   handleGetCourseLectures,
   handleUpdateCourse,
   updateSuccess,
+  location,
   lectures,
 }) {
   const [editCourseCollapsible, setEditCourseCollapsible] = useState(false);
@@ -51,6 +53,10 @@ function EditCourse({
   useEffect(() => {
     updateSuccess && setEditCourseDetails(false);
   }, [updateSuccess, editCourseDetails]);
+
+  useEffect(() => {
+    location.search && toast.dark("Course has been created successfully");
+  }, [location]);
 
   const handleShowEditCourseCollapsible = () => {
     setEditCourseCollapsible(!editCourseCollapsible);
@@ -75,6 +81,7 @@ function EditCourse({
 
   return (
     <div className='edit-course'>
+      <ToastContainer />
       <div className='edit-course-collapsible'>
         <h1 className='edit-course-collapsible__title'>Edit Course</h1>
         <FontAwesomeIcon
@@ -231,8 +238,9 @@ EditCourse.propTypes = {
   success: PropTypes.bool.isRequired,
   course: PropTypes.object.isRequired,
   handleUpdateCourse: PropTypes.func.isRequired,
-  updateSuccess: PropTypes.bool.isRequired,
+  //  updateSuccess: PropTypes.bool.isRequired,
   lectures: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {

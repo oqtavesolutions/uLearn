@@ -7,11 +7,16 @@
     margin-bottom: 1rem;
   }
 
+  &__create-course-icon {
+    margin-right: 1rem;
+  }
+
   &__create-course {
     background-color: color(borders);
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 2rem;
     border-radius: 5px;
     @include m-h2;

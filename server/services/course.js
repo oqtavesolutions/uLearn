@@ -49,6 +49,14 @@ module.exports = {
       throw error;
     }
   },
+  findSingleBySlug: async ({ course_slug }) => {
+    try {
+      const course = await Course.where({ course_slug }).fetch();
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
   findAllByUser: async ({ user_id }) => {
     try {
       const course = await Course.where({ user_id }).fetchAll();

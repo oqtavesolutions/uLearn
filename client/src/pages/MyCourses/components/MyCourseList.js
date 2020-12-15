@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./MyCourseList.scss";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
 
 function MyCourseList({ course }) {
   const [showNav, setShowNav] = useState(false);
@@ -35,7 +36,7 @@ function MyCourseList({ course }) {
           {course.course_title}
         </span>
         <span className='my-courses-page-card__date'>
-          Date Created: {course.created_at}
+          Date Created: {format(new Date(course.created_at), "MM/dd/yyyy")}
         </span>
       </p>
       <nav className='my-courses-page-card__nav'>
@@ -49,9 +50,9 @@ function MyCourseList({ course }) {
             <li className='my-courses-page-card__item'>
               <Link to={"/edit/course/" + course.course_id}>Edit</Link>
             </li>
-            <li className='my-courses-page-card__item'>View</li>
-            <li className='my-courses-page-card__item'>Subscribers</li>
-            <li className='my-courses-page-card__item'>Delete</li>
+            <li className='my-courses-page-card__item'>
+              <Link to={"/course/" + course.course_slug}>View</Link>
+            </li>
           </ul>
         )}
       </nav>

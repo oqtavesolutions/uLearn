@@ -15,14 +15,24 @@
   display: flex;
   flex-direction: column;
 
+  &__input-container {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
   &__input {
+    width: 100%;
     outline: none;
     height: 48px;
     border: 1px solid;
     border-radius: 5px;
     padding: .225rem 1rem 0;
     background: color(global-white);
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
+  }
+
+  &__input-error {
+    color: color(global-red)
   }
 
   &__editor {
@@ -61,8 +71,9 @@
     border-radius: 5px;
     padding: 1rem 1rem 0;
     background: color(global-white);
-    margin-bottom: 1rem;
-    max-width: 100%;
+    margin-bottom: .5rem;
+    width: 100%;
+    resize: vertical;
   }
 
   &__category {
