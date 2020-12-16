@@ -110,15 +110,13 @@ function App() {
       <PrivateRoute>
         <Header />
         <div className='app'>
-          <main className='main-container'>
-            <Switch>
-              <Route
-                exact
-                path='/course/:courseSlug/lecture/:lectureSlug'
-                component={Lecture}
-              />
-            </Switch>
-          </main>
+          <Switch>
+            <Route
+              exact
+              path='/course/:courseSlug/lecture/:lectureSlug'
+              component={Lecture}
+            />
+          </Switch>
         </div>
       </PrivateRoute>
     );

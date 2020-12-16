@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import "./MyLearning.scss";
-
+import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-function MyLearning({ handleGetCoursesByUser, courses, success }) {
+function MyLearning({ loading, handleGetCoursesByUser, courses, success }) {
   useEffect(() => {
     handleGetCoursesByUser();
   }, [handleGetCoursesByUser]);
   return (
     <div className='my-learning-page'>
       <h1 className='my-learning-page__headline'>My Learning</h1>
+      {loading && !success && <CustomContentLoader />}
       {success && courses.length === 0 && (
         <p className='my-learning-page__sub'>
           You have not enrolled into any course yet.{" "}
@@ -24,7 +25,7 @@ function MyLearning({ handleGetCoursesByUser, courses, success }) {
         courses.length > 0 &&
         courses.map((course) => (
           <Link
-            to={`/course/${course.course_slug}`}
+            to={`/course/${course.courses.course_slug}`}
             key={course.courses.course_id}>
             <article className='my-learning-page-card'>
               <p className='my-learning-page-card__description'>
@@ -46,6 +47,7 @@ MyLearning.propTypes = {
   handleGetCoursesByUser: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
   courses: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default MyLearning;

@@ -39,12 +39,23 @@ module.exports = {
 
   update: async (
     lecture,
-    { lecture_title, lecture_description, lecture_attachment }
+    {
+      lecture_title,
+      lecture_description,
+      lecture_attachment,
+      lecture_content,
+      lecture_google_slide,
+      lecture_video_embed,
+    }
   ) => {
     try {
       return await lecture.save({
         lecture_title: lecture_title || lecture.lecture_title,
         lecture_description: lecture_description || lecture.lecture_description,
+        lecture_google_slide:
+          lecture_google_slide || lecture.lecture_google_slide,
+        lecture_content: lecture_content || lecture.lecture_content,
+        lecture_video_embed: lecture_video_embed || lecture.lecture_video_embed,
         lecture_attachment: lecture_attachment || lecture.lecture_attachment,
       });
     } catch (error) {

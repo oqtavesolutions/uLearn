@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./CourseLandingPage.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -110,19 +110,33 @@ function CourseLandingPage({
             </div>
           </div>
           <div className='course-landing-page-modules-container'>
-            {course.lectures.length &&
+            {course.lectures.length > 0 &&
               course.lectures.map((lecture) => (
                 <div
                   className='course-landing-page-modules'
                   key={lecture.lecture_id}>
-                  <div className='course-landing-page-module'>
-                    <p className='course-landing-page-module__module-title'>
-                      {lecture.lecture_title}
-                    </p>
-                    <p className='course-landing-page-module__module-title'>
-                      {lecture.lecture_description}
-                    </p>
-                  </div>
+                  {isSubscribed ? (
+                    <Link
+                      to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}>
+                      <div className='course-landing-page-module'>
+                        <p className='course-landing-page-module__module-title'>
+                          {lecture.lecture_title}
+                        </p>
+                        <p className='course-landing-page-module__module-title'>
+                          {lecture.lecture_description}
+                        </p>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className='course-landing-page-module'>
+                      <p className='course-landing-page-module__module-title'>
+                        {lecture.lecture_title}
+                      </p>
+                      <p className='course-landing-page-module__module-title'>
+                        {lecture.lecture_description}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ))}
             <div className='course-landing-page-author'>

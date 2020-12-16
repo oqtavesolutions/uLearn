@@ -19,6 +19,17 @@ module.exports = {
     }
   },
 
+  findByPrimaryKeyWithLectures: async ({ id }) => {
+    try {
+      const course = await Course.where({ id }).fetch({
+        withRelated: ["lectures"],
+      });
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   findAllNonAuth: async () => {
     try {
       const course = await Course.fetchAll();
