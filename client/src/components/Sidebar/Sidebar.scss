@@ -1,0 +1,33 @@
+@use '../../partials/typography'as *;
+
+.sidebar {
+  margin-right: auto;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__list-item {
+
+    padding: 1rem;
+    border-radius: 20px;
+
+    &--selected {
+      background-color: rgba(255, 129, 63, .05);
+      color: color(global-orange);
+    }
+
+  }
+
+  &__list-item-icon {
+    margin-right: .5rem;
+  }
+
+  &__list-item-text {
+
+    @include m-h2;
+
+  }
+
+}

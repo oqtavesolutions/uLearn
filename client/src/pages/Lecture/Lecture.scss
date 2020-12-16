@@ -1,0 +1,125 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.enrolled-lecture {
+  width: 100%;
+
+  @include tablet {
+    justify-content: space-between;
+  }
+}
+
+.enrolled-lecture-container {
+
+  &__main {
+    @include tablet {
+      display: flex;
+    }
+
+
+  }
+
+  &__title-icon {
+    margin-right: 1rem;
+  }
+
+  &__title {
+    @include m-h2;
+    margin-bottom: 1rem;
+  }
+
+  &__video-content {
+    width: 100%;
+
+
+  }
+
+  .enrolled-lecture-container-tabs {
+    margin-bottom: 1rem;
+
+    @include tablet {
+      flex-grow: 1;
+      margin-right: 1rem;
+    }
+  }
+
+  &__google-slides-container {
+    position: relative;
+    width: 100%;
+    padding-top: 60%;
+    overflow: hidden;
+  }
+
+  &__google-slides-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.enrolled-lecture-container-lectures {
+
+
+
+  &__title {
+    @include m-h2;
+    margin-bottom: 1rem;
+  }
+
+  &__items {
+    list-style: none;
+    border: 1px solid color(borders);
+
+    @include tablet {
+      max-width: 300px;
+    }
+  }
+
+  &__item {
+    border-bottom: 1px solid color(borders);
+  }
+
+  &__item-link {
+
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+
+    &--selected {
+      background-color: rgba(255, 129, 63, 0.05);
+      color: color(global-orange);
+    }
+  }
+
+  &__item-icon {
+    margin-right: 1rem;
+  }
+}
+
+// react tabs
+
+.react-tabs__tab-panel {
+  min-height: 30vh;
+}
+
+.react-tabs__tab-list {
+  margin: 0 !important;
+  border-color: color(borders) !important;
+}
+
+.react-tabs__tab--selected {
+  border-color: color(borders) !important;
+}
+
+.react-tabs__tab {
+  padding: 12px 20px !important;
+}
+
+.react-tabs__tab-panel--selected {
+  padding: 1rem;
+  border-right: 1px solid color(borders);
+  border-left: 1px solid color(borders);
+  border-bottom: 1px solid color(borders);
+}

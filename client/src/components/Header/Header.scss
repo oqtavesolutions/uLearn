@@ -1,0 +1,131 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.header {
+  position: relative;
+  padding: $mobile-padding;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid color(borders);
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: 1rem $desktop-padding;
+  }
+
+  &__logo-image {
+    width: 100px;
+
+    // @include desktop {
+    //   width: 150px;
+    // }
+  }
+
+  &__login {
+    margin-right: 1rem;
+  }
+
+  &__signup {
+    background-color: color(global-black);
+    padding: .5rem 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+  }
+}
+
+.header-menu-bar {
+
+  &__nav-bar-icon {
+    color: color(global-black)
+  }
+}
+
+.header-menus-kebab {
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+  background-color: color(global-white);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, .15);
+  width: 230px;
+  right: 1rem;
+  border-radius: 4px;
+  z-index: 1;
+
+  &__list {
+    list-style: none;
+  }
+
+  &__list-item {
+    @include m-p1;
+    border-bottom: 1px solid color(borders);
+    padding: 1rem;
+    cursor: pointer;
+  }
+}
+
+.header-menus {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__dashboard {
+    background-color: color(global-black);
+    padding: 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+  }
+
+  &__avatar {
+    border-radius: 50%;
+    cursor: pointer;
+
+    span {
+      @include h3;
+      color: #fff !important;
+    }
+  }
+
+  &__items {
+    position: absolute;
+    min-width: 240px;
+    background: color(global-white);
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    top: 4rem;
+    list-style: none;
+    right: 0rem;
+    z-index: 1;
+  }
+
+  &__item {
+    padding: 1rem;
+    @include p2;
+
+    & a {
+      @include p2;
+    }
+
+    &--display-name {
+      margin-top: 1rem;
+      padding-bottom: 0;
+      line-height: 0;
+    }
+
+    &--email {
+      color: color(grey-text);
+      border-bottom: 1px solid color(borders);
+    }
+
+    &--my-account {
+      border-bottom: 1px solid color(borders);
+    }
+
+    &--logout {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,38 +1,42 @@
-.App {
-  text-align: center;
-}
+@use './partials/resets';
+@use './partials/mixins'as *;
+@use './partials/variables'as *;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.app {
+  padding: $mobile-padding;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  @include tablet {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    width: 80%;
+    padding: $desktop-padding;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.main-container {
+
+  @include tablet {
+    flex: 0 65%;
+    padding-top: 1rem;
+  }
+
+  @include desktop {
+    flex: 0 80%;
+    padding-top: 1rem;
+  }
+
 }
 
-.App-link {
-  color: #61dafb;
+.Toastify__toast-body {
+  color: color(global-white);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Toastify__toast--dark {
+  background-color: color(global-black);
 }

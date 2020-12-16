@@ -1,0 +1,103 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.create-course {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    @include m-h1;
+    margin-bottom: 1rem;
+  }
+}
+
+.create-course-form {
+  display: flex;
+  flex-direction: column;
+
+  &__input-container {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  &__input {
+    width: 100%;
+    outline: none;
+    height: 48px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: .225rem 1rem 0;
+    background: color(global-white);
+    margin-bottom: .5rem;
+  }
+
+  &__input-error {
+    color: color(global-red)
+  }
+
+  &__editor {
+
+    margin-bottom: 1rem;
+    position: relative;
+
+    &>.ql-toolbar {
+
+      outline: none;
+      border-top: 1px solid color(global-black) !important;
+      border-left: 1px solid color(global-black) !important;
+      border-right: 1px solid color(global-black) !important;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      padding: 1rem 1rem 0;
+      background: color(global-white);
+      max-width: 100%;
+    }
+
+    &>.ql-container {
+      height: 150px;
+      outline: none;
+      border: 1px solid color(global-black) !important;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      background: color(global-white);
+      max-width: 100%;
+    }
+
+  }
+
+  &__text-area {
+    outline: none;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 1rem 1rem 0;
+    background: color(global-white);
+    margin-bottom: .5rem;
+    width: 100%;
+    resize: vertical;
+  }
+
+  &__category {
+    outline: none;
+    height: 48px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: .225rem 1rem 0;
+    background: color(global-white);
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    background-color: color(global-black);
+    padding: 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+    margin-right: 1.5rem;
+
+    @include tablet {
+      margin-right: 0;
+      width: 250px;
+    }
+  }
+}
