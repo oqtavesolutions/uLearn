@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import "./Lecture.scss";
 import PropTypes from "prop-types";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Vimeo from "@u-wave/react-vimeo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronCircleRight,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 
 function Lecture({ lecture, success, handleGetSingleLecture, match }) {
@@ -30,6 +33,11 @@ function Lecture({ lecture, success, handleGetSingleLecture, match }) {
           <div className='enrolled-lecture-container__main'>
             <Tabs className='enrolled-lecture-container-tabs'>
               <h1 className='enrolled-lecture-container__title'>
+                <Link
+                  to={`/course/${lecture.course.course_slug}`}
+                  className='enrolled-lecture-container__title-icon'>
+                  <FontAwesomeIcon icon={faArrowLeft} />
+                </Link>
                 {lecture.lecture.lecture_title}
               </h1>
               <TabList>

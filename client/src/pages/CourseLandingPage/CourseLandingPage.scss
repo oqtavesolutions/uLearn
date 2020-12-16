@@ -14,7 +14,6 @@
 
     @include tablet {
       text-align: initial;
-      min-height: 400px;
       padding: $tablet-padding;
     }
 
@@ -35,11 +34,9 @@
   overflow: hidden;
 
   @include tablet {
-    justify-content: space-between;
     align-items: center;
-    flex-direction: row;
     margin: 0 auto;
-    width: 80%;
+    width: 50%;
   }
 
 
@@ -66,24 +63,40 @@
     height: 43px;
     border-radius: 5px;
     cursor: pointer;
+    margin: 0 auto;
+
+    @include tablet {
+      margin: 0;
+    }
   }
 }
 
 .course-landing-page-modules {
   color: inherit;
+
+  width: 100%;
+
+  &__lectures-list {
+    width: 100%;
+
+    @include tablet {
+      flex-grow: 1;
+      margin-right: 2rem;
+    }
+
+  }
 }
 
 .course-landing-page-module {
-  background-color: rgb(182 182 182 / 11%);
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
   padding: 1rem;
-  border-radius: 5px;
-  margin: 1rem auto;
-  width: 100%;
-  border: 1px solid color(borders);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 
-  @include tablet {
-    width: 500px;
-  }
+  // @include tablet {
+  //   width: 500px;
+  // }
 
   &__title {
     @include m-h2;
@@ -91,16 +104,15 @@
 }
 
 .course-landing-page-author {
-  background-color: rgb(182 182 182 / 11%);
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
   padding: 1rem;
-  border-radius: 5px;
-  margin: 1rem auto;
-  width: 100%;
-  border: 1px solid color(borders);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 
-  @include tablet {
-    width: 500px;
-  }
+  // @include tablet {
+  //   width: 500px;
+  // }
 
   &__title {
     @include m-h2;
@@ -122,9 +134,20 @@
   }
 
   &__actions {
-    width: 100%;
-    text-align: center;
+    background-color: color(global-black);
+    color: color(global-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    outline: none;
+    border: none;
+    height: 43px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
   }
+
 
   &__close {
     cursor: pointer;
@@ -143,18 +166,61 @@
 }
 
 .course-landing-page-modules-container {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
   padding: $mobile-padding;
 
+
   @include tablet {
+    width: 80%;
+    flex-direction: row;
+    padding: 1.5rem;
+    justify-content: space-between;
     padding: $tablet-padding;
   }
 
   @include desktop {
     padding: $desktop-padding;
   }
+
+  &__lectures-list {
+    width: 100%;
+
+    @include tablet {
+      margin-right: 3rem;
+      border-right: 1px solid color(borders);
+      padding-right: 3rem;
+    }
+
+  }
+
+  &__title {
+    @include m-h2;
+    margin-bottom: 1rem;
+  }
+}
+
+.course-landing-page-author-list {
+  @include tablet {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+// popup
+
+.popup-content {
+
+  width: 80% !important;
+  padding: 1rem !important;
+  border-radius: 5px;
+
+  @include tablet {
+    width: 50% !important;
+    padding: 4rem !important;
+  }
+
 }

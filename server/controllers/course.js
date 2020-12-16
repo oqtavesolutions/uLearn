@@ -1,6 +1,7 @@
 const courseServices = require("../services/course");
 const userServices = require("../services/user");
 const orderServices = require("../services/order");
+const authorServices = require("../services/author");
 module.exports = {
   find: async (req, res) => {
     try {
@@ -75,6 +76,9 @@ module.exports = {
         id: course.attributes.user_id,
       });
 
+      const author = await authorServices.find({ user_id: req.user.id });
+
+      console.log("author", author);
       const isOwner = user.attributes.id === req.user.id;
 
       const order = await orderServices.find({
@@ -87,6 +91,7 @@ module.exports = {
         user_id: user.attributes.user_id,
         isOwner,
         isSubscribed: order ? true : false,
+        author,
       });
     } catch (error) {
       res.status(400).json({

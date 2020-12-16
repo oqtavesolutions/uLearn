@@ -138,12 +138,12 @@
 }
 
 .course-explore-page-categories-highlights-card {
-  background-color: rgb(182 182 182 / 11%);
-  padding: 1rem;
-  border-radius: 5px;
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+  padding: 2rem;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
   width: 300px;
-  border: 1px solid color(borders);
 
   @include tablet {
     width: 500px;
