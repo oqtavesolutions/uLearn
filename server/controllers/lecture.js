@@ -1,5 +1,6 @@
 const lectureServices = require("../services/lecture");
 const courseServices = require("../services/course");
+const userServices = require("../services/user");
 
 module.exports = {
   find: async (req, res) => {
@@ -77,8 +78,64 @@ module.exports = {
           messasge: "operation failed",
         });
 
+      const course = await courseServices.findByPrimaryKeyWithLectures({
+        id: lecture.attributes.course_id,
+      });
+
+      const user = await userServices.findByPrimaryKey({
+        id: course.attributes.user_id,
+      });
+
+      const isOwner = user.attributes.id === req.user.id;
+
+      if (isOwner) {
+        return res.status(200).json({
+          isSubcribed: true,
+          course,
+          lecture,
+        });
+      }
+
+      const order = await orderServices.find({
+        user_id: req.user.id,
+        course_id: course.attributes.id,
+      });
+
+      if (!isOwner && !order) {
+        res.status(400).json({
+          statusCode: 400,
+          error: error.message,
+          messasge: "operation failed",
+        });
+      }
+
       // check if user owns the lecture or not. If not, show error
 
+      res.status(200).json({
+        isSubcribed: true,
+        course,
+        lecture,
+      });
+    } catch (error) {
+      res.status(400).json({
+        statusCode: 400,
+        error: error.message,
+        messasge: "operation failed",
+      });
+    }
+  },
+
+  findSingleBySlug: async (req, res) => {
+    try {
+      const lecture = await lectureServices.findSingleBySlug({
+        lecture_slug: req.params.lectureSlug,
+      });
+      if (!lecture)
+        return res.status(400).json({
+          statusCode: 400,
+          error: error.message,
+          messasge: "operation failed",
+        });
       res.status(200).json(lecture);
     } catch (error) {
       res.status(400).json({
@@ -125,14 +182,14 @@ module.exports = {
           messasge: "operation failed",
         });
 
-      await lectureServices.create({
+      const data = await lectureServices.create({
         ...req.body,
         course_id: course.id,
       });
 
-      console.log("rest cours", course.attributes.course_id);
       return res.status(200).json({
         message: "lecture created successfully",
+        lecture_id: data.attributes.lecture_id,
         course_id: course.attributes.course_id,
       });
     } catch (error) {
@@ -175,6 +232,7 @@ module.exports = {
           messasge: "operation failed",
         });
 
+      console.log({ ...req.body });
       const data = await lectureServices.update(lecture, {
         ...req.body,
       });

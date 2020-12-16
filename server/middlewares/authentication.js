@@ -11,7 +11,7 @@ const authService = admin.auth();
 exports.requiresAuth = async (req, res, next) => {
   try {
     const { firebase_token } = req.headers;
-    console.log(firebase_token);
+
     const { email_verified, uid, email } = await authService.verifyIdToken(
       firebase_token
     );
@@ -23,8 +23,6 @@ exports.requiresAuth = async (req, res, next) => {
       user_uuid: authenticatedUser.attributes.user_id,
       email,
     };
-
-    console.log(req.user);
 
     next();
   } catch (error) {

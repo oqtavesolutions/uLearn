@@ -1,6 +1,7 @@
 const courseServices = require("../services/course");
 const userServices = require("../services/user");
-
+const orderServices = require("../services/order");
+const authorServices = require("../services/author");
 module.exports = {
   find: async (req, res) => {
     try {
@@ -75,14 +76,44 @@ module.exports = {
         id: course.attributes.user_id,
       });
 
+      const author = await authorServices.find({ user_id: req.user.id });
+
+      console.log("author", author);
       const isOwner = user.attributes.id === req.user.id;
+
+      const order = await orderServices.find({
+        user_id: req.user.id,
+        course_id: course.attributes.id,
+      });
 
       res.status(200).json({
         course,
         user_id: user.attributes.user_id,
         isOwner,
-        isSubscribed: false,
+        isSubscribed: order ? true : false,
+        author,
       });
+    } catch (error) {
+      res.status(400).json({
+        statusCode: 400,
+        error: error.message,
+        messasge: "operation failed",
+      });
+    }
+  },
+
+  findSingleBySlug: async (req, res) => {
+    try {
+      const courses = await courseServices.findSingleBySlug({
+        course_slug: req.params.courseSlug,
+      });
+      if (!courses)
+        return res.status(400).json({
+          statusCode: 400,
+          error: error.message,
+          messasge: "operation failed",
+        });
+      res.status(200).json(courses);
     } catch (error) {
       res.status(400).json({
         statusCode: 400,

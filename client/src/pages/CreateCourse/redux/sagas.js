@@ -2,6 +2,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
 import createCourse from "./middlewares";
 import history from "../../../utils/history";
+import { toast } from "react-toastify";
 
 function forwardTo(location) {
   history.push(location);
@@ -16,11 +17,16 @@ function* createCourseSaga(action) {
       type: types.CREATE_COURSE_SUCCESSFUL,
       payload,
     });
-    yield call(forwardTo, "/edit/course/" + payload.data.course_id);
+    yield call(
+      forwardTo,
+      "/edit/course/" + payload.data.course_id + "?success=true"
+    );
   } catch (error) {
     yield put({
       type: types.CREATE_COURSE_FAILURE,
+      payload: error,
     });
+    yield call(toast.error, "Creating course failed, please try again!");
   }
 }
 

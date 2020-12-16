@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { userStatus } from "../../redux/actions";
+import Loading from "../Loading/Loading";
 
 function PrivateRoute({ children, handleGetUserStatus, loading, isLoggedIn }) {
   useEffect(() => {
@@ -10,7 +11,7 @@ function PrivateRoute({ children, handleGetUserStatus, loading, isLoggedIn }) {
   }, [handleGetUserStatus]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (!loading && !isLoggedIn) {

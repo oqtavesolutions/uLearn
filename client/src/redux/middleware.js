@@ -14,6 +14,7 @@ const fetchUserStatus = () => {
 
 const userStatus = async () => {
   const user = await fetchUserStatus();
+  console.log(user);
   return user;
 };
 

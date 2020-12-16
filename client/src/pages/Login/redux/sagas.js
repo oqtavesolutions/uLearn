@@ -2,6 +2,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
 import userLogin from "./middlewares";
 import history from "../../../utils/history";
+import { toast } from "react-toastify";
 
 function forwardTo(location) {
   history.push(location);
@@ -20,6 +21,7 @@ function* userLoginSaga(action) {
     yield put({
       type: types.USER_LOGIN_FAILURE,
     });
+    yield call(toast.error, "Invalid username or password");
   }
 }
 

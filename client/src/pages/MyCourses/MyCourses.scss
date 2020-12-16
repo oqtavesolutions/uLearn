@@ -7,11 +7,16 @@
     margin-bottom: 1rem;
   }
 
+  &__create-course-icon {
+    margin-right: 1rem;
+  }
+
   &__create-course {
     background-color: color(borders);
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 2rem;
     border-radius: 5px;
     @include m-h2;
@@ -25,4 +30,12 @@
     margin-bottom: 1rem;
   }
 
+}
+
+.my-courses-page-card-container {
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }

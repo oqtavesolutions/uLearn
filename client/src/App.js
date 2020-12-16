@@ -1,4 +1,3 @@
-import "./App.scss";
 import { Switch, Route, withRouter, useRouteMatch } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Header from "./components/Header/Header";
@@ -13,14 +12,16 @@ import CreateCourse from "./pages/CreateCourse";
 import React from "react";
 import MyLearning from "./pages/MyLearning";
 import MyPage from "./pages/MyPage";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import MyAccount from "./pages/MyAccount/MyAccount";
+import LandingPage from "./pages/LandingPage";
+import MyAccount from "./pages/MyAccount";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import CreateLecture from "./pages/CreateLecture";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.scss";
 
 function App() {
   //const exploreRoute = useRouteMatch("/explore");
@@ -35,6 +36,8 @@ function App() {
   //   sensitive: true,
   // });
 
+  const loginRoute = useRouteMatch("/login");
+  const signupRoute = useRouteMatch("/signup");
   const createCourseRoute = useRouteMatch("/create/course");
   const createLectureRoute = useRouteMatch({
     path: "/create/:courseId/lecture",
@@ -53,7 +56,7 @@ function App() {
   const editLectureRoute = useRouteMatch("/edit/course/lecture");
   const myAccountRoute = useRouteMatch("/my-account");
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 1280px)",
+    query: "(min-device-width: 768px)",
   });
 
   if (
@@ -107,15 +110,13 @@ function App() {
       <PrivateRoute>
         <Header />
         <div className='app'>
-          <main className='main-container'>
-            <Switch>
-              <Route
-                exact
-                path='/course/:courseSlug/lecture/:lectureSlug'
-                component={Lecture}
-              />
-            </Switch>
-          </main>
+          <Switch>
+            <Route
+              exact
+              path='/course/:courseSlug/lecture/:lectureSlug'
+              component={Lecture}
+            />
+          </Switch>
         </div>
       </PrivateRoute>
     );
@@ -123,7 +124,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Header />
+      <Header loginRoute={loginRoute} signupRoute={signupRoute} />
       <Switch>
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />

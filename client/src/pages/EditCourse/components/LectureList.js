@@ -5,6 +5,7 @@ import "./LectureList.scss";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { format } from "date-fns";
 
 function LectureList({ success, courseId, lecture }) {
   const [showNav, setShowNav] = useState(false);
@@ -38,6 +39,9 @@ function LectureList({ success, courseId, lecture }) {
           <p className='edit-course-lectures-list-card__description'>
             <span className='edit-course-lectures-list-card__title'>
               {lecture.lecture_title}
+            </span>
+            <span className='edit-course-lectures-list-card__sub'>
+              Created at:{format(new Date(lecture.created_at), "MM/dd/yyyy")}
             </span>
           </p>
           <FontAwesomeIcon

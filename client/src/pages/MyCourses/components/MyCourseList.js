@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./MyCourseList.scss";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 
 function MyCourseList({ course }) {
   const [showNav, setShowNav] = useState(false);
@@ -35,23 +38,23 @@ function MyCourseList({ course }) {
           {course.course_title}
         </span>
         <span className='my-courses-page-card__date'>
-          Date Created: {course.created_at}
+          Date Created: {format(new Date(course.created_at), "MM/dd/yyyy")}
         </span>
       </p>
+      <FontAwesomeIcon
+        icon={faEllipsisH}
+        className='my-courses-page-card__collapsible'
+        onClick={handleClick}
+      />
       <nav className='my-courses-page-card__nav'>
-        <span
-          onClick={handleClick}
-          className='my-courses-page-card__collapsible'>
-          ...
-        </span>
         {showNav && (
           <ul className='my-courses-page-card__items' ref={kebabWrapper}>
             <li className='my-courses-page-card__item'>
               <Link to={"/edit/course/" + course.course_id}>Edit</Link>
             </li>
-            <li className='my-courses-page-card__item'>View</li>
-            <li className='my-courses-page-card__item'>Subscribers</li>
-            <li className='my-courses-page-card__item'>Delete</li>
+            <li className='my-courses-page-card__item'>
+              <Link to={"/course/" + course.course_slug}>View</Link>
+            </li>
           </ul>
         )}
       </nav>
