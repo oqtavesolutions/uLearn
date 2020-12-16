@@ -45,7 +45,7 @@ function MyPage({
       <p className='mypage-page__sub'>
         This is what appears for the courses you create.
       </p>
-      {loading && <CustomContentLoader />}
+      {!success && loading && <CustomContentLoader />}
       {success && (
         <Fragment>
           <Formik

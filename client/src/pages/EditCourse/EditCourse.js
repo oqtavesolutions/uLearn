@@ -81,6 +81,7 @@ function EditCourse({
   const handleShowEditLecturesList = () => {
     handleGetCourseLectures(match.params.courseId);
     setEditCourseLecturesList(!editCourseLecturesList);
+    setEditCourseDetailsCollapsible(false);
   };
 
   const handleFormSubmit = (values) => {

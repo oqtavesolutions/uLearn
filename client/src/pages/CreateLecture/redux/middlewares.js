@@ -4,6 +4,10 @@ const createCourse = async ({
   lecture_title,
   lecture_description,
   lecture_slug,
+  lecture_content,
+  lecture_google_slide,
+  lecture_video_embed,
+  lecture_attachment,
   course_id,
 }) => {
   const response = await AuthenticatedRequest.post(
@@ -12,6 +16,10 @@ const createCourse = async ({
       lecture_title,
       lecture_description,
       lecture_slug,
+      lecture_content,
+      lecture_google_slide,
+      lecture_video_embed,
+      lecture_attachment,
     }
   );
   return {

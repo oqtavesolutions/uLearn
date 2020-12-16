@@ -5,5 +5,6 @@ const { requiresAuth } = require("../middlewares/authentication");
 
 router.post("/", requiresAuth, authorControllers.createUpdate);
 router.get("/", requiresAuth, authorControllers.find);
+router.get("/:authorSlug", authorControllers.findSingleBySlug);
 
 module.exports = router;

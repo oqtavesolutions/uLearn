@@ -41,4 +41,8 @@
     @include m-p1;
   }
 
+  &__collapsible {
+    cursor: pointer;
+  }
+
 }

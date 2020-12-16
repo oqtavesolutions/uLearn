@@ -19,6 +19,15 @@ module.exports = {
     }
   },
 
+  findSingleBySlug: async ({ lecture_slug }) => {
+    try {
+      const lecture = await Lecture.where({ lecture_slug }).fetch();
+      return lecture;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   findBySlug: async ({ lecture_slug }) => {
     try {
       const lecture = await Lecture.where({ lecture_slug }).fetch();
@@ -46,6 +55,10 @@ module.exports = {
     lecture_title,
     lecture_description,
     lecture_slug,
+    lecture_content,
+    lecture_google_slide,
+    lecture_video_embed,
+    lecture_attachment,
     course_id,
   }) => {
     try {
@@ -53,6 +66,10 @@ module.exports = {
         lecture_title,
         lecture_description,
         lecture_slug,
+        lecture_content,
+        lecture_google_slide,
+        lecture_video_embed,
+        lecture_attachment,
         course_id,
       });
       return await lecture.save();

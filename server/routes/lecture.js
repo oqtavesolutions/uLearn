@@ -22,5 +22,9 @@ router.put(
   requiresAuth,
   lectureControllers.update
 );
+router.get(
+  "/content/validation/:lectureSlug",
+  lectureControllers.findSingleBySlug
+);
 
 module.exports = router;

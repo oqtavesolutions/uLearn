@@ -22,6 +22,26 @@ module.exports = {
       });
     }
   },
+  findSingleBySlug: async (req, res) => {
+    try {
+      const author = await authorServices.findSingleBySlug({
+        author_slug: req.params.authorSlug,
+      });
+      if (!author)
+        return res.status(400).json({
+          statusCode: 400,
+          error: error.message,
+          messasge: "operation failed",
+        });
+      res.status(200).json(author);
+    } catch (error) {
+      res.status(400).json({
+        statusCode: 400,
+        error: error.message,
+        messasge: "operation failed",
+      });
+    }
+  },
   createUpdate: async (req, res) => {
     try {
       const findAuthor = await authorServices.find({

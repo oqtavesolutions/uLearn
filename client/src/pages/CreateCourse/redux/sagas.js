@@ -24,6 +24,7 @@ function* createCourseSaga(action) {
   } catch (error) {
     yield put({
       type: types.CREATE_COURSE_FAILURE,
+      payload: error,
     });
     yield call(toast.error, "Creating course failed, please try again!");
   }

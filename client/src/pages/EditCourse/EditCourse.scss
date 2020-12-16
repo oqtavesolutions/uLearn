@@ -13,6 +13,10 @@
     @include m-h1;
   }
 
+  &__nav-bar {
+    cursor: pointer;
+  }
+
   &__items {
     background-color: color(global-white);
     list-style: none;
@@ -27,6 +31,7 @@
   &__item {
     padding: .125rem;
     @include m-p1;
+    cursor: pointer;
   }
 
 }
@@ -299,6 +304,7 @@
   &__item {
     padding: .125rem;
     @include m-p1;
+    cursor: pointer;
   }
 }
 

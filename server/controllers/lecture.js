@@ -89,6 +89,27 @@ module.exports = {
     }
   },
 
+  findSingleBySlug: async (req, res) => {
+    try {
+      const lecture = await lectureServices.findSingleBySlug({
+        lecture_slug: req.params.lectureSlug,
+      });
+      if (!lecture)
+        return res.status(400).json({
+          statusCode: 400,
+          error: error.message,
+          messasge: "operation failed",
+        });
+      res.status(200).json(lecture);
+    } catch (error) {
+      res.status(400).json({
+        statusCode: 400,
+        error: error.message,
+        messasge: "operation failed",
+      });
+    }
+  },
+
   findAllByCourse: async (req, res) => {
     try {
       const course = await courseServices.find({ course_id: req.params.id });
@@ -125,14 +146,14 @@ module.exports = {
           messasge: "operation failed",
         });
 
-      await lectureServices.create({
+      const data = await lectureServices.create({
         ...req.body,
         course_id: course.id,
       });
 
-      console.log("rest cours", course.attributes.course_id);
       return res.status(200).json({
         message: "lecture created successfully",
+        lecture_id: data.attributes.lecture_id,
         course_id: course.attributes.course_id,
       });
     } catch (error) {

@@ -8,7 +8,7 @@ exports.up = async function (knex) {
     table.string("lecture_google_slide", 1000);
     table.string("lecture_video_embed", 1000);
     table.string("lecture_slug").notNullable();
-    table.string("lecture_attachment");
+    table.string("lecture_attachment"); // will be changed to json later
     table
       .integer("course_id")
       .unsigned()
