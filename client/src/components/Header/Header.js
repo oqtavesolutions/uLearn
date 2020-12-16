@@ -10,9 +10,16 @@ import firebase from "../../config";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-function Header({ history, isLoggedIn }) {
+function Header({
+  history,
+  isLoggedIn,
+  email,
+  displayName,
+  signupRoute,
+  loginRoute,
+}) {
   const isDesktop = useMediaQuery({
-    query: "(min-device-width: 1280px)",
+    query: "(min-device-width: 768px)",
   });
 
   const hamburgerMenu = useRef(null);
@@ -43,6 +50,7 @@ function Header({ history, isLoggedIn }) {
         setShowMenus(false);
       }
     });
+
     // returned function will be called on component unmount
     return () => {
       document.removeEventListener("mousedown", () => {
@@ -80,10 +88,14 @@ function Header({ history, isLoggedIn }) {
           <img src={logo} alt='logo' className='header__logo-image' />
         </Link>
       </div>
-      {!isLoggedIn && (
+      {!isLoggedIn && !signupRoute && !loginRoute && (
         <div className='header__login-register'>
-          <Link>Login</Link>
-          <Link>Signup</Link>
+          <Link to='/login' className='header__login'>
+            Login
+          </Link>
+          <Link to='/signup' className='header__signup'>
+            Signup
+          </Link>
         </div>
       )}
       {!isDesktop && isLoggedIn && (
@@ -106,10 +118,34 @@ function Header({ history, isLoggedIn }) {
           <nav className='header-menus-kebab' ref={hamburgerMenuMobile}>
             <ul className='header-menus-kebab__list'>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/dashboard'>Dashboard</Link>
+                <Link to='/dashboard' onClick={handleNavBarClick}>
+                  Dashboard
+                </Link>
               </li>
               <li className='header-menus-kebab__list-item'>
-                <Link to='/my-account'>My Account</Link>
+                <Link to='/my-courses' onClick={handleNavBarClick}>
+                  My Courses
+                </Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/my-learning' onClick={handleNavBarClick}>
+                  My Learning
+                </Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/explore' onClick={handleNavBarClick}>
+                  Explore
+                </Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/my-page' onClick={handleNavBarClick}>
+                  My Page
+                </Link>
+              </li>
+              <li className='header-menus-kebab__list-item'>
+                <Link to='/my-account' onClick={handleNavBarClick}>
+                  My Account
+                </Link>
               </li>
               <li
                 className='header-menus-kebab__list-item'
@@ -130,22 +166,30 @@ function Header({ history, isLoggedIn }) {
           </div>
           <div className='header-menus__collapse'>
             <Avatar
-              name='Nahid Hossain'
+              name={displayName}
               size='50'
               className='header-menus__avatar'
               onClick={handleCollapsibleClick}
               textSizeRatio={1.75}
-              color='#3bc371'
+              color='#323232'
             />
           </div>
           {showDesktopCollapsible && (
             <ul className='header-menus__items' ref={hamburgerMenu}>
-              <li className='header-menus__item'>Nahid Hossain</li>
-              <li className='header-menus__item'>oikantik@gmail.com</li>
-              <li className='header-menus__item'>
-                <Link to='/my-account'>My Account</Link>
+              <li className='header-menus__item header-menus__item--display-name'>
+                {displayName}
               </li>
-              <li className='header-menus__item' onClick={handleLogout}>
+              <li className='header-menus__item header-menus__item--email'>
+                {email}
+              </li>
+              <li className='header-menus__item header-menus__item--my-account'>
+                <Link to='/my-account' onClick={handleCollapsibleClick}>
+                  My Account
+                </Link>
+              </li>
+              <li
+                className='header-menus__item header-menus__item--logout'
+                onClick={handleLogout}>
                 Logout
               </li>
             </ul>
@@ -159,11 +203,15 @@ function Header({ history, isLoggedIn }) {
 Header.proptype = {
   history: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  displayName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.userStatus.isLoggedIn,
+    displayName: state.userStatus.displayName,
+    email: state.userStatus.email,
   };
 };
 

@@ -9,6 +9,10 @@ router.get("/explore/:category", courseControllers.findByCategoryNonAuth);
 router.get("/courses", requiresAuth, courseControllers.findAllByUser);
 router.get("/content/:courseSlug", courseControllers.findBySlug);
 router.get(
+  "/content/validation/:courseSlug",
+  courseControllers.findSingleBySlug
+);
+router.get(
   "/auth/content/:courseSlug",
   requiresAuth,
   courseControllers.findBySlugAuth

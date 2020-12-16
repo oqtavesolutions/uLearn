@@ -5,23 +5,24 @@
 
   position: relative;
   display: flex;
-  flex-direction: column;
-
-  @include tablet {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+  padding: 1rem;
+  margin-bottom: 1rem;
 
   &__description {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+
   }
 
   &__title {
     @include m-h2;
+  }
+
+  &__sub {
+    @include m-p2;
   }
 
   &__items {
@@ -38,6 +39,10 @@
   &__item {
     padding: .125rem;
     @include m-p1;
+  }
+
+  &__collapsible {
+    cursor: pointer;
   }
 
 }

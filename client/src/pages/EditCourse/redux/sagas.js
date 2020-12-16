@@ -5,11 +5,7 @@ import {
   getCourseLectureList,
   updateCourse,
 } from "./middlewares";
-//import history from "../../../utils/history";
-
-// function forwardTo(location) {
-//   history.push(location);
-// }
+import { toast } from "react-toastify";
 
 function* getCourseEditSaga(action) {
   console.log("Edit course");
@@ -25,7 +21,9 @@ function* getCourseEditSaga(action) {
     console.log(error);
     yield put({
       type: types.GET_COURSE_EDIT_FAILURE,
+      payload: error,
     });
+    yield call(toast.error, "Could not load edit, please try again");
   }
 }
 
@@ -43,6 +41,7 @@ function* getCourseLectureListSaga(action) {
     console.log(error);
     yield put({
       type: types.GET_COURSE_LECTURE_LIST_FAILURE,
+      payload: error,
     });
   }
 }

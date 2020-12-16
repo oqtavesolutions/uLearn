@@ -13,6 +13,7 @@ const initialState = {
     error: "",
   },
   error: "",
+  author: {},
 };
 
 const getCourseLandingPage = (state = initialState, action) => {
@@ -26,6 +27,7 @@ const getCourseLandingPage = (state = initialState, action) => {
         loading: false,
         success: true,
         course: action.payload.course.course,
+        author: action.payload.course.author,
         relation: action.payload.course.user_id,
         isOwner: action.payload.course.isOwner || false,
         isSubscribed: action.payload.course.isSubscribed || false,
@@ -38,6 +40,7 @@ const getCourseLandingPage = (state = initialState, action) => {
         success: false,
         course: false,
         relation: "",
+        author: {},
         error: action.payload.message,
       };
 

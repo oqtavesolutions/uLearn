@@ -4,6 +4,7 @@ exports.up = async function (knex) {
     table.uuid("author_id").defaultTo(knex.raw("(UUID())"));
     table.string("author_name").notNullable();
     table.string("author_bio").notNullable();
+    table.string("author_slug").notNullable();
     table.string("profile_image_url");
     table
       .integer("user_id")

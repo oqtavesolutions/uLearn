@@ -6,6 +6,14 @@
     @include m-h1;
     margin-bottom: 1rem;
   }
+
+  &__sub {
+    margin-bottom: 2rem;
+  }
+
+  &__sub-link {
+    color: color(global-orange)
+  }
 }
 
 .my-learning-page-card {

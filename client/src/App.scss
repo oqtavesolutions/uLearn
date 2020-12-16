@@ -6,19 +6,37 @@
   padding: $mobile-padding;
 
   @include tablet {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
     padding: $tablet-padding;
   }
 
   @include desktop {
-    padding: $desktop-padding;
     width: 80%;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
+    padding: $desktop-padding;
   }
 }
 
 .main-container {
-  flex: 0 80%;
-  padding-top: 1rem;
+
+  @include tablet {
+    flex: 0 65%;
+    padding-top: 1rem;
+  }
+
+  @include desktop {
+    flex: 0 80%;
+    padding-top: 1rem;
+  }
+
+}
+
+.Toastify__toast-body {
+  color: color(global-white);
+}
+
+.Toastify__toast--dark {
+  background-color: color(global-black);
 }

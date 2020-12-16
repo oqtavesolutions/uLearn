@@ -10,6 +10,10 @@ const mapDispatchToProps = (dispatch) => {
       lecture_description,
       lecture_slug,
       course_id,
+      lecture_content,
+      lecture_google_slide,
+      lecture_video_embed,
+      lecture_attachment,
     }) => {
       dispatch(
         createLecture({
@@ -17,6 +21,10 @@ const mapDispatchToProps = (dispatch) => {
           lecture_description,
           lecture_slug,
           course_id,
+          lecture_content,
+          lecture_google_slide,
+          lecture_video_embed,
+          lecture_attachment,
         })
       );
     },

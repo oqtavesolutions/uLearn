@@ -19,6 +19,17 @@ module.exports = {
     }
   },
 
+  findByPrimaryKeyWithLectures: async ({ id }) => {
+    try {
+      const course = await Course.where({ id }).fetch({
+        withRelated: ["lectures"],
+      });
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   findAllNonAuth: async () => {
     try {
       const course = await Course.fetchAll();
@@ -44,6 +55,14 @@ module.exports = {
       const course = await Course.where({ course_slug }).fetch({
         withRelated: ["lectures"],
       });
+      return course;
+    } catch (error) {
+      throw error;
+    }
+  },
+  findSingleBySlug: async ({ course_slug }) => {
+    try {
+      const course = await Course.where({ course_slug }).fetch();
       return course;
     } catch (error) {
       throw error;

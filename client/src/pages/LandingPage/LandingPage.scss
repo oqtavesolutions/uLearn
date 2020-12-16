@@ -1,0 +1,275 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+
+
+.landing-page-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  padding: $mobile-padding;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $tablet-padding;
+  }
+
+
+  &__title {
+    @include m-h1;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+
+    @include tablet {
+      @include h1;
+    }
+  }
+
+  &__highlighted {
+    @include m-h1;
+    color: color(global-orange);
+    position: relative;
+    margin-bottom: 2rem;
+
+    @include tablet {
+      @include h1;
+      color: color(global-orange);
+    }
+
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   right: 0;
+    //   bottom: -10px;
+    //   border-bottom: 4px solid color(global-blue);
+    //   width: 100%;
+    // }
+  }
+
+  &__sub {
+    @include p1;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+
+  &__button-section {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+  }
+
+  &__button {
+    @include h3;
+    background-color: color(global-black);
+    padding: 1rem 2rem;
+    color: color(global-white);
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  &__button-sub {
+    @include m-p2;
+    color: color(grey-text);
+  }
+}
+
+.landing-page-features {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  padding: $mobile-padding;
+
+
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem $tablet-padding;
+  }
+
+  @include desktop {
+    padding: 1rem $desktop-padding;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    padding: 1rem;
+    border-radius: 5px;
+
+    @include tablet {
+      width: 280px;
+      margin-right: 1rem;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+
+  }
+
+  &__card-icon {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__card-title {
+    @include m-h2;
+    margin-bottom: 1rem;
+  }
+
+  &__card-description {
+    @include m-p1;
+    text-align: center;
+  }
+}
+
+.landing-page-explore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $mobile-padding;
+  flex-direction: column;
+
+  @include tablet {
+    padding: $tablet-padding;
+  }
+
+  @include desktop {
+    padding: $tablet-padding;
+  }
+
+  &__cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include tablet {
+      padding: $tablet-padding;
+    }
+
+    @include desktop {
+      padding: $tablet-padding;
+    }
+  }
+
+
+
+  &__title {
+    @include m-h1;
+    margin-bottom: 3rem;
+
+
+    @include tablet {
+      @include h1;
+    }
+  }
+
+}
+
+.landing-page-explore-cards {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  @include tablet {
+    max-width: 740px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    padding: 1rem;
+    border-radius: 5px;
+
+    @include tablet {
+      width: 240px;
+    }
+
+
+
+  }
+
+  &__image {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    @include m-h2;
+
+  }
+}
+
+.landing-page-footer {
+
+  background-color: color(global-black);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  &__title {
+    @include m-h1;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: color(global-white);
+
+    @include tablet {
+      @include h1;
+      color: color(global-white);
+    }
+  }
+
+
+  &__sub {
+    @include p1;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: color(global-white);
+  }
+
+
+  &__button-section {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+  }
+
+  &__button {
+    @include h3;
+    color: color(global-black);
+    background-color: color(global-white);
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+  }
+}

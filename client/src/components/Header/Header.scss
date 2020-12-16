@@ -24,6 +24,17 @@
     //   width: 150px;
     // }
   }
+
+  &__login {
+    margin-right: 1rem;
+  }
+
+  &__signup {
+    background-color: color(global-black);
+    padding: .5rem 1rem;
+    color: color(global-white);
+    border-radius: 5px;
+  }
 }
 
 .header-menu-bar {
@@ -82,17 +93,39 @@
   &__items {
     position: absolute;
     min-width: 240px;
-    background: #fff;
+    background: color(global-white);
     box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
     top: 4rem;
     list-style: none;
     right: 0rem;
-    padding: 1rem;
     z-index: 1;
   }
 
   &__item {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem;
+    @include p2;
+
+    & a {
+      @include p2;
+    }
+
+    &--display-name {
+      margin-top: 1rem;
+      padding-bottom: 0;
+      line-height: 0;
+    }
+
+    &--email {
+      color: color(grey-text);
+      border-bottom: 1px solid color(borders);
+    }
+
+    &--my-account {
+      border-bottom: 1px solid color(borders);
+    }
+
+    &--logout {
+      cursor: pointer;
+    }
   }
 }

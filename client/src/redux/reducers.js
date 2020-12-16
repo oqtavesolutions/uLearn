@@ -11,12 +11,16 @@ import getSingleLecture from "../pages/Lecture/redux/reducers";
 import getAuthorEdit from "../pages/MyPage/redux/reducers";
 import getExplorePageCourses from "../pages/Explore/redux/reducers";
 import getMyLearning from "../pages/MyLearning/redux/reducers";
+import changePassword from "../pages/MyAccount/redux/reducers";
 import * as types from "./constants";
 
 const initialState = {
   loading: true,
   isLoggedIn: false,
   success: false,
+  displayName: "",
+  email: "",
+  emailVerified: false,
   error: "",
 };
 
@@ -28,11 +32,15 @@ const userStatus = (state = initialState, action) => {
         loading: true,
       };
     case types.GET_USER_STATUS_SUCCESSFUL:
+      console.log(action.payload);
       return {
         ...state,
         loading: false,
         success: true,
         isLoggedIn: true,
+        displayName: action.payload.displayName,
+        email: action.payload.email,
+        emailVerified: action.payload.emailVerified,
         error: "",
       };
     case types.GET_USER_STATUS_FAILURE:
@@ -41,6 +49,9 @@ const userStatus = (state = initialState, action) => {
         loading: false,
         success: false,
         isLoggedIn: false,
+        displayName: "",
+        email: "",
+        emailVerified: false,
         error: "",
       };
     default:
@@ -62,4 +73,5 @@ export default combineReducers({
   getAuthorEdit,
   getExplorePageCourses,
   getMyLearning,
+  changePassword,
 });

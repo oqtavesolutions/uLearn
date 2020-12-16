@@ -11,6 +11,14 @@ module.exports = {
       throw error;
     }
   },
+  findSingleBySlug: async ({ author_slug }) => {
+    try {
+      const author = await Author.where({ author_slug }).fetch();
+      return author;
+    } catch (error) {
+      throw error;
+    }
+  },
   create: async ({ user_id, author_name, author_bio, author_slug }) => {
     try {
       return await new Author({
@@ -23,7 +31,7 @@ module.exports = {
       throw error;
     }
   },
-  update: async ({ author, author_name, author_bio }) => {
+  update: async (author, { author_name, author_bio }) => {
     try {
       return await author.save({
         author_name,

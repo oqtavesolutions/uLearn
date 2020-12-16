@@ -8,7 +8,11 @@ $desktop-padding: 2rem;
 $color: (global-black: #323232,
     global-white: #FFFFFF,
     borders: #e9e9e9,
+    grey-text: #717171,
     global-green: #3bc371,
+    global-orange: #ff813f,
+    global-red: #FF4136,
+    global-blue: #3c4a7e,
     category-green: rgb(59 194 113 / 11%));
 
 @function color($color-name) {

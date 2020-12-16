@@ -16,12 +16,20 @@ const updateLecture = async ({
   lecture_id,
   lecture_title,
   lecture_description,
+  lecture_content,
+  lecture_google_slide,
+  lecture_video_embed,
+  lecture_attachment,
 }) => {
   const response = await AuthenticatedRequest.put(
     `/lecture/edit/course/${course_id}/${lecture_id}`,
     {
       lecture_title,
       lecture_description,
+      lecture_content,
+      lecture_google_slide,
+      lecture_video_embed,
+      lecture_attachment,
     }
   );
   return {

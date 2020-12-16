@@ -31,6 +31,7 @@ import {
 } from "../pages/Explore/redux/sagas";
 
 import watchGetMyLearningSaga from "../pages/MyLearning/redux/sagas";
+import { watchChangePasswordSaga } from "../pages/MyAccount/redux/sagas";
 
 function* userStatusSaga(action) {
   try {
@@ -40,9 +41,9 @@ function* userStatusSaga(action) {
       payload,
     });
   } catch (error) {
-    console.log("errror", error);
     yield put({
       type: types.GET_USER_STATUS_FAILURE,
+      payload: error,
     });
   }
 }
@@ -89,4 +90,6 @@ export default function* rootSaga() {
   yield fork(watchEnrollInCourseSaga);
   // get all my learnings
   yield fork(watchGetMyLearningSaga);
+  // update current password
+  yield fork(watchChangePasswordSaga);
 }

@@ -3,14 +3,17 @@
 
 .course-explore-page-description {
   padding: $mobile-padding;
-  background-color: color(global-green);
+  background-color: color(global-black);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  min-height: 200px;
+  justify-content: center;
 
   @include tablet {
     padding: $tablet-padding;
+    min-height: 300px;
     justify-content: center;
     align-items: center;
     flex-direction: row;
@@ -87,7 +90,8 @@
 
   &__title {
     @include m-h1;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
   }
 
 
@@ -100,15 +104,20 @@
   flex-wrap: wrap;
 
   &__button {
-    width: 150px;
+    width: 100%;
     height: auto;
     padding: 1rem;
     outline: none;
     background-color: transparent;
     border-radius: 20px;
-    border: 1.5px solid color(global-green);
-    margin-right: 1rem;
+    border: 2px solid color(global-black);
+    cursor: pointer;
     margin-bottom: 1rem;
+
+    @include tablet {
+      width: 230px;
+      margin-right: 1rem;
+    }
   }
 }
 
@@ -129,10 +138,11 @@
 }
 
 .course-explore-page-categories-highlights-card {
-  background-color: color(category-green);
-  padding: 1rem;
-  border-radius: 5px;
+  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+  padding: 2rem;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
   width: 300px;
 
   @include tablet {

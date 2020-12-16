@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
 import getCoursesByUser from "./middlewares";
+import { toast } from "react-toastify";
 
 function* getCoursesByUserSaga(action) {
   try {
@@ -13,7 +14,12 @@ function* getCoursesByUserSaga(action) {
   } catch (error) {
     yield put({
       type: types.GET_ALL_COURSES_BY_USER_AUTH_FAILURE,
+      payload: error,
     });
+    yield call(
+      toast.error,
+      "Could not load courses, please try again, or log out, log back in"
+    );
   }
 }
 

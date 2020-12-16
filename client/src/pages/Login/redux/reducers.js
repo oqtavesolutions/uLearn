@@ -4,13 +4,19 @@ const initialState = {
   loading: false,
   success: false,
   isLoggedIn: false,
-  error: "",
+  error: false,
 };
 
 const userLogin = (state = initialState, action) => {
   switch (action.type) {
     case types.USER_LOGIN:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true,
+        error: false,
+        success: false,
+        isLoggedIn: false,
+      };
     case types.USER_LOGIN_SUCCESSFUL:
       return {
         ...state,
@@ -25,7 +31,7 @@ const userLogin = (state = initialState, action) => {
         loading: false,
         success: false,
         isLoggedIn: false,
-        error: action.payload.message,
+        error: true,
       };
     default:
       return state;

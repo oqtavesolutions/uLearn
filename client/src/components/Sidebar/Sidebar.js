@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -14,65 +14,70 @@ import "./Sidebar.scss";
 function Sidebar() {
   return (
     <div className='sidebar'>
-      <ul className='sidebar__list'>
-        <li className='sidebar__list-item'>
-          <Link to='/dashboard' className='sidebar__list-item-link'>
-            <FontAwesomeIcon
-              icon={faHome}
-              className='sidebar__list-item-icon'
-            />
-            <span className='sidebar__list-item-text'>Dashboard</span>
-          </Link>
-        </li>
-        <li className='sidebar__list-item'>
-          <Link to='/my-courses' className='sidebar__list-item-link'>
-            <FontAwesomeIcon
-              icon={faChalkboardTeacher}
-              className='sidebar__list-item-icon'
-            />
-            <span className='sidebar__list-item-text'>My Course</span>
-          </Link>
-        </li>
-        <li className='sidebar__list-item'>
-          <Link to='/my-learning' className='sidebar__list-item-link'>
-            <FontAwesomeIcon
-              icon={faGraduationCap}
-              className='sidebar__list-item-icon'
-            />
-            <span className='sidebar__list-item-text'>My Learning</span>
-          </Link>
-        </li>
+      <div className='sidebar__list'>
+        <NavLink
+          activeClassName='sidebar__list-item--selected'
+          to='/dashboard'
+          className='sidebar__list-item'>
+          <FontAwesomeIcon icon={faHome} className='sidebar__list-item-icon' />
+          <span className='sidebar__list-item-text'>Dashboard</span>
+        </NavLink>
 
-        <li className='sidebar__list-item'>
-          <Link to='/explore' className='sidebar__list-item-link'>
-            <FontAwesomeIcon
-              icon={faSchool}
-              className='sidebar__list-item-icon'
-            />
-            <span className='sidebar__list-item-text'>Explore</span>
-          </Link>
-        </li>
+        <NavLink
+          activeClassName='sidebar__list-item--selected'
+          to='/my-courses'
+          className='sidebar__list-item'>
+          <FontAwesomeIcon
+            icon={faChalkboardTeacher}
+            className='sidebar__list-item-icon'
+          />
+          <span className='sidebar__list-item-text'>My Course</span>
+        </NavLink>
 
-        <li className='sidebar__list-item'>
-          <Link to='/my-page' className='sidebar__list-item-link'>
-            <FontAwesomeIcon
-              icon={faUserCog}
-              className='sidebar__list-item-icon'
-            />
-            <span className='sidebar__list-item-text'>My Page</span>
-          </Link>
-        </li>
+        <NavLink
+          activeClassName='sidebar__list-item--selected'
+          to='/my-learning'
+          className='sidebar__list-item'>
+          <FontAwesomeIcon
+            icon={faGraduationCap}
+            className='sidebar__list-item-icon'
+          />
+          <span className='sidebar__list-item-text'>My Learning</span>
+        </NavLink>
 
-        <li className='sidebar__list-item'>
-          <Link to='/my-account' className='sidebar__list-item-link'>
-            <FontAwesomeIcon
-              icon={faUserCircle}
-              className='sidebar__list-item-icon'
-            />
-            <span className='sidebar__list-item-text'>My Account</span>
-          </Link>
-        </li>
-      </ul>
+        <NavLink
+          activeClassName='sidebar__list-item--selected'
+          to='/explore'
+          className='sidebar__list-item'>
+          <FontAwesomeIcon
+            icon={faSchool}
+            className='sidebar__list-item-icon'
+          />
+          <span className='sidebar__list-item-text'>Explore</span>
+        </NavLink>
+
+        <NavLink
+          activeClassName='sidebar__list-item--selected'
+          to='/my-page'
+          className='sidebar__list-item'>
+          <FontAwesomeIcon
+            icon={faUserCog}
+            className='sidebar__list-item-icon'
+          />
+          <span className='sidebar__list-item-text'>My Page</span>
+        </NavLink>
+
+        <NavLink
+          activeClassName='sidebar__list-item--selected'
+          to='/my-account'
+          className='sidebar__list-item'>
+          <FontAwesomeIcon
+            icon={faUserCircle}
+            className='sidebar__list-item-icon'
+          />
+          <span className='sidebar__list-item-text'>My Account</span>
+        </NavLink>
+      </div>
     </div>
   );
 }

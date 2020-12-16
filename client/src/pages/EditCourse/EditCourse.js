@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import "./EditCourse.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import * as Yup from "yup";
 import LectureList from "./components/LectureList";
+import { ToastContainer, toast } from "react-toastify";
+import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -38,9 +40,15 @@ function EditCourse({
   handleGetCourseLectures,
   handleUpdateCourse,
   updateSuccess,
+  location,
   lectures,
+  lecturesLoading,
 }) {
   const [editCourseCollapsible, setEditCourseCollapsible] = useState(false);
+  const [
+    editCourseDetailsCollapsible,
+    setEditCourseDetailsCollapsible,
+  ] = useState(false);
   const [editCourseDetails, setEditCourseDetails] = useState(false);
   const [editCourseLecturesList, setEditCourseLecturesList] = useState(false);
 
@@ -52,18 +60,28 @@ function EditCourse({
     updateSuccess && setEditCourseDetails(false);
   }, [updateSuccess, editCourseDetails]);
 
+  useEffect(() => {
+    location.search && toast.dark("Course has been created successfully");
+  }, [location]);
+
   const handleShowEditCourseCollapsible = () => {
     setEditCourseCollapsible(!editCourseCollapsible);
+  };
+
+  const handleShowEditCourseDetailsCollapsible = () => {
+    setEditCourseDetailsCollapsible(!editCourseDetailsCollapsible);
   };
 
   const handleShowEditCourseDetails = (e) => {
     e.preventDefault();
     setEditCourseDetails(!editCourseDetails);
+    setEditCourseCollapsible(false);
   };
 
   const handleShowEditLecturesList = () => {
     handleGetCourseLectures(match.params.courseId);
     setEditCourseLecturesList(!editCourseLecturesList);
+    setEditCourseDetailsCollapsible(false);
   };
 
   const handleFormSubmit = (values) => {
@@ -73,41 +91,84 @@ function EditCourse({
     });
   };
 
+  const kebabWrapper = useRef(null);
+  const detailsKebabWrapper = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", (e) => {
+      if (
+        kebabWrapper.current !== null &&
+        !kebabWrapper.current.contains(e.target)
+      ) {
+        setEditCourseCollapsible(false);
+      }
+    });
+    // returned function will be called on component unmount
+    return () => {
+      document.removeEventListener("mousedown", () => {
+        setEditCourseCollapsible(false);
+      });
+    };
+  }, [kebabWrapper]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", (e) => {
+      if (
+        detailsKebabWrapper.current !== null &&
+        !detailsKebabWrapper.current.contains(e.target)
+      ) {
+        setEditCourseDetailsCollapsible(false);
+      }
+    });
+    // returned function will be called on component unmount
+    return () => {
+      document.removeEventListener("mousedown", () => {
+        setEditCourseDetailsCollapsible(false);
+      });
+    };
+  }, [kebabWrapper]);
+
   return (
     <div className='edit-course'>
+      <ToastContainer />
       <div className='edit-course-collapsible'>
         <h1 className='edit-course-collapsible__title'>Edit Course</h1>
-        <FontAwesomeIcon
-          icon={faEllipsisH}
-          className='edit-course-collapsible__nav-bar'
-          onClick={handleShowEditCourseCollapsible}
-        />
-        {editCourseCollapsible && (
-          <ul className='edit-course-collapsible__items'>
-            <li className='edit-course-collapsible__item'>View Subscribers</li>
-            <li className='edit-course-collapsible__item'>Duplicate</li>
-            <li className='edit-course-collapsible__item'>Delete</li>
-          </ul>
-        )}
       </div>
 
       <div className='edit-course-container'>
         <div className='edit-course-details-card-container'>
           <article className='edit-course-details-card'>
-            <p className='edit-course-details-card__description'>
-              <span className='edit-course-details-card__title'>
-                Course Details
-              </span>
-              <span className='edit-course-details-card__date'>
-                Date Created: 12/03/2020
-              </span>
-            </p>
             {!editCourseDetails && (
-              <button
-                className='edit-course-details-card__button'
-                onClick={handleShowEditCourseDetails}>
-                Edit
-              </button>
+              <Fragment>
+                <p className='edit-course-details-card__description'>
+                  <span className='edit-course-details-card__title'>
+                    Course Details
+                  </span>
+                  <span className='edit-course-details-card__sub'>
+                    Edit your course details here.
+                  </span>
+                </p>
+
+                <FontAwesomeIcon
+                  icon={faEllipsisH}
+                  className='edit-course-collapsible__nav-bar'
+                  onClick={handleShowEditCourseCollapsible}
+                />
+              </Fragment>
+            )}
+            {editCourseCollapsible && (
+              <ul className='edit-course-collapsible__items' ref={kebabWrapper}>
+                <li
+                  className='edit-course-collapsible__item'
+                  onClick={handleShowEditCourseDetails}>
+                  Edit
+                </li>
+                <li className='edit-course-collapsible__item'>
+                  <Link to={"/course/" + course.course_slug}>View</Link>
+                </li>
+                <li className='edit-course-collapsible__item'>Duplicate</li>
+                <li className='edit-course-collapsible__item'>Delete</li>
+              </ul>
             )}
           </article>
 
@@ -127,46 +188,70 @@ function EditCourse({
                 onSubmit={handleFormSubmit}>
                 {({ isSubmitting }) => (
                   <Form className='edit-course-details-form'>
-                    <Field
-                      type='text'
-                      name='course_title'
-                      placeholder='Course Title'
-                      className='edit-course-details-form__input'
-                    />
-                    <ErrorMessage name='course_title' component='div' />
-                    <Field
-                      as='textarea'
-                      name='course_description'
-                      placeholder='Course Description'
-                      className='edit-course-details-form__text-area'
-                    />
-                    <ErrorMessage name='course_description' component='div' />
-                    <Field
-                      type='text'
-                      name='course_slug'
-                      placeholder='Course Slug'
-                      className='edit-course-details-form__input edit-course-details-form__input--disabled'
-                      disabled={true}
-                    />
-                    <ErrorMessage name='course_slug' component='div' />
-                    <Field
-                      as='select'
-                      name='course_categories'
-                      className='edit-course-details-form__category'>
-                      <option>Please Select a Category</option>
-                      <option value='IT & Software'>IT & Software</option>
-                      <option value='Business'>Business</option>
-                      <option value='Finance & Accounting'>
-                        Finance & Accounting
-                      </option>
-                      <option value='Productivity'>Productivity</option>
-                      <option value='Design'>Design</option>
-                      <option value='Marketing'>Marketing</option>
-                      <option value='Health'>Health</option>
-                      <option value='Music'>Music</option>
-                      <option value='Others'>Others</option>
-                    </Field>
-                    <ErrorMessage name='course_categories' component='div' />
+                    <div className='edit-course-details-form__input-container'>
+                      <Field
+                        type='text'
+                        name='course_title'
+                        placeholder='Course Title'
+                        className='edit-course-details-form__input'
+                      />
+                      <ErrorMessage
+                        name='course_title'
+                        component='div'
+                        className='edit-course-details-form__input-error'
+                      />
+                    </div>
+                    <div className='edit-course-details-form__input-container'>
+                      <Field
+                        as='textarea'
+                        name='course_description'
+                        placeholder='Course Description'
+                        className='edit-course-details-form__text-area'
+                      />
+                      <ErrorMessage
+                        name='course_description'
+                        component='div'
+                        className='edit-course-details-form__input-error'
+                      />
+                    </div>
+                    <div className='edit-course-details-form__input-container'>
+                      <Field
+                        type='text'
+                        name='course_slug'
+                        placeholder='Course Slug'
+                        className='edit-course-details-form__input edit-course-details-form__input--disabled'
+                        disabled={true}
+                      />
+                      <ErrorMessage
+                        name='course_slug'
+                        component='div'
+                        className='edit-course-details-form__input-error'
+                      />
+                    </div>
+                    <div className='edit-course-details-form__input-container'>
+                      <Field
+                        as='select'
+                        name='course_categories'
+                        className='edit-course-details-form__category'>
+                        <option>Please Select a Category</option>
+                        <option value='IT & Software'>IT & Software</option>
+                        <option value='Business'>Business</option>
+                        <option value='Finance & Accounting'>
+                          Finance & Accounting
+                        </option>
+                        <option value='Productivity'>Productivity</option>
+                        <option value='Design'>Design</option>
+                        <option value='Marketing'>Marketing</option>
+                        <option value='Health'>Health</option>
+                        <option value='Music'>Music</option>
+                        <option value='Others'>Others</option>
+                      </Field>
+                      <ErrorMessage
+                        name='course_categories'
+                        component='div'
+                        className='edit-course-details-form__input-error'
+                      />
+                    </div>
                     <div className='edit-course-details-form__buttons'>
                       <button
                         disabled={isSubmitting}
@@ -194,31 +279,57 @@ function EditCourse({
               <span className='edit-course-lectures-card__title'>
                 Lecture List
               </span>
-              <span className='edit-course-lectures-card__date'>
-                Date Created: 12/03/2020
+              <span className='edit-course-lectures-card__sub'>
+                Create or edit lectures you have created
               </span>
             </p>
-            <Link
-              to={"/create/" + match.params.courseId + "/lecture"}
-              className='edit-course-lectures-card__button'
-              onClick={handleShowEditLecturesList}>
-              Create Lecture
-            </Link>
-            <button
-              className='edit-course-lectures-card__button'
-              onClick={handleShowEditLecturesList}>
-              {editCourseLecturesList ? "Cancel" : "View"}
-            </button>
+            <FontAwesomeIcon
+              icon={faEllipsisH}
+              className='edit-course-collapsible__nav-bar'
+              onClick={handleShowEditCourseDetailsCollapsible}
+            />
+
+            {editCourseDetailsCollapsible && (
+              <ul
+                className='edit-course-collapsible__items'
+                ref={detailsKebabWrapper}>
+                <li
+                  className='edit-course-collapsible__item'
+                  onClick={handleShowEditCourseDetails}>
+                  <Link to={"/create/" + match.params.courseId + "/lecture"}>
+                    Create Lecture
+                  </Link>
+                </li>
+                <li
+                  className='edit-course-collapsible__item'
+                  onClick={handleShowEditLecturesList}>
+                  View lectures
+                </li>
+                <li className='edit-course-collapsible__item'>Duplicate</li>
+                <li className='edit-course-collapsible__item'>Delete</li>
+              </ul>
+            )}
           </article>
-          {editCourseLecturesList && (
-            <div className='edit-course-lectures-list'>
-              {lectures &&
-                lectures.map((lecture) => (
-                  <LectureList key={lecture.id} lecture={lecture} />
-                ))}
-            </div>
-          )}
         </div>
+        {editCourseLecturesList && (
+          <div className='edit-course-lecture-list'>
+            <p className='edit-course-lecture-list__title'>
+              List of lectures created:
+            </p>
+            {lecturesLoading && <CustomContentLoader />}
+            {!lecturesLoading && lectures && lectures.length === 0 && (
+              <p className='edit-course-lecture-list__empty'>
+                You have not created any lecture yet
+              </p>
+            )}
+
+            {lectures &&
+              lectures.length > 0 &&
+              lectures.map((lecture) => (
+                <LectureList key={lecture.id} lecture={lecture} />
+              ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -231,8 +342,9 @@ EditCourse.propTypes = {
   success: PropTypes.bool.isRequired,
   course: PropTypes.object.isRequired,
   handleUpdateCourse: PropTypes.func.isRequired,
-  updateSuccess: PropTypes.bool.isRequired,
+  //  updateSuccess: PropTypes.bool.isRequired,
   lectures: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -240,6 +352,7 @@ const mapStateToProps = (state) => {
     course: state.getCourseEdit.course,
     updateSuccess: state.getCourseEdit.updatedCourse.success,
     lectures: state.getCourseEdit.lectures.lectures,
+    lecturesLoading: state.getCourseEdit.lectures.loading,
   };
 };
 
