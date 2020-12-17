@@ -27,6 +27,7 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
+      console.log(req.user);
       const user = await userServices.create({
         email: req.user.email,
         user_id: req.user.uid,

@@ -26,6 +26,7 @@ exports.requiresAuth = async (req, res, next) => {
 
     next();
   } catch (error) {
+    console.log(error);
     next(error);
     return;
   }
@@ -39,6 +40,7 @@ exports.requiresAuthRegistration = async (req, res, next) => {
     req.user = decodedIdToken;
     next();
   } catch (error) {
+    console.log(error);
     next(error);
     return;
   }
