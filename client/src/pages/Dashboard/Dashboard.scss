@@ -4,5 +4,20 @@
 .dashboard-page {
   &__title {
     @include m-h1;
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    @include m-p1;
+    margin-bottom: 1rem;
+
+    &--link {
+      color: color(global-blue);
+    }
+  }
+
+  &__useful-links-title {
+    @include m-h2;
+    margin-bottom: 1rem;
   }
 }

@@ -166,8 +166,6 @@ function EditCourse({
                 <li className='edit-course-collapsible__item'>
                   <Link to={"/course/" + course.course_slug}>View</Link>
                 </li>
-                <li className='edit-course-collapsible__item'>Duplicate</li>
-                <li className='edit-course-collapsible__item'>Delete</li>
               </ul>
             )}
           </article>
@@ -305,8 +303,6 @@ function EditCourse({
                   onClick={handleShowEditLecturesList}>
                   View lectures
                 </li>
-                <li className='edit-course-collapsible__item'>Duplicate</li>
-                <li className='edit-course-collapsible__item'>Delete</li>
               </ul>
             )}
           </article>

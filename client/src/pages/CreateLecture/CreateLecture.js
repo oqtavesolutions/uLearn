@@ -112,10 +112,10 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
             </div>
             <div className='create-lecture-form__input-container'>
               <Field
-                as='textarea'
+                type='text'
                 name='lecture_google_slide'
                 placeholder='Google Slide Embed Code'
-                className='create-lecture-form__text-area'
+                className='create-lecture-form__input'
               />
               <ErrorMessage
                 name='lecture_google_slide'
@@ -126,10 +126,10 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
 
             <div className='create-lecture-form__input-container'>
               <Field
-                as='textarea'
+                type='text'
                 name='lecture_video_embed'
                 placeholder='Video Embed Code'
-                className='create-lecture-form__text-area'
+                className='create-lecture-form__input'
               />
               <ErrorMessage
                 name='lecture_video_embed'

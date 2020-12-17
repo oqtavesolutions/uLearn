@@ -26,6 +26,7 @@
 }
 
 .course-landing-page-description {
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -117,6 +118,10 @@
   &__title {
     @include m-h2;
   }
+
+  &__name {
+    margin-bottom: 1rem;
+  }
 }
 
 .enrollment-modal {
@@ -207,6 +212,10 @@
   @include tablet {
     width: 100%;
     max-width: 320px;
+  }
+
+  &__name {
+    margin-bottom: 1rem;
   }
 }
 

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { format } from "date-fns";
 
-function LectureList({ success, courseId, lecture }) {
+function LectureList({ success, courseId, lecture, course }) {
   const [showNav, setShowNav] = useState(false);
   const kebabWrapper = useRef(null);
 
@@ -66,9 +66,8 @@ function LectureList({ success, courseId, lecture }) {
                 </a>
               </li>
               <li className='edit-course-lectures-list-card__item'>
-                Duplicate
+                <a href={"/course/" + course.course_slug}>View</a>
               </li>
-              <li className='edit-course-lectures-list-card__item'>Delete</li>
             </ul>
           )}
         </article>
@@ -81,12 +80,14 @@ LectureList.propTypes = {
   success: PropTypes.bool.isRequired,
   courseId: PropTypes.string.isRequired,
   lecture: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     success: state.getCourseEdit.lectures.success,
     courseId: state.getCourseEdit.course.course_id,
+    course: state.getCourseEdit.course,
   };
 };
 

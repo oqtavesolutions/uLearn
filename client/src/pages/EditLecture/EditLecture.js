@@ -6,6 +6,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 
 const validationSchema = Yup.object().shape({
   lecture_title: Yup.string().required("Required"),
@@ -22,6 +25,7 @@ function EditLecture({
   history,
   location,
   updatedLoading,
+  loading,
 }) {
   useEffect(() => {
     handleGetLectureEdit({
@@ -57,10 +61,19 @@ function EditLecture({
   return (
     <div className='edit-lecture-detail-form-container'>
       <ToastContainer />
-      <h1 className='edit-lecture-detail-form-container__title'>
-        Editing Lecture
-      </h1>
-
+      <Link
+        to={`/edit/course/${match.params.courseId}`}
+        className='edit-lecture-detail-form-container__link'>
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          className='edit-lecture-detail-form-container__icon'
+          size='1x'
+        />
+        <h1 className='edit-lecture-detail-form-container__title'>
+          Editing Lecture
+        </h1>
+      </Link>{" "}
+      {!success && loading && <CustomContentLoader />}
       {success && (
         <Formik
           initialValues={{
@@ -105,7 +118,6 @@ function EditLecture({
                 </div>
                 <div className='edit-lecture-detail-form__input-container'>
                   <Field
-                    as='textarea'
                     name='lecture_content'
                     placeholder='Content'
                     className='edit-lecture-detail-form__text-area'
@@ -118,10 +130,10 @@ function EditLecture({
                 </div>
                 <div className='edit-lecture-detail-form__input-container'>
                   <Field
-                    as='textarea'
+                    type='text'
                     name='lecture_google_slide'
                     placeholder='Google Slide Embed Code'
-                    className='edit-lecture-detail-form__text-area'
+                    className='edit-lecture-detail-form__input'
                   />
                   <ErrorMessage
                     name='lecture_google_slide'
@@ -132,10 +144,10 @@ function EditLecture({
 
                 <div className='edit-lecture-detail-form__input-container'>
                   <Field
-                    as='textarea'
+                    type='text'
                     name='lecture_video_embed'
                     placeholder='Video Embed Code'
-                    className='edit-lecture-detail-form__text-area'
+                    className='edit-lecture-detail-form__input'
                   />
                   <ErrorMessage
                     name='lecture_video_embed'
