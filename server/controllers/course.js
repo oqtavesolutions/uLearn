@@ -37,16 +37,20 @@ module.exports = {
           messasge: "operation failed",
         });
 
+      const author = await authorServices.find({
+        user_id: course.attributes.user_id,
+      });
+
       const user = await userServices.findByPrimaryKey({
         id: course.attributes.user_id,
       });
-      console.log(user);
 
       res.status(200).json({
         course,
         user_id: user.attributes.user_id,
         isOwner: false,
         isSubscribed: false,
+        author,
       });
     } catch (error) {
       res.status(400).json({

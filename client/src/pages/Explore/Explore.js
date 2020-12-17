@@ -3,8 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import "./Explore.scss";
 import PropTypes from "prop-types";
 import { categories } from "../../utils/categories";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function Explore({
   success,
@@ -66,19 +66,22 @@ function Explore({
         </h1>
       )}
       <div className='course-explore-page-categories-highlights'>
-        {success && courses.length === 0 && <p>No course found</p>}
+        {success && courses.length === 0 && <p>No courses found</p>}
         {success &&
           courses.length > 0 &&
           courses.map((course) => {
             return (
               <Link to={`/course/${course.course_slug}`} key={course.course_id}>
                 <article className='course-explore-page-categories-highlights-card'>
-                  <p className='course-explore-page-categories-highlights-card__title'>
-                    {course.course_title}
-                  </p>
-                  <p className='course-explore-page-categories-highlights-card__description'>
-                    {course.course_description}
-                  </p>
+                  <div className='course-explore-page-categories-highlights-card__container'>
+                    <p className='course-explore-page-categories-highlights-card__title'>
+                      {course.course_title}
+                    </p>
+                    <p className='course-explore-page-categories-highlights-card__description'>
+                      {course.course_description}
+                    </p>
+                  </div>
+                  <FontAwesomeIcon icon={faArrowRight} />
                 </article>
               </Link>
             );

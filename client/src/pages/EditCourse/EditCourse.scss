@@ -8,6 +8,7 @@
   align-items: center;
   position: relative;
   margin-bottom: 1rem;
+  padding: 1rem;
 
   &__title {
     @include m-h1;
@@ -21,7 +22,7 @@
     background-color: color(global-white);
     list-style: none;
     position: absolute;
-    top: 2rem;
+    top: 0rem;
     right: 0;
     box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
     padding: 1rem;
@@ -38,7 +39,6 @@
 
 .edit-course-details-card-container {
   box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  padding: 1rem;
 
   &__description {
     display: flex;
@@ -161,7 +161,7 @@
     outline: none;
     border: 1px solid;
     border-radius: 5px;
-    padding: 1rem 1rem 0;
+    padding: 1rem 1rem;
     background: color(global-white);
     margin-bottom: .5rem;
     width: 100%;
@@ -203,7 +203,6 @@
 
 .edit-course-lectures-card-container {
   box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
@@ -214,7 +213,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  padding: 1rem;
 
 
   &__description {
