@@ -73,7 +73,7 @@
     border: 1px solid color(borders);
 
     @include tablet {
-      max-width: 300px;
+      width: 250px;
     }
   }
 
