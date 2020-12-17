@@ -11,13 +11,17 @@ const orderRoutes = require("./routes/order");
 dotenv.config();
 const PORT = process.env.PORT || process.env.API_PORT;
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
+
+const whitelist = ["http://localhost:3000", "https://ulearn.netlify.app"];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) return callback(null, true);
+
+    callback(new Error("Not allowed by CORS"));
+  },
+};
+app.use(cors(corsOptions));
 
 app.get("/", (_, res) => {
   res.status(404).json({
