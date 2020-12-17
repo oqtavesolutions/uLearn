@@ -66,7 +66,15 @@ function LectureList({ success, courseId, lecture, course }) {
                 </a>
               </li>
               <li className='edit-course-lectures-list-card__item'>
-                <a href={"/course/" + course.course_slug}>View</a>
+                <a
+                  href={
+                    "/course/" +
+                    course.course_slug +
+                    "/lecture/" +
+                    lecture.lecture_slug
+                  }>
+                  View
+                </a>
               </li>
             </ul>
           )}
