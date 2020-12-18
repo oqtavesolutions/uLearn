@@ -8,30 +8,33 @@ import * as Yup from "yup";
 import { AuthenticatedRequest } from "../../utils/axios";
 import ReactQuill from "react-quill";
 
-const validationSchema = Yup.object().shape({
-  lecture_title: Yup.string().required("Required"),
-  lecture_description: Yup.string().required("Required"),
-  lecture_slug: Yup.string()
-    .matches(/^[a-zA-Z0-9-_]+$/, {
-      excludeEmptyString: true,
-      message: "Cannot contain space or characters except for _ and -",
-    })
-    .test("checkDuplSlug", "Slug already exists", function (value) {
-      return new Promise(async (resolve, reject) => {
-        try {
-          await AuthenticatedRequest.get(
-            "/lecture/content/validation/" + value
-          );
-          return resolve(false);
-        } catch (error) {
-          resolve(true);
-        }
-      });
-    })
-    .required("Required"),
-});
-
 function CreateLecture({ handleCreateLecture, match, loading }) {
+  const validationSchema = Yup.object().shape({
+    lecture_title: Yup.string().required("Required"),
+    lecture_description: Yup.string().required("Required"),
+    lecture_slug: Yup.string()
+      .matches(/^[a-zA-Z0-9-_]+$/, {
+        excludeEmptyString: true,
+        message: "Cannot contain space or characters except for _ and -",
+      })
+      .test("checkDuplSlug", "Slug already exists", function (value) {
+        return new Promise(async (resolve, reject) => {
+          try {
+            await AuthenticatedRequest.get(
+              "/lecture/content/validation/" +
+                match.params.courseId +
+                "/" +
+                value
+            );
+            return resolve(false);
+          } catch (error) {
+            resolve(true);
+          }
+        });
+      })
+      .required("Required"),
+  });
+
   const handleSubmit = ({
     lecture_title,
     lecture_description,

@@ -120,7 +120,7 @@ function CourseLandingPage({
                 <div className='course-landing-page-modules'>
                   {course.lectures.length > 0 &&
                     course.lectures.map((lecture, i) =>
-                      isSubscribed ? (
+                      isSubscribed || isOwner ? (
                         <Link
                           to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}
                           key={lecture.lecture_id}>
@@ -147,7 +147,7 @@ function CourseLandingPage({
                             {lecture.lecture_title}
                           </p>
                           <p className='course-landing-page-module__module-title'>
-                            {lecture.lecture_description}
+                            {striptags(lecture.lecture_description)}
                           </p>
                         </div>
                       )

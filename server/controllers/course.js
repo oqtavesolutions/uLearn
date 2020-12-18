@@ -80,7 +80,7 @@ module.exports = {
         id: course.attributes.user_id,
       });
 
-      const author = await authorServices.find({ user_id: req.user.id });
+      const author = await authorServices.find({ user_id: user.attributes.id });
 
       console.log("author", author);
       const isOwner = user.attributes.id === req.user.id;
