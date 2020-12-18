@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import "./CourseLandingPage.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import striptags from "striptags";
 
 function CourseLandingPage({
   course,
@@ -46,7 +47,7 @@ function CourseLandingPage({
                     {course.course_title}
                   </h1>
                   <p className='course-landing-page-description__text'>
-                    {course.course_description}
+                    {striptags(course.course_description)}
                   </p>
                 </div>
                 {!isOwner && !isSubscribed && (
@@ -119,7 +120,7 @@ function CourseLandingPage({
                 <div className='course-landing-page-modules'>
                   {course.lectures.length > 0 &&
                     course.lectures.map((lecture, i) =>
-                      isSubscribed ? (
+                      isSubscribed || isOwner ? (
                         <Link
                           to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}
                           key={lecture.lecture_id}>
@@ -131,7 +132,7 @@ function CourseLandingPage({
                               {lecture.lecture_title}
                             </p>
                             <p className='course-landing-page-module__module-title'>
-                              {lecture.lecture_description}
+                              {striptags(lecture.lecture_description)}
                             </p>
                           </div>
                         </Link>
@@ -146,7 +147,7 @@ function CourseLandingPage({
                             {lecture.lecture_title}
                           </p>
                           <p className='course-landing-page-module__module-title'>
-                            {lecture.lecture_description}
+                            {striptags(lecture.lecture_description)}
                           </p>
                         </div>
                       )
@@ -164,7 +165,8 @@ function CourseLandingPage({
                       <strong>Name:</strong> {author && author.author_name}
                     </p>
                     <p className='course-landing-page-author__bio'>
-                      <strong>Bio:</strong> {author && author.author_bio}
+                      <strong>Bio:</strong>{" "}
+                      {author && striptags(author.author_bio)}
                     </p>
                   </div>
                 </div>

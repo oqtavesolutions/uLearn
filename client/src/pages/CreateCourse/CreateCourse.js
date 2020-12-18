@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AuthenticatedRequest } from "../../utils/axios";
+import ReactQuill from "react-quill";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -75,11 +76,16 @@ function CreateCourse({ handleSubmit }) {
         {({ isSubmitting }) => (
           <Form className='create-course-form'>
             <div className='create-course-form__input-container'>
+              <label
+                htmlFor='Title'
+                className='create-course-form__input-label'>
+                Title
+              </label>
               <Field
                 type='text'
                 name='course_title'
-                placeholder='Course Title'
                 className='create-course-form__input'
+                placeholder='Title'
               />
               <ErrorMessage
                 name='course_title'
@@ -88,12 +94,19 @@ function CreateCourse({ handleSubmit }) {
               />
             </div>
             <div className='create-course-form__input-container'>
-              <Field
-                as='textarea'
-                name='course_description'
-                placeholder='Course Description'
-                className='create-course-form__text-area'
-              />
+              <label
+                htmlFor='Course Description'
+                className='create-course-form__input-label'>
+                Description
+              </label>
+              <Field name='course_description'>
+                {({ field }) => (
+                  <ReactQuill
+                    value={field.value}
+                    onChange={field.onChange(field.name)}
+                  />
+                )}
+              </Field>
               <ErrorMessage
                 name='course_description'
                 component='div'
@@ -101,11 +114,16 @@ function CreateCourse({ handleSubmit }) {
               />
             </div>
             <div className='create-course-form__input-container'>
+              <label
+                htmlFor='Course Slug'
+                className='create-course-form__input-label'>
+                Slug
+              </label>
               <Field
                 type='text'
                 name='course_slug'
-                placeholder='Course Slug'
                 className='create-course-form__input'
+                placeholder='Slug'
               />
               <ErrorMessage
                 name='course_slug'
@@ -114,6 +132,11 @@ function CreateCourse({ handleSubmit }) {
               />
             </div>
             <div className='create-course-form__input-container'>
+              <label
+                htmlFor='Category'
+                className='create-course-form__input-label'>
+                Category
+              </label>
               <Field
                 as='select'
                 name='course_categories'

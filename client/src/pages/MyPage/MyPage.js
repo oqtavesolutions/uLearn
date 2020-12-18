@@ -7,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
+import ReactQuill from "react-quill";
 
 const validationSchema = Yup.object().shape({
   author_name: Yup.string().required("Required"),
@@ -59,10 +60,15 @@ function MyPage({
             {({ isSubmitting }) => (
               <Form className='mypage-page-form'>
                 <div className='mypage-page-form__input-container'>
+                  <label
+                    htmlFor='Author Name'
+                    className='mypage-page-form__input-label'>
+                    Name
+                  </label>
                   <Field
                     type='text'
                     name='author_name'
-                    placeholder='Author name'
+                    placeholder='Name'
                     className='mypage-page-form__input'
                   />
                   <ErrorMessage
@@ -72,13 +78,20 @@ function MyPage({
                   />
                 </div>
                 <div className='mypage-page-form__input-container'>
-                  {" "}
-                  <Field
-                    as='textarea'
-                    name='author_bio'
-                    placeholder='Author Bio'
-                    className='mypage-page-form__text-area'
-                  />
+                  <label
+                    htmlFor='Author Bio'
+                    className='mypage-page-form__input-label'>
+                    Bio
+                  </label>
+                  <Field name='author_bio'>
+                    {({ field }) => (
+                      <ReactQuill
+                        value={field.value}
+                        onChange={field.onChange(field.name)}
+                      />
+                    )}
+                  </Field>
+
                   <ErrorMessage
                     name='author_bio'
                     component='div'
@@ -86,12 +99,23 @@ function MyPage({
                   />
                 </div>
                 <div className='mypage-page-form__input-container'>
-                  {" "}
+                  <label
+                    htmlFor='Author Slug'
+                    className='mypage-page-form__input-label'>
+                    Slug
+                  </label>
                   <Field
                     type='text'
                     name='author_slug'
                     placeholder='Author Slug'
-                    className='mypage-page-form__input'
+                    className='mypage-page-form__input mypage-page-form__input--disabled'
+                    disabled={
+                      author.author_slug !== "" ||
+                      author.author_slug !== undefined ||
+                      author.author_slug !== null
+                        ? true
+                        : false
+                    }
                   />
                   <ErrorMessage
                     name='author_slug'
