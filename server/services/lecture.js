@@ -19,9 +19,9 @@ module.exports = {
     }
   },
 
-  findSingleBySlug: async ({ lecture_slug }) => {
+  findSingleBySlug: async ({ course_id, lecture_slug }) => {
     try {
-      const lecture = await Lecture.where({ lecture_slug }).fetch();
+      const lecture = await Lecture.where({ course_id, lecture_slug }).fetch();
       return lecture;
     } catch (error) {
       throw error;
