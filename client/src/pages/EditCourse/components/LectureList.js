@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { format } from "date-fns";
 
-function LectureList({ success, courseId, lecture }) {
+function LectureList({ success, courseId, lecture, course }) {
   const [showNav, setShowNav] = useState(false);
   const kebabWrapper = useRef(null);
 
@@ -41,7 +41,7 @@ function LectureList({ success, courseId, lecture }) {
               {lecture.lecture_title}
             </span>
             <span className='edit-course-lectures-list-card__sub'>
-              Created at:{format(new Date(lecture.created_at), "MM/dd/yyyy")}
+              Created on:{format(new Date(lecture.created_at), "MM/dd/yyyy")}
             </span>
           </p>
           <FontAwesomeIcon
@@ -66,9 +66,16 @@ function LectureList({ success, courseId, lecture }) {
                 </a>
               </li>
               <li className='edit-course-lectures-list-card__item'>
-                Duplicate
+                <a
+                  href={
+                    "/course/" +
+                    course.course_slug +
+                    "/lecture/" +
+                    lecture.lecture_slug
+                  }>
+                  View
+                </a>
               </li>
-              <li className='edit-course-lectures-list-card__item'>Delete</li>
             </ul>
           )}
         </article>
@@ -81,12 +88,14 @@ LectureList.propTypes = {
   success: PropTypes.bool.isRequired,
   courseId: PropTypes.string.isRequired,
   lecture: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     success: state.getCourseEdit.lectures.success,
     courseId: state.getCourseEdit.course.course_id,
+    course: state.getCourseEdit.course,
   };
 };
 

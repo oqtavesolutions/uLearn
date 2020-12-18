@@ -17,6 +17,22 @@ exports.requiresAuth = async (req, res, next) => {
     );
     const authenticatedUser = await user.findById({ user_id: uid });
 
+    if (!authenticatedUser) {
+      const newUser = await user.create({
+        email,
+        user_id: uid,
+      });
+
+      req.user = {
+        id: newUser.id,
+        email_verified,
+        user_uuid: newUser.attributes.user_id,
+        email,
+      };
+
+      return next();
+    }
+
     req.user = {
       id: authenticatedUser.id,
       email_verified,
@@ -26,6 +42,7 @@ exports.requiresAuth = async (req, res, next) => {
 
     next();
   } catch (error) {
+    console.log(error);
     next(error);
     return;
   }
@@ -39,6 +56,7 @@ exports.requiresAuthRegistration = async (req, res, next) => {
     req.user = decodedIdToken;
     next();
   } catch (error) {
+    console.log(error);
     next(error);
     return;
   }

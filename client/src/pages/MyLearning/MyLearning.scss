@@ -21,6 +21,10 @@
   box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
   padding: 1rem;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 
   &__description {
     display: flex;

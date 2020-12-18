@@ -23,7 +23,7 @@ router.put(
   lectureControllers.update
 );
 router.get(
-  "/content/validation/:lectureSlug",
+  "/content/validation/:courseSlug/:lectureSlug",
   lectureControllers.findSingleBySlug
 );
 

@@ -127,7 +127,12 @@ module.exports = {
 
   findSingleBySlug: async (req, res) => {
     try {
+      const course = await courseServices.find({
+        course_id: req.params.courseSlug,
+      });
+
       const lecture = await lectureServices.findSingleBySlug({
+        course_id: course.attributes.id,
         lecture_slug: req.params.lectureSlug,
       });
       if (!lecture)

@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import LectureList from "./components/LectureList";
 import { ToastContainer, toast } from "react-toastify";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
+import ReactQuill from "react-quill";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -166,8 +167,6 @@ function EditCourse({
                 <li className='edit-course-collapsible__item'>
                   <Link to={"/course/" + course.course_slug}>View</Link>
                 </li>
-                <li className='edit-course-collapsible__item'>Duplicate</li>
-                <li className='edit-course-collapsible__item'>Delete</li>
               </ul>
             )}
           </article>
@@ -189,11 +188,16 @@ function EditCourse({
                 {({ isSubmitting }) => (
                   <Form className='edit-course-details-form'>
                     <div className='edit-course-details-form__input-container'>
+                      <label
+                        htmlFor='Course Title'
+                        className='edit-course-details-form__input-label'>
+                        Title
+                      </label>
                       <Field
                         type='text'
                         name='course_title'
-                        placeholder='Course Title'
                         className='edit-course-details-form__input'
+                        placeholder='Title'
                       />
                       <ErrorMessage
                         name='course_title'
@@ -202,12 +206,19 @@ function EditCourse({
                       />
                     </div>
                     <div className='edit-course-details-form__input-container'>
-                      <Field
-                        as='textarea'
-                        name='course_description'
-                        placeholder='Course Description'
-                        className='edit-course-details-form__text-area'
-                      />
+                      <label
+                        htmlFor='Description'
+                        className='edit-course-details-form__input-label'>
+                        Description
+                      </label>
+                      <Field name='course_description'>
+                        {({ field }) => (
+                          <ReactQuill
+                            value={field.value}
+                            onChange={field.onChange(field.name)}
+                          />
+                        )}
+                      </Field>
                       <ErrorMessage
                         name='course_description'
                         component='div'
@@ -215,10 +226,15 @@ function EditCourse({
                       />
                     </div>
                     <div className='edit-course-details-form__input-container'>
+                      <label
+                        htmlFor='Course Slug'
+                        className='edit-course-details-form__input-label'>
+                        Slug
+                      </label>
                       <Field
                         type='text'
                         name='course_slug'
-                        placeholder='Course Slug'
+                        placeholder='Slug'
                         className='edit-course-details-form__input edit-course-details-form__input--disabled'
                         disabled={true}
                       />
@@ -229,6 +245,11 @@ function EditCourse({
                       />
                     </div>
                     <div className='edit-course-details-form__input-container'>
+                      <label
+                        htmlFor='Course Category'
+                        className='edit-course-details-form__input-label'>
+                        Category
+                      </label>
                       <Field
                         as='select'
                         name='course_categories'
@@ -296,17 +317,17 @@ function EditCourse({
                 <li
                   className='edit-course-collapsible__item'
                   onClick={handleShowEditCourseDetails}>
-                  <Link to={"/create/" + match.params.courseId + "/lecture"}>
+                  <Link
+                    to={"/create/" + match.params.courseId + "/lecture"}
+                    className='edit-course-collapsible__item-link'>
                     Create Lecture
                   </Link>
                 </li>
                 <li
-                  className='edit-course-collapsible__item'
+                  className='edit-course-collapsible__item edit-course-collapsible__item-link'
                   onClick={handleShowEditLecturesList}>
                   View lectures
                 </li>
-                <li className='edit-course-collapsible__item'>Duplicate</li>
-                <li className='edit-course-collapsible__item'>Delete</li>
               </ul>
             )}
           </article>

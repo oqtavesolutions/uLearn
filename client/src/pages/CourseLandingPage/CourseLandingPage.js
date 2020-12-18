@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import "./CourseLandingPage.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import striptags from "striptags";
 
 function CourseLandingPage({
   course,
@@ -46,71 +47,68 @@ function CourseLandingPage({
                     {course.course_title}
                   </h1>
                   <p className='course-landing-page-description__text'>
-                    {course.course_description}
+                    {striptags(course.course_description)}
                   </p>
                 </div>
-                <Popup
-                  trigger={
-                    <button className='course-landing-page-description__button'>
-                      Enroll{" "}
-                    </button>
-                  }
-                  modal>
-                  {(close) =>
-                    enrollSuccess ? (
-                      <div className='enrollment-modal'>
-                        <button
-                          className='enrollment-modal__close'
-                          onClick={close}>
-                          &times;
-                        </button>
-                        <h1 className='enrollment-modal__header'>Success</h1>
-                        <div className='enrollment-modal__content'>
-                          Successfully enrolled, you can close and refresh this
-                          page now
+                {!isOwner && !isSubscribed && (
+                  <Popup
+                    trigger={
+                      <button className='course-landing-page-description__button'>
+                        Enroll{" "}
+                      </button>
+                    }
+                    modal>
+                    {(close) =>
+                      enrollSuccess ? (
+                        <div className='enrollment-modal'>
+                          <button
+                            className='enrollment-modal__close'
+                            onClick={close}>
+                            &times;
+                          </button>
+                          <h1 className='enrollment-modal__header'>Success</h1>
+                          <div className='enrollment-modal__content'>
+                            Successfully enrolled, you can close and refresh
+                            this page now
+                          </div>
                         </div>
-                      </div>
-                    ) : isLoggedIn ? (
-                      <div className='enrollment-modal'>
-                        <button
-                          className='enrollment-modal__close'
-                          onClick={close}>
-                          &times;
-                        </button>
-                        <h1 className='enrollment-modal__header'>
-                          Please Confirm
-                        </h1>
-                        <div className='enrollment-modal__content'>
-                          Are you sure you want to enroll into this course?
+                      ) : isLoggedIn ? (
+                        <div className='enrollment-modal'>
+                          <button
+                            className='enrollment-modal__close'
+                            onClick={close}>
+                            &times;
+                          </button>
+                          <h1 className='enrollment-modal__header'>
+                            Please Confirm
+                          </h1>
+                          <div className='enrollment-modal__content'>
+                            Are you sure you want to enroll into this course?
+                          </div>
+                          <button
+                            className='enrollment-modal__actions'
+                            onClick={handleEnroll}>
+                            Enroll Now
+                          </button>
                         </div>
-                        <button
-                          className='enrollment-modal__actions'
-                          onClick={handleEnroll}>
-                          Enroll Now
-                        </button>
-                      </div>
-                    ) : (
-                      <div className='enrollment-modal'>
-                        <button
-                          className='enrollment-modal__close'
-                          onClick={close}>
-                          &times;
-                        </button>
-                        <h1 className='enrollment-modal__header'>
-                          Please Login
-                        </h1>
-                        <div className='enrollment-modal__content'>
-                          Please login to continue
+                      ) : (
+                        <div className='enrollment-modal'>
+                          <button
+                            className='enrollment-modal__close'
+                            onClick={close}>
+                            &times;
+                          </button>
+                          <h1 className='enrollment-modal__header'>
+                            Please Login
+                          </h1>
+                          <div className='enrollment-modal__content'>
+                            Please login to continue
+                          </div>
                         </div>
-                      </div>
-                    )
-                  }
-                </Popup>
-                {/*!isOwner && !isSubscribed && (
-              <button className='course-landing-page-description__button'>
-                Enroll
-              </button>
-            )*/}
+                      )
+                    }
+                  </Popup>
+                )}
               </div>
             </div>
             <div className='course-landing-page-modules-container'>
@@ -122,7 +120,7 @@ function CourseLandingPage({
                 <div className='course-landing-page-modules'>
                   {course.lectures.length > 0 &&
                     course.lectures.map((lecture, i) =>
-                      isSubscribed ? (
+                      isSubscribed || isOwner ? (
                         <Link
                           to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}
                           key={lecture.lecture_id}>
@@ -134,7 +132,7 @@ function CourseLandingPage({
                               {lecture.lecture_title}
                             </p>
                             <p className='course-landing-page-module__module-title'>
-                              {lecture.lecture_description}
+                              {striptags(lecture.lecture_description)}
                             </p>
                           </div>
                         </Link>
@@ -149,7 +147,7 @@ function CourseLandingPage({
                             {lecture.lecture_title}
                           </p>
                           <p className='course-landing-page-module__module-title'>
-                            {lecture.lecture_description}
+                            {striptags(lecture.lecture_description)}
                           </p>
                         </div>
                       )
@@ -164,10 +162,11 @@ function CourseLandingPage({
                 <div className='course-landing-page-author'>
                   <div className='course-landing-page-author__description'>
                     <p className='course-landing-page-author__name'>
-                      {author.author_name}
+                      <strong>Name:</strong> {author && author.author_name}
                     </p>
                     <p className='course-landing-page-author__bio'>
-                      {author.author_bio}
+                      <strong>Bio:</strong>{" "}
+                      {author && striptags(author.author_bio)}
                     </p>
                   </div>
                 </div>
@@ -193,7 +192,6 @@ CourseLandingPage.propTypes = {
   isSubscribed: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
   enrollSuccess: PropTypes.bool.isRequired,
-  author: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {

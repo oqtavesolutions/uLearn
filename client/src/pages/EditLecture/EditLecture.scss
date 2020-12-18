@@ -83,9 +83,21 @@
   display: flex;
   flex-direction: column;
 
+  &__link {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+
   &__title {
     @include m-h1;
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    margin-right: 1rem;
   }
 }
 
@@ -99,15 +111,28 @@
     margin-bottom: 1rem;
   }
 
+
+  &__input-label {
+    display: table;
+    clear: both;
+    margin-bottom: .5rem;
+    font-weight: 600;
+
+  }
+
   &__input {
     width: 100%;
     outline: none;
     height: 48px;
-    border: 1px solid;
+    border: 1px solid color(dark-grey);
     border-radius: 5px;
     padding: .225rem 1rem 0;
     background: color(global-white);
     margin-bottom: .5rem;
+
+    &::placeholder {
+      color: color(darker-grey);
+    }
 
     &--disabled {
       background: color(borders);
@@ -123,7 +148,7 @@
     outline: none;
     border: 1px solid;
     border-radius: 5px;
-    padding: 1rem 1rem 0;
+    padding: 1rem 1rem;
     background: color(global-white);
     margin-bottom: .5rem;
     width: 100%;

@@ -38,7 +38,7 @@ function MyCourseList({ course }) {
           {course.course_title}
         </span>
         <span className='my-courses-page-card__date'>
-          Date Created: {format(new Date(course.created_at), "MM/dd/yyyy")}
+          Created on: {format(new Date(course.created_at), "MM/dd/yyyy")}
         </span>
       </p>
       <FontAwesomeIcon
