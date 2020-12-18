@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AuthenticatedRequest } from "../../utils/axios";
+import ReactQuill from "react-quill";
 
 const validationSchema = Yup.object().shape({
   lecture_title: Yup.string().required("Required"),
@@ -72,6 +73,11 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
         {({ isSubmitting }) => (
           <Form className='create-lecture-form'>
             <div className='create-lecture-form__input-container'>
+              <label
+                htmlFor='Lecture Title'
+                className='create-lecture-form__input-label'>
+                Category
+              </label>
               <Field
                 type='text'
                 name='lecture_title'
@@ -85,12 +91,19 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
               />
             </div>
             <div className='create-lecture-form__input-container'>
-              <Field
-                as='textarea'
-                name='lecture_description'
-                placeholder='Description'
-                className='create-lecture-form__text-area'
-              />
+              <label
+                htmlFor='Lecture Description'
+                className='create-lecture-form__input-label'>
+                Short Description
+              </label>
+              <Field name='lecture_description'>
+                {({ field }) => (
+                  <ReactQuill
+                    value={field.value}
+                    onChange={field.onChange(field.name)}
+                  />
+                )}
+              </Field>
               <ErrorMessage
                 name='lecture_description'
                 component='div'
@@ -98,12 +111,19 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
               />
             </div>
             <div className='create-lecture-form__input-container'>
-              <Field
-                as='textarea'
-                name='lecture_content'
-                placeholder='Content'
-                className='create-lecture-form__text-area'
-              />
+              <label
+                htmlFor='Lecture Content'
+                className='create-lecture-form__input-label'>
+                Content (This is what students see in their lectures as content)
+              </label>
+              <Field name='lecture_content'>
+                {({ field }) => (
+                  <ReactQuill
+                    value={field.value}
+                    onChange={field.onChange(field.name)}
+                  />
+                )}
+              </Field>
               <ErrorMessage
                 name='lecture_content'
                 component='div'
@@ -111,10 +131,15 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
               />
             </div>
             <div className='create-lecture-form__input-container'>
+              <label
+                htmlFor='Lecture Google Slide'
+                className='create-lecture-form__input-label'>
+                Google Slide
+              </label>
               <Field
                 type='text'
                 name='lecture_google_slide'
-                placeholder='Google Slide Embed Code'
+                placeholder='Google Slide Embed Url'
                 className='create-lecture-form__input'
               />
               <ErrorMessage
@@ -125,10 +150,15 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
             </div>
 
             <div className='create-lecture-form__input-container'>
+              <label
+                htmlFor='Lecture Vimeo Url'
+                className='create-lecture-form__input-label'>
+                Vimeo Url
+              </label>
               <Field
                 type='text'
                 name='lecture_video_embed'
-                placeholder='Video Embed Code'
+                placeholder='Video Embed Url'
                 className='create-lecture-form__input'
               />
               <ErrorMessage
@@ -139,6 +169,11 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
             </div>
 
             <div className='create-lecture-form__input-container'>
+              <label
+                htmlFor='Lecture Slug'
+                className='create-lecture-form__input-label'>
+                Slug
+              </label>
               <Field
                 type='text'
                 name='lecture_slug'
@@ -153,6 +188,11 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
             </div>
 
             <div className='create-lecture-form__input-container'>
+              <label
+                htmlFor='Lecture Attachment'
+                className='create-lecture-form__input-label'>
+                Attachment Url
+              </label>
               <Field
                 type='text'
                 name='lecture_attachment'

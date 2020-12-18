@@ -26,15 +26,31 @@
     margin-bottom: 1rem;
   }
 
+  &__input-label {
+    display: table;
+    clear: both;
+    margin-bottom: .5rem;
+    font-weight: 600;
+
+  }
+
   &__input {
     width: 100%;
     outline: none;
     height: 48px;
-    border: 1px solid;
+    border: 1px solid color(dark-grey);
     border-radius: 5px;
     padding: .225rem 1rem 0;
     background: color(global-white);
     margin-bottom: .5rem;
+
+    &::placeholder {
+      color: color(darker-grey);
+    }
+
+    &--disabled {
+      background: color(borders);
+    }
   }
 
   &__input-error {

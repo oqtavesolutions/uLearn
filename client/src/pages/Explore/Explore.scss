@@ -97,11 +97,25 @@
 
 }
 
+.course-explore-page-main {
+  @include tablet {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1rem;
+
+  }
+}
+
 .course-explore-page-categories-cloud {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+
+  @include tablet {
+    max-width: 280px;
+  }
 
   &__button {
     width: 100%;
@@ -130,7 +144,9 @@
 
   @include tablet {
     padding: $tablet-padding;
+    width: 500px;
   }
+
 
   @include desktop {
     padding: $desktop-padding;
@@ -144,11 +160,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 300px;
+  width: 100%;
 
-  @include tablet {
-    width: 500px;
-  }
 
   &__title {
     @include m-h2;

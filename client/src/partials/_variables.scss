@@ -13,6 +13,8 @@ $color: (global-black: #323232,
     global-orange: #ff813f,
     global-red: #FF4136,
     global-blue: #3c4a7e,
+    dark-grey: #ccc,
+    darker-grey: #8e8e8e,
     category-green: rgb(59 194 113 / 11%));
 
 @function color($color-name) {

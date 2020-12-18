@@ -39,6 +39,11 @@ function MyAccount({ handleChangePassword, loading }) {
         {({ isSubmitting }) => (
           <Form className='my-account-page-form'>
             <div className='my-account-page-form__input-container'>
+              <label
+                htmlFor='Old Password'
+                className='my-account-page-form__input-label'>
+                Old Password
+              </label>
               <Field
                 type='password'
                 name='old_password'
@@ -52,6 +57,11 @@ function MyAccount({ handleChangePassword, loading }) {
               />
             </div>
             <div className='my-account-page-form__input-container'>
+              <label
+                htmlFor='New Password'
+                className='my-account-page-form__input-label'>
+                New Password
+              </label>
               <Field
                 type='password'
                 name='new_password'
@@ -65,6 +75,11 @@ function MyAccount({ handleChangePassword, loading }) {
               />
             </div>
             <div className='my-account-page-form__input-container'>
+              <label
+                htmlFor='New Password Again'
+                className='my-account-page-form__input-label'>
+                New Password Again
+              </label>
               <Field
                 type='password'
                 name='new_password_again'
