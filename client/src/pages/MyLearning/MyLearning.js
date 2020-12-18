@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import striptags from "striptags";
 
 function MyLearning({ loading, handleGetCoursesByUser, courses, success }) {
   useEffect(() => {
@@ -35,7 +36,7 @@ function MyLearning({ loading, handleGetCoursesByUser, courses, success }) {
                   {course.courses.course_title}
                 </span>
                 <span className='my-learning-page-card__date'>
-                  Description: {course.courses.course_description}
+                  Description: {striptags(course.courses.course_description)}
                 </span>
               </p>
               <FontAwesomeIcon icon={faArrowRight} />

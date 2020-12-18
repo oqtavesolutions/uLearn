@@ -21,6 +21,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import CreateLecture from "./pages/CreateLecture";
 import "react-toastify/dist/ReactToastify.css";
+import "react-quill/dist/quill.snow.css";
 import "./App.scss";
 
 function App() {

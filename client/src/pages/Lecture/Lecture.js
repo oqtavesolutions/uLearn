@@ -47,7 +47,10 @@ function Lecture({ lecture, success, handleGetSingleLecture, match }) {
               </TabList>
 
               <TabPanel>
-                <p>{lecture.lecture.lecture_content}</p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: lecture.lecture.lecture_content,
+                  }}></p>
               </TabPanel>
               <TabPanel>
                 <div className='enrolled-lecture-container__video-content'>

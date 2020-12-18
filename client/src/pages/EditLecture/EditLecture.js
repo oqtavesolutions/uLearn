@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
+import ReactQuill from "react-quill";
 
 const validationSchema = Yup.object().shape({
   lecture_title: Yup.string().required("Required"),
@@ -90,101 +91,141 @@ function EditLecture({
           {({ isSubmitting }) => (
             <Form className='edit-lecture-detail-form'>
               <div className='edit-lecture-detail-form__input-container'>
-                <div className='edit-lecture-detail-form__input-container'>
-                  <Field
-                    type='text'
-                    name='lecture_title'
-                    placeholder='Title'
-                    className='edit-lecture-detail-form__input'
-                  />
-                  <ErrorMessage
-                    name='lecture_title'
-                    component='div'
-                    className='edit-course-details-form__input-error'
-                  />
-                </div>
-                <div className='edit-lecture-detail-form__input-container'>
-                  <Field
-                    as='textarea'
-                    name='lecture_description'
-                    placeholder='Description'
-                    className='edit-lecture-detail-form__text-area'
-                  />
-                  <ErrorMessage
-                    name='lecture_description'
-                    component='div'
-                    className='edit-course-details-form__input-error'
-                  />
-                </div>
-                <div className='edit-lecture-detail-form__input-container'>
-                  <Field
-                    name='lecture_content'
-                    placeholder='Content'
-                    className='edit-lecture-detail-form__text-area'
-                  />
-                  <ErrorMessage
-                    name='lecture_content'
-                    component='div'
-                    className='edit-course-details-form__input-error'
-                  />
-                </div>
-                <div className='edit-lecture-detail-form__input-container'>
-                  <Field
-                    type='text'
-                    name='lecture_google_slide'
-                    placeholder='Google Slide Embed Code'
-                    className='edit-lecture-detail-form__input'
-                  />
-                  <ErrorMessage
-                    name='lecture_google_slide'
-                    component='div'
-                    className='edit-course-details-form__input-error'
-                  />
-                </div>
-
-                <div className='edit-lecture-detail-form__input-container'>
-                  <Field
-                    type='text'
-                    name='lecture_video_embed'
-                    placeholder='Video Embed Code'
-                    className='edit-lecture-detail-form__input'
-                  />
-                  <ErrorMessage
-                    name='lecture_video_embed'
-                    component='div'
-                    className='edit-course-details-form__input-error'
-                  />
-                </div>
-
-                <div className='edit-lecture-detail-form__input-container'>
-                  <Field
-                    type='text'
-                    name='lecture_slug'
-                    placeholder='Slug'
-                    className='edit-lecture-detail-form__input edit-lecture-detail-form__input--disabled'
-                    disabled={true}
-                  />
-                  <ErrorMessage
-                    name='lecture_slug'
-                    component='div'
-                    className='edit-course-details-form__input-error'
-                  />
-                </div>
-
-                <div className='edit-lecture-detail-form__input-container'>
-                  <Field
-                    type='text'
-                    name='lecture_attachment'
-                    placeholder='Attachment'
-                    className='edit-lecture-detail-form__input'
-                  />
-                  <ErrorMessage
-                    name='lecture_attachment'
-                    component='div'
-                    className='edit-course-details-form__input-error'
-                  />
-                </div>
+                <label
+                  htmlFor='Lecture Title'
+                  className='edit-lecture-detail-form__input-label'>
+                  Category
+                </label>
+                <Field
+                  type='text'
+                  name='lecture_title'
+                  placeholder='Title'
+                  className='edit-lecture-detail-form__input'
+                />
+                <ErrorMessage
+                  name='lecture_title'
+                  component='div'
+                  className='edit-course-details-form__input-error'
+                />
               </div>
+              <div className='edit-lecture-detail-form__input-container'>
+                <label
+                  htmlFor='Lecture Description'
+                  className='edit-lecture-detail-form__input-label'>
+                  Short Description
+                </label>
+                <Field name='lecture_description'>
+                  {({ field }) => (
+                    <ReactQuill
+                      value={field.value}
+                      onChange={field.onChange(field.name)}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name='lecture_description'
+                  component='div'
+                  className='edit-course-details-form__input-error'
+                />
+              </div>
+              <div className='edit-lecture-detail-form__input-container'>
+                <label
+                  htmlFor='Lecture Content'
+                  className='edit-lecture-detail-form__input-label'>
+                  Content (This is what students see in their lectures as
+                  content)
+                </label>
+                <Field name='lecture_content'>
+                  {({ field }) => (
+                    <ReactQuill
+                      value={field.value}
+                      onChange={field.onChange(field.name)}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name='lecture_content'
+                  component='div'
+                  className='edit-course-details-form__input-error'
+                />
+              </div>
+              <div className='edit-lecture-detail-form__input-container'>
+                <label
+                  htmlFor='Lecture Google Slide'
+                  className='edit-lecture-detail-form__input-label'>
+                  Google Slide
+                </label>
+                <Field
+                  type='text'
+                  name='lecture_google_slide'
+                  placeholder='Google Slide Embed Url'
+                  className='edit-lecture-detail-form__input'
+                />
+                <ErrorMessage
+                  name='lecture_google_slide'
+                  component='div'
+                  className='edit-course-details-form__input-error'
+                />
+              </div>
+
+              <div className='edit-lecture-detail-form__input-container'>
+                <label
+                  htmlFor='Lecture Vimeo Url'
+                  className='edit-lecture-detail-form__input-label'>
+                  Vimeo Url
+                </label>
+                <Field
+                  type='text'
+                  name='lecture_video_embed'
+                  placeholder='Video Embed Url'
+                  className='edit-lecture-detail-form__input'
+                />
+                <ErrorMessage
+                  name='lecture_video_embed'
+                  component='div'
+                  className='edit-course-details-form__input-error'
+                />
+              </div>
+
+              <div className='edit-lecture-detail-form__input-container'>
+                <label
+                  htmlFor='Lecture Slug'
+                  className='edit-lecture-detail-form__input-label'>
+                  Slug
+                </label>
+                <Field
+                  type='text'
+                  name='lecture_slug'
+                  placeholder='Slug'
+                  className='edit-lecture-detail-form__input edit-lecture-detail-form__input--disabled'
+                  disabled={true}
+                />
+                <ErrorMessage
+                  name='lecture_slug'
+                  component='div'
+                  className='edit-lecture-detail-form__input edit-lecture-detail-form__input--disabled'
+                />
+              </div>
+
+              <div className='edit-lecture-detail-form__input-container'>
+                <label
+                  htmlFor='Lecture Attachment'
+                  className='edit-lecture-detail-form__input-label'>
+                  Attachment Url
+                </label>
+                <Field
+                  type='text'
+                  name='lecture_attachment'
+                  placeholder='Attachment'
+                  className='edit-lecture-detail-form__input'
+                />
+                <ErrorMessage
+                  name='lecture_attachment'
+                  component='div'
+                  className='edit-course-details-form__input-error'
+                />
+              </div>
+
               <div className='edit-lecture-detail-form__buttons'>
                 <button
                   disabled={updatedLoading}
@@ -193,9 +234,8 @@ function EditLecture({
                   Save
                 </button>
                 <Link
-                  to='/'
-                  className='edit-lecture-detail-form__button edit-lecture-detail-form__button--cancel'
-                  onClick={history.goBack}>
+                  to={`/edit/course/${match.params.courseId}`}
+                  className='edit-lecture-detail-form__button edit-lecture-detail-form__button--cancel'>
                   Cancel
                 </Link>
               </div>

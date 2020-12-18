@@ -41,7 +41,7 @@ function LectureList({ success, courseId, lecture, course }) {
               {lecture.lecture_title}
             </span>
             <span className='edit-course-lectures-list-card__sub'>
-              Created at:{format(new Date(lecture.created_at), "MM/dd/yyyy")}
+              Created on:{format(new Date(lecture.created_at), "MM/dd/yyyy")}
             </span>
           </p>
           <FontAwesomeIcon
