@@ -1,33 +1,22 @@
 @use '../../partials/typography'as *;
 
+
+.sidebar-container {
+
+  &>.MuiDrawer-paperAnchorDockedLeft {
+    // padding: 0 $mobile-padding;
+    width: 240px;
+    border: none !important;
+  }
+
+}
+
 .sidebar {
   margin-right: auto;
+  margin-top: $app-bar-menu;
+  width: 100%;
 
-  &__list {
-    display: flex;
-    flex-direction: column;
+  &__icon {
+    margin-right: 1rem;
   }
-
-  &__list-item {
-
-    padding: 1rem;
-    border-radius: 20px;
-
-    &--selected {
-      background-color: rgba(255, 129, 63, .05);
-      color: color(global-orange);
-    }
-
-  }
-
-  &__list-item-icon {
-    margin-right: .5rem;
-  }
-
-  &__list-item-text {
-
-    @include m-h2;
-
-  }
-
 }

@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import ReactQuill from "react-quill";
+import EditorFooter from "../../components/EditorFooter/EditorFooter";
 
 const validationSchema = Yup.object().shape({
   lecture_title: Yup.string().required("Required"),
@@ -63,7 +64,7 @@ function EditLecture({
     <div className='edit-lecture-detail-form-container'>
       <ToastContainer />
       <Link
-        to={`/edit/course/${match.params.courseId}`}
+        to={`/edit/course/${match.params.courseId}/lectures`}
         className='edit-lecture-detail-form-container__link'>
         <FontAwesomeIcon
           icon={faArrowLeft}
@@ -227,17 +228,7 @@ function EditLecture({
               </div>
 
               <div className='edit-lecture-detail-form__buttons'>
-                <button
-                  disabled={updatedLoading}
-                  type='submit'
-                  className='edit-lecture-detail-form__button'>
-                  Save
-                </button>
-                <Link
-                  to={`/edit/course/${match.params.courseId}`}
-                  className='edit-lecture-detail-form__button edit-lecture-detail-form__button--cancel'>
-                  Cancel
-                </Link>
+                <EditorFooter />
               </div>
             </Form>
           )}

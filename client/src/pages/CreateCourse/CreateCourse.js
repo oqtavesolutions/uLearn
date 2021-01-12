@@ -7,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AuthenticatedRequest } from "../../utils/axios";
 import ReactQuill from "react-quill";
+import EditorFooter from "../../components/EditorFooter/EditorFooter";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -161,12 +162,7 @@ function CreateCourse({ handleSubmit }) {
               />
             </div>
 
-            <button
-              type='submit'
-              className='create-course-form__button'
-              disabled={isSubmitting}>
-              SUBMIT
-            </button>
+            <EditorFooter />
           </Form>
         )}
       </Formik>

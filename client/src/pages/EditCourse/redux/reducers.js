@@ -9,12 +9,6 @@ const initialState = {
     success: false,
     error: "",
   },
-  lectures: {
-    loading: false,
-    success: false,
-    lectures: [],
-    error: "",
-  },
   error: "",
 };
 
@@ -38,37 +32,6 @@ const getCourseEdit = (state = initialState, action) => {
         error: action.payload.message,
         course: {},
       };
-    case types.GET_COURSE_LECTURE_LIST:
-      return {
-        ...state,
-        lectures: {
-          ...state.lectures,
-          loading: true,
-        },
-      };
-    case types.GET_COURSE_LECTURE_LIST_SUCCESSFUL:
-      return {
-        ...state,
-        lectures: {
-          ...state.lectures,
-          loading: false,
-          success: true,
-          error: "",
-          lectures: action.payload.lectures,
-        },
-      };
-    case types.GET_COURSE_LECTURE_LIST_FAILURE:
-      return {
-        ...state,
-        lectures: {
-          ...state.lectures,
-          loading: false,
-          success: false,
-          error: action.payload.message,
-          lectures: [],
-        },
-      };
-
     // update course:
 
     case types.UPDATE_COURSE:

@@ -1,0 +1,26 @@
+.editor-footer {
+  top: auto !important;
+  bottom: 0;
+  z-index: 1201 !important;
+
+
+  &__container {
+    justify-content: space-between;
+  }
+
+  &__cancel {
+    text-transform: initial !important;
+    border-radius: 20px !important;
+    border-color: #ED548F !important;
+  }
+
+  &__save {
+    text-transform: initial !important;
+    border-radius: 20px !important;
+    background-color: #004aad !important;
+
+    &>span {
+      color: #ffffff !important;
+    }
+  }
+}

@@ -1,19 +1,12 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import EditCourse from "./EditCourse";
-import {
-  getCourseEdit,
-  getCourseLectureList,
-  updateCourse,
-} from "./redux/actions";
+import { getCourseEdit, updateCourse } from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleGetCourseEdit: (courseId) => {
       dispatch(getCourseEdit(courseId));
-    },
-    handleGetCourseLectures: (courseId) => {
-      dispatch(getCourseLectureList(courseId));
     },
     handleUpdateCourse: (payload) => {
       dispatch(

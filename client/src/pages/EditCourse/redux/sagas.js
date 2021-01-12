@@ -1,10 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
-import {
-  getCourseEdit,
-  getCourseLectureList,
-  updateCourse,
-} from "./middlewares";
+import { getCourseEdit, updateCourse } from "./middlewares";
 import { toast } from "react-toastify";
 
 function* getCourseEditSaga(action) {
@@ -27,25 +23,6 @@ function* getCourseEditSaga(action) {
   }
 }
 
-function* getCourseLectureListSaga(action) {
-  console.log("Edit course");
-
-  try {
-    const payload = yield call(getCourseLectureList, action.payload);
-
-    yield put({
-      type: types.GET_COURSE_LECTURE_LIST_SUCCESSFUL,
-      payload,
-    });
-  } catch (error) {
-    console.log(error);
-    yield put({
-      type: types.GET_COURSE_LECTURE_LIST_FAILURE,
-      payload: error,
-    });
-  }
-}
-
 function* updateCourseSaga(action) {
   console.log("update course");
 
@@ -60,6 +37,8 @@ function* updateCourseSaga(action) {
     yield put({
       type: types.RESET_COURSE_UPDATE_SUCCESS,
     });
+
+    yield call(toast.dark, "Course updated successfully");
   } catch (error) {
     console.log(error);
     yield put({
@@ -70,9 +49,6 @@ function* updateCourseSaga(action) {
 
 export function* watchGetCourseEditSaga() {
   yield takeLatest(types.GET_COURSE_EDIT, getCourseEditSaga);
-}
-export function* watchGetCourseLectureListSaga() {
-  yield takeLatest(types.GET_COURSE_LECTURE_LIST, getCourseLectureListSaga);
 }
 export function* watchUpdateCourseSaga() {
   yield takeLatest(types.UPDATE_COURSE, updateCourseSaga);

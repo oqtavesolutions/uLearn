@@ -7,13 +7,6 @@ export const getCourseEdit = (courseId) => {
   };
 };
 
-export const getCourseLectureList = (courseId) => {
-  return {
-    type: types.GET_COURSE_LECTURE_LIST,
-    payload: courseId,
-  };
-};
-
 export const updateCourse = (payload) => {
   return {
     type: types.UPDATE_COURSE,

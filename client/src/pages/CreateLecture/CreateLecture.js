@@ -7,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AuthenticatedRequest } from "../../utils/axios";
 import ReactQuill from "react-quill";
+import EditorFooter from "../../components/EditorFooter/EditorFooter";
 
 function CreateLecture({ handleCreateLecture, match, loading }) {
   const validationSchema = Yup.object().shape({
@@ -209,12 +210,7 @@ function CreateLecture({ handleCreateLecture, match, loading }) {
               />
             </div>
 
-            <button
-              type='submit'
-              className='create-lecture-form__button'
-              disabled={loading}>
-              SUBMIT
-            </button>
+            <EditorFooter />
           </Form>
         )}
       </Formik>

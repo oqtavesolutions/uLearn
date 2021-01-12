@@ -6,9 +6,11 @@ import userStatus from "./middleware";
 import * as types from "./constants";
 import {
   watchGetCourseEditSaga,
-  watchGetCourseLectureListSaga,
   watchUpdateCourseSaga,
 } from "../pages/EditCourse/redux/sagas";
+
+import { watchGetCourseLectureListSaga } from "../pages/LectureList/redux/sagas";
+
 import watchGetCoursesByUserSaga from "../pages/MyCourses/redux/sagas";
 import {
   watchGetLectureEditSaga,

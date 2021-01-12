@@ -1,14 +1,28 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { useMediaQuery } from "react-responsive";
-import logo from "../../assets/logo/logo.svg";
-import "./Header.scss";
-import { Link, withRouter } from "react-router-dom";
-import Avatar from "react-avatar";
+import React, { Fragment, useState } from "react";
+import {
+  AppBar,
+  List,
+  ListItem,
+  Toolbar,
+  Typography,
+  IconButton,
+  Drawer,
+  Avatar,
+  Grid,
+  MenuList,
+  MenuItem,
+  Popover,
+  Divider,
+} from "@material-ui/core";
 import firebase from "../../config";
+import { useMediaQuery } from "react-responsive";
+import { Menu as MenuIcon } from "@material-ui/icons";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import logo from "../../assets/logo/logo_cursive.svg";
+import { menusMobile, menusDesktop, menusMobileBottom } from "./menus";
+import "./Header.scss";
 
 function Header({
   history,
@@ -22,181 +36,210 @@ function Header({
     query: "(min-device-width: 768px)",
   });
 
-  const hamburgerMenu = useRef(null);
-  const hamburgerMenuMobile = useRef(null);
-  const [showMenus, setShowMenus] = useState(false);
-  const [showDesktopCollapsible, setShowDesktopCollapsible] = useState(false);
+  /* menus */
+  const menusComponentMobile = menusMobile.map((menu) => (
+    <ListItem key={menu.id}>
+      <Link to={menu.link}>
+        <Typography variant='body1'>{menu.text}</Typography>
+      </Link>
+    </ListItem>
+  ));
 
-  const handleNavBarClick = () => {
-    setShowMenus(!showMenus);
+  const menusComponentMobileBottom = menusMobileBottom.map((menu) => (
+    <ListItem key={menu.id}>
+      <Link to={menu.link}>
+        <Typography variant='body1'>{menu.text}</Typography>
+      </Link>
+    </ListItem>
+  ));
+
+  const menusComponent = menusDesktop.map((menu) => (
+    <Link to={menu.link} key={menu.id} className='header-left-menu-items__item'>
+      <Typography variant='body2'>{menu.text}</Typography>
+    </Link>
+  ));
+
+  /* set drawer for mobile */
+  const [drawer, setDrawer] = useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setDrawer(open);
   };
 
-  const handleCollapsibleClick = () => {
-    setShowDesktopCollapsible(!showDesktopCollapsible);
+  /* Set Avatar menu for desktop */
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  /* log out */
   const handleLogout = async () => {
     await firebase.auth().signOut();
     history.push("/login");
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", (e) => {
-      if (
-        hamburgerMenu.current !== null &&
-        !hamburgerMenu.current.contains(e.target)
-      ) {
-        setShowDesktopCollapsible(false);
-        setShowMenus(false);
-      }
-    });
-
-    // returned function will be called on component unmount
-    return () => {
-      document.removeEventListener("mousedown", () => {
-        setShowMenus(false);
-        setShowDesktopCollapsible(false);
-      });
-    };
-  }, [hamburgerMenu, showMenus]);
-
-  useEffect(() => {
-    document.addEventListener("mousedown", (e) => {
-      if (
-        hamburgerMenuMobile.current !== null &&
-        !hamburgerMenuMobile.current.contains(e.target)
-      ) {
-        setShowDesktopCollapsible(false);
-        setShowMenus(false);
-      }
-    });
-    // returned function will be called on component unmount
-    return () => {
-      document.removeEventListener("mousedown", () => {
-        setShowMenus(false);
-        setShowDesktopCollapsible(false);
-      });
-    };
-  }, [hamburgerMenuMobile, showMenus]);
+  /* */
 
   return (
-    <header className='header'>
-      <div className='header__logo'>
-        <Link
-          to={isLoggedIn ? "/dashboard" : "/"}
-          className='header__logo-link'>
-          <img src={logo} alt='logo' className='header__logo-image' />
-        </Link>
-      </div>
-      {!isLoggedIn && !signupRoute && !loginRoute && (
-        <div className='header__login-register'>
-          <Link to='/login' className='header__login'>
-            Login
-          </Link>
-          <Link to='/signup' className='header__signup'>
-            Signup
-          </Link>
-        </div>
-      )}
-      {!isDesktop && isLoggedIn && (
-        <div className='header-menu-bar'>
-          {!showMenus && (
-            <FontAwesomeIcon
-              icon={faBars}
-              className='header-menu-bar__nav-bar-icon'
-              onClick={handleNavBarClick}
-            />
-          )}
-        </div>
-      )}
-      {!isDesktop && isLoggedIn && showMenus && (
-        <Fragment>
-          <FontAwesomeIcon
-            icon={faTimesCircle}
-            className='header-menu-bar__nav-bar-icon'
-          />
-          <nav className='header-menus-kebab' ref={hamburgerMenuMobile}>
-            <ul className='header-menus-kebab__list'>
-              <li className='header-menus-kebab__list-item'>
-                <Link to='/dashboard' onClick={handleNavBarClick}>
-                  Dashboard
-                </Link>
-              </li>
-              <li className='header-menus-kebab__list-item'>
-                <Link to='/my-courses' onClick={handleNavBarClick}>
-                  My Courses
-                </Link>
-              </li>
-              <li className='header-menus-kebab__list-item'>
-                <Link to='/my-learning' onClick={handleNavBarClick}>
-                  My Learning
-                </Link>
-              </li>
-              <li className='header-menus-kebab__list-item'>
-                <Link to='/explore' onClick={handleNavBarClick}>
-                  Explore
-                </Link>
-              </li>
-              <li className='header-menus-kebab__list-item'>
-                <Link to='/my-page' onClick={handleNavBarClick}>
-                  My Page
-                </Link>
-              </li>
-              <li className='header-menus-kebab__list-item'>
-                <Link to='/my-account' onClick={handleNavBarClick}>
-                  My Account
-                </Link>
-              </li>
-              <li
-                className='header-menus-kebab__list-item'
-                onClick={handleLogout}>
-                Logout
-              </li>
-            </ul>
-          </nav>
-        </Fragment>
-      )}
+    <AppBar color='inherit' className='header'>
+      <Toolbar>
+        {/* logo */}
 
-      {isLoggedIn && isDesktop && (
-        <nav className='header-menus'>
-          <div className='header-menus__buttons'>
-            <Link to='/dashboard' className='header-menus__dashboard'>
-              Dashboard
+        <Typography variant='h6'>
+          <Link to={isLoggedIn ? "/my-courses" : "/"}>
+            {" "}
+            <img src={logo} alt='logo' className='header__logo' />
+          </Link>
+        </Typography>
+
+        {/* If Not logged In */}
+
+        {!isLoggedIn && !signupRoute && !loginRoute && (
+          <div className='header-public'>
+            <Link to='/login'>
+              <Typography variant='body1'>Login</Typography>
             </Link>
           </div>
-          <div className='header-menus__collapse'>
-            <Avatar
-              name={displayName}
-              size='50'
-              className='header-menus__avatar'
-              onClick={handleCollapsibleClick}
-              textSizeRatio={1.75}
-              color='#323232'
-            />
-          </div>
-          {showDesktopCollapsible && (
-            <ul className='header-menus__items' ref={hamburgerMenu}>
-              <li className='header-menus__item header-menus__item--display-name'>
-                {displayName}
-              </li>
-              <li className='header-menus__item header-menus__item--email'>
-                {email}
-              </li>
-              <li className='header-menus__item header-menus__item--my-account'>
-                <Link to='/my-account' onClick={handleCollapsibleClick}>
-                  My Account
-                </Link>
-              </li>
-              <li
-                className='header-menus__item header-menus__item--logout'
-                onClick={handleLogout}>
-                Logout
-              </li>
-            </ul>
-          )}
-        </nav>
-      )}
-    </header>
+        )}
+
+        {/* If desktop */}
+
+        {isDesktop && isLoggedIn && (
+          <Fragment>
+            <div className='header-left-menu-items'>{menusComponent}</div>
+            <div className='header-right-menu-items'>
+              <Link
+                to='/create/course'
+                className='header-right-menu-items__create'>
+                <Typography variant='body2'>Create Course</Typography>
+              </Link>
+              <Avatar
+                className='header-right-menu-items__avatar'
+                aria-controls='avatar-menu'
+                aria-haspopup='true'
+                onClick={handleClick}>
+                {displayName[0]}
+              </Avatar>
+            </div>
+            <Popover
+              id={id}
+              open={open}
+              elevation={1}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              className='avatar-menu-popover'
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}>
+              <Grid container className='avatar-menu-popover__avatar-container'>
+                <Grid item xs={3}>
+                  <Avatar className='avatar-menu-popover__avatar'>
+                    {displayName[0]}
+                  </Avatar>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography
+                    variant='body2'
+                    className='avatar-menu-popover__name'>
+                    {displayName}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    className='avatar-menu-popover__email'>
+                    {email}
+                  </Typography>
+                </Grid>
+              </Grid>
+              <MenuList>
+                <MenuItem onClick={handleClose}>
+                  <Link to='/my-page'>
+                    {" "}
+                    <Typography variant='body2'>My Page</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link to='my-account'>
+                    <Typography variant='body2'>My account</Typography>{" "}
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <Typography variant='body2'>Logout</Typography>
+                </MenuItem>
+              </MenuList>
+            </Popover>
+          </Fragment>
+        )}
+
+        {/* If mobile */}
+
+        {!isDesktop && isLoggedIn && (
+          <IconButton
+            edge='end'
+            color='inherit'
+            aria-label='open drawer'
+            onClick={toggleDrawer(true)}
+            className='header-mobile-menu-container'>
+            <MenuIcon />
+          </IconButton>
+        )}
+
+        {!isDesktop && (
+          <Drawer
+            anchor='right'
+            open={drawer}
+            onClose={toggleDrawer(false)}
+            className='header-mobile-menu'>
+            <Grid container className='header-mobile-menu__avatar-container'>
+              <Grid item xs={3} className='header-mobile-menu__avatar'>
+                <Avatar>{displayName[0]}</Avatar>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography
+                  variant='body1'
+                  className='header-mobile-menu__name'>
+                  {displayName}
+                </Typography>
+                <Typography
+                  variant='body1'
+                  className='header-mobile-menu__email'>
+                  {email}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Divider />
+            <List onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+              {menusComponentMobile}
+              <ListItem onClick={handleLogout}>
+                <Typography variant='body1'>Logout</Typography>
+              </ListItem>
+            </List>
+            <Divider />
+            <List onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+              {menusComponentMobileBottom}
+            </List>
+          </Drawer>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 }
 

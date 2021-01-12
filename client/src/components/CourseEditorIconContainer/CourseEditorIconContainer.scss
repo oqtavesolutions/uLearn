@@ -1,0 +1,34 @@
+/* editor icons */
+.course-editor-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    &:first-of-type {
+      margin-right: 1rem;
+    }
+  }
+
+  &__button-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: red;
+
+
+  }
+
+  &__button {
+    color: #fff;
+  }
+}

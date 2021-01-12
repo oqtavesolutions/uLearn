@@ -2,168 +2,49 @@
 @use '../../partials/mixins'as *;
 
 .course-explore-page-description {
-  padding: $mobile-padding;
-  background-color: color(global-black);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-height: 200px;
-  justify-content: center;
-
-  @include tablet {
-    padding: $tablet-padding;
-    min-height: 300px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-  }
-
-  @include desktop {
-    padding: $desktop-padding;
-  }
 
   &__title {
-    @include m-h1;
-    color: color(global-white);
+    font-weight: 700;
     margin-bottom: 1rem;
   }
 
   &__text {
-    color: color(global-white);
     margin-bottom: 1rem;
   }
 
-  &__button {
-    background-color: color(global-black);
-    color: color(global-white);
+}
+
+
+.course-explore-page-card {
+
+  padding: 1rem;
+
+
+  &__image-container {
+    width: 100%;
+  }
+
+  &__image {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__text-container {
+    //width: 200px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 200px;
-    outline: none;
-    border: none;
-    height: 43px;
-    border-radius: 5px;
-  }
-}
-
-.course-explore-page-search-form {
-
-  position: relative;
-
-  &__input {
-    width: 200px;
-    height: 43px;
-    padding-left: 1rem;
-    border-radius: 5px;
-    outline: none;
-    border: none;
+    justify-content: space-between;
   }
 
-  &__button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 43px;
-    height: 43px;
-    background-color: transparent;
-    outline: none;
-    border: none;
-  }
-}
-
-.course-explore-page-categories {
-  padding: $mobile-padding;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  @include tablet {
-    padding: $tablet-padding;
+  &__text {
+    flex-grow: 1;
   }
 
-  @include desktop {
-    padding: $desktop-padding;
+  &__text-title {
+    font-weight: bold !important;
   }
 
-  &__title {
-    @include m-h1;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-
-}
-
-.course-explore-page-main {
-  @include tablet {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 1rem;
-
-  }
-}
-
-.course-explore-page-categories-cloud {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  @include tablet {
-    max-width: 280px;
-  }
-
-  &__button {
-    width: 100%;
-    height: auto;
-    padding: 1rem;
-    outline: none;
-    background-color: transparent;
-    border-radius: 20px;
-    border: 2px solid color(global-black);
+  &__icon {
     cursor: pointer;
-    margin-bottom: 1rem;
-
-    @include tablet {
-      width: 230px;
-      margin-right: 1rem;
-    }
-  }
-}
-
-.course-explore-page-categories-highlights {
-  padding: 0 $mobile-padding;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  @include tablet {
-    padding: $tablet-padding;
-    width: 500px;
-  }
-
-
-  @include desktop {
-    padding: $desktop-padding;
-  }
-}
-
-.course-explore-page-categories-highlights-card {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 2rem;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-
-
-  &__title {
-    @include m-h2;
   }
 }

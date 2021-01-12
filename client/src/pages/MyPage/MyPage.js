@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { connect } from "react-redux";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import ReactQuill from "react-quill";
+import EditorFooter from "../../components/EditorFooter/EditorFooter";
 
 const validationSchema = Yup.object().shape({
   author_name: Yup.string().required("Required"),
@@ -124,12 +125,7 @@ function MyPage({
                   />
                 </div>
 
-                <button
-                  type='submit'
-                  className='mypage-page-form__button'
-                  disabled={updateLoading}>
-                  SUBMIT
-                </button>
+                <EditorFooter />
               </Form>
             )}
           </Formik>

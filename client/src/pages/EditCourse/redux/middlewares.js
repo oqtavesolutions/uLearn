@@ -9,16 +9,6 @@ const getCourseEdit = async (courseId) => {
   };
 };
 
-const getCourseLectureList = async (courseId) => {
-  const response = await AuthenticatedRequest.get(
-    `/lecture/course/${courseId}`
-  );
-  return {
-    message: "lectures retrieved successfully",
-    lectures: response.data,
-  };
-};
-
 const updateCourse = async (payload) => {
   const response = await AuthenticatedRequest.put(
     "/course/edit/" + payload.course_id,
@@ -32,4 +22,4 @@ const updateCourse = async (payload) => {
   };
 };
 
-export { getCourseEdit, getCourseLectureList, updateCourse };
+export { getCourseEdit, updateCourse };

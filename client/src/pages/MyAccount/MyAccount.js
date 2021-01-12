@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { ToastContainer } from "react-toastify";
+import EditorFooter from "../../components/EditorFooter/EditorFooter";
 
 const validationSchema = Yup.object().shape({
   old_password: Yup.string()
@@ -92,12 +93,7 @@ function MyAccount({ handleChangePassword, loading }) {
                 className='my-account-page-form__input-error'
               />
             </div>
-            <button
-              type='submit'
-              className='my-account-page-form__button'
-              disabled={loading}>
-              Update Password
-            </button>
+            <EditorFooter />
           </Form>
         )}
       </Formik>
