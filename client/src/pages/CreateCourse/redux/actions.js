@@ -7,3 +7,11 @@ export const createCourse = (payload) => {
     payload,
   };
 };
+
+export const uploadImage = (payload) => {
+  console.log("action");
+  return {
+    type: types.UPLOAD_IMAGE,
+    payload,
+  };
+};

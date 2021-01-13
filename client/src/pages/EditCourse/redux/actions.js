@@ -13,3 +13,11 @@ export const updateCourse = (payload) => {
     payload,
   };
 };
+
+export const updateImage = (payload) => {
+  console.log("action");
+  return {
+    type: types.UPDATE_IMAGE,
+    payload,
+  };
+};

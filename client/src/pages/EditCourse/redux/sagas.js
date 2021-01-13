@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
-import { getCourseEdit, updateCourse } from "./middlewares";
+import { getCourseEdit, updateCourse, updateImage } from "./middlewares";
 import { toast } from "react-toastify";
 
 function* getCourseEditSaga(action) {
@@ -47,9 +47,30 @@ function* updateCourseSaga(action) {
   }
 }
 
+function* updateCourseImageSaga(action) {
+  console.log("saga");
+  try {
+    const payload = yield call(updateImage, action.payload);
+
+    yield put({
+      type: types.UPDATE_IMAGE_SUCCESSFUL,
+      payload,
+    });
+  } catch (error) {
+    yield put({
+      type: types.UPDATE_IMAGE_FAILURE,
+      payload: error,
+    });
+  }
+}
+
 export function* watchGetCourseEditSaga() {
   yield takeLatest(types.GET_COURSE_EDIT, getCourseEditSaga);
 }
 export function* watchUpdateCourseSaga() {
   yield takeLatest(types.UPDATE_COURSE, updateCourseSaga);
+}
+
+export function* watchUpdateImageSaga() {
+  yield takeLatest(types.UPDATE_IMAGE, updateCourseImageSaga);
 }

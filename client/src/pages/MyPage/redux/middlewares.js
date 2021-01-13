@@ -20,4 +20,19 @@ const updateAuthor = async ({ author_name, author_bio, author_slug }) => {
   };
 };
 
-export { getAuthorEdit, updateAuthor };
+const updateAuthorImage = async (payload) => {
+  const data = new FormData();
+  data.append("thumbnail", payload[0]);
+  const response = await AuthenticatedRequest.post("/upload", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  console.log(response.data);
+  return {
+    message: "file uploaded successfully",
+    ...response.data,
+  };
+};
+
+export { getAuthorEdit, updateAuthor, updateAuthorImage };

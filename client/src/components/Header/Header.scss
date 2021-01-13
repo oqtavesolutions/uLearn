@@ -47,6 +47,10 @@
 
 .avatar-menu-popover {
 
+  &>.MuiPaper-rounded {
+    top: 10px !important;
+  }
+
   &__avatar-container {
     padding: 1rem;
     align-items: center;

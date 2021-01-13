@@ -13,3 +13,11 @@ export const updateAuthor = (payload) => {
     payload,
   };
 };
+
+export const updateAuthorImage = (payload) => {
+  console.log("action");
+  return {
+    type: types.UPDATE_AUTHOR_IMAGE,
+    payload,
+  };
+};

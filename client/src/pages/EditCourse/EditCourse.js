@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useCallback, useEffect } from "react";
 import "./EditCourse.scss";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -8,9 +8,10 @@ import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import ReactQuill from "react-quill";
-
+import { useDropzone } from "react-dropzone";
 import CourseEditorIconContainer from "../../components/CourseEditorIconContainer/CourseEditorIconContainer";
 import EditorFooter from "../../components/EditorFooter/EditorFooter";
+import { Typography } from "@material-ui/core";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -42,7 +43,24 @@ function EditCourse({
   handleUpdateCourse,
   updateSuccess,
   location,
+  handleUpload,
+  file_url,
 }) {
+  const onDrop = useCallback(
+    (acceptedFiles, rejectedFiles) => {
+      if (rejectedFiles.length === 0) handleUpload(acceptedFiles);
+      if (rejectedFiles.length > 0) toast.error("File too large or is invalid");
+    },
+    [handleUpload]
+  );
+
+  const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
+    maxSize: 1000000,
+    accept: "image/jpeg, image/jpg, image/png",
+    onDrop,
+  });
+
   useEffect(() => {
     handleGetCourseEdit(match.params.courseId);
   }, [handleGetCourseEdit, match]);
@@ -72,6 +90,29 @@ function EditCourse({
           <CourseEditorIconContainer courseId={match.params.courseId} />
           <div className='edit-course-container'>
             <div className='edit-course-details-form-container'>
+              <div
+                {...getRootProps({ className: "dropzone" })}
+                className='edit-course-details-form-container__dropzone'>
+                <input {...getInputProps()} />
+                <Typography variant='body2'>
+                  Drag 'n' drop some files here, or click to select files
+                </Typography>
+                <Typography variant='body2'>
+                  <em>
+                    (Only .jpg and .png images will be accepted. Max file size
+                    is 1 Mb)
+                  </em>
+                </Typography>
+              </div>
+              {file_url && (
+                <div className='edit-course-details-form-container__image-area'>
+                  <img
+                    src={file_url}
+                    alt='course'
+                    className='edit-course-details-form-container__image'
+                  />
+                </div>
+              )}
               <Formik
                 initialValues={{
                   course_title: course.course_title,
@@ -191,10 +232,12 @@ EditCourse.propTypes = {
   handleUpdateCourse: PropTypes.func.isRequired,
   //  updateSuccess: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
+  handleUpload: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
+    file_url: state.getCourseEdit.uploadImage.file_url,
     course: state.getCourseEdit.course,
     updateSuccess: state.getCourseEdit.updatedCourse.success,
   };

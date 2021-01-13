@@ -1,10 +1,13 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import EditCourse from "./EditCourse";
-import { getCourseEdit, updateCourse } from "./redux/actions";
+import { getCourseEdit, updateCourse, updateImage } from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handleUpload: (file) => {
+      dispatch(updateImage(file));
+    },
     handleGetCourseEdit: (courseId) => {
       dispatch(getCourseEdit(courseId));
     },

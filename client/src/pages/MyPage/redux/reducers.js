@@ -4,6 +4,12 @@ const initialState = {
   loading: false,
   success: false,
   error: "",
+  uploadImage: {
+    loading: false,
+    success: false,
+    error: "",
+    file_url: "",
+  },
   author: {
     author_name: "",
     author_bio: "",
@@ -65,6 +71,38 @@ const getAuthorEdit = (state = initialState, action) => {
           loading: false,
           success: true,
           error: action.payload.message,
+        },
+      };
+
+    case types.UPDATE_AUTHOR_IMAGE:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: true,
+          success: false,
+          error: "",
+        },
+      };
+    case types.UPDATE_AUTHOR_IMAGE_SUCCESSFUL:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: false,
+          success: true,
+          error: "",
+          file_url: action.payload.file_url,
+        },
+      };
+    case types.UPDATE_AUTHOR_IMAGE_FAILURE:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: false,
+          success: false,
+          error: "file upload failed",
         },
       };
 

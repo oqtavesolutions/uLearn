@@ -1,14 +1,16 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, useCallback } from "react";
 import { withRouter } from "react-router-dom";
 import "./MyPage.scss";
 import PropTypes from "prop-types";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import ReactQuill from "react-quill";
 import EditorFooter from "../../components/EditorFooter/EditorFooter";
+import { Typography } from "@material-ui/core";
+import { useDropzone } from "react-dropzone";
 
 const validationSchema = Yup.object().shape({
   author_name: Yup.string().required("Required"),
@@ -28,7 +30,24 @@ function MyPage({
   author,
   loading,
   updateLoading,
+  handleUpload,
+  file_url,
 }) {
+  const onDrop = useCallback(
+    (acceptedFiles, rejectedFiles) => {
+      if (rejectedFiles.length === 0) handleUpload(acceptedFiles);
+      if (rejectedFiles.length > 0) toast.error("File too large or is invalid");
+    },
+    [handleUpload]
+  );
+
+  const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
+    maxSize: 1000000,
+    accept: "image/jpeg, image/jpg, image/png",
+    onDrop,
+  });
+
   useEffect(() => {
     handleGetAuthorEdit();
   }, [handleGetAuthorEdit]);
@@ -49,7 +68,30 @@ function MyPage({
       </p>
       {!success && loading && <CustomContentLoader />}
       {success && (
-        <Fragment>
+        <div className='mypage-page-form-container'>
+          <div
+            {...getRootProps({ className: "dropzone" })}
+            className='mypage-page-form-container__dropzone'>
+            <input {...getInputProps()} />
+            <Typography variant='body2'>
+              Drag 'n' drop some files here, or click to select files
+            </Typography>
+            <Typography variant='body2'>
+              <em>
+                (Only .jpg and .png images will be accepted. Max file size is 1
+                Mb)
+              </em>
+            </Typography>
+          </div>
+          {file_url && (
+            <div className='mypage-page-form-container__image-area'>
+              <img
+                src={file_url}
+                alt='course'
+                className='mypage-page-form-container__image'
+              />
+            </div>
+          )}
           <Formik
             initialValues={{
               author_name: author.author_name || "",
@@ -132,7 +174,7 @@ function MyPage({
           {/*author.author_slug.length && (
             <Link to='/author/author_slug'>View</Link>
           )*/}
-        </Fragment>
+        </div>
       )}
     </div>
   );
@@ -145,11 +187,13 @@ MyPage.propTypes = {
   author: PropTypes.object.isRequired,
   updateLoading: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  handleUpload: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     updateLoading: state.getAuthorEdit.updatedAuthor.loading,
+    file_url: state.getAuthorEdit.uploadImage.file_url,
   };
 };
 export default connect(mapStateToProps)(withRouter(MyPage));

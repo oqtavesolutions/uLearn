@@ -4,6 +4,12 @@ const initialState = {
   loading: false,
   success: false,
   course: {},
+  uploadImage: {
+    loading: false,
+    success: false,
+    error: "",
+    file_url: "",
+  },
   updatedCourse: {
     loading: false,
     success: false,
@@ -72,6 +78,37 @@ const getCourseEdit = (state = initialState, action) => {
         },
       };
 
+    case types.UPDATE_IMAGE:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: true,
+          success: false,
+          error: "",
+        },
+      };
+    case types.UPDATE_IMAGE_SUCCESSFUL:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: false,
+          success: true,
+          error: "",
+          file_url: action.payload.file_url,
+        },
+      };
+    case types.UPDATE_IMAGE_FAILURE:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: false,
+          success: false,
+          error: "file upload failed",
+        },
+      };
     default:
       return state;
   }

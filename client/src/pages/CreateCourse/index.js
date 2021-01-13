@@ -1,10 +1,13 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import CreateCourse from "./CreateCourse";
-import { createCourse } from "./redux/actions";
+import { createCourse, uploadImage } from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handleUpload: (file) => {
+      dispatch(uploadImage(file));
+    },
     handleSubmit: ({
       course_title,
       course_description,

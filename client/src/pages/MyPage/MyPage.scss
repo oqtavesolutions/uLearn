@@ -17,6 +17,42 @@
 
 }
 
+.mypage-page-form-container {
+  max-width: $form-container-max-width-tablet;
+  width: 100%;
+  margin-bottom: 4rem;
+
+  &__dropzone {
+    border: 2px dashed pink;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+
+  &__image-area {
+    max-width: 100%;
+    width: 400px;
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    padding: 1rem;
+
+  }
+
+  &__image {
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+}
+
 .mypage-page-form {
   display: flex;
   flex-direction: column;
