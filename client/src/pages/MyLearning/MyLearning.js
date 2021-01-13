@@ -3,7 +3,7 @@ import "./MyLearning.scss";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import striptags from "striptags";
+//import striptags from "striptags";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import softwaresImage from "../../assets/images/softwares.jpg";
 
@@ -39,14 +39,9 @@ function MyLearning({ loading, handleGetCoursesByUser, courses, success }) {
                   </div>
                   <div className='my-learning-page-card__description'>
                     <Typography
-                      variant='body1'
+                      variant='subtitle2'
                       className='my-learning-page-card__title'>
                       {course.courses.course_title}
-                    </Typography>
-                    <Typography
-                      variant='body2'
-                      className='my-learning-page-card__date'>
-                      {striptags(course.courses.course_description)}
                     </Typography>
                   </div>
                 </Paper>

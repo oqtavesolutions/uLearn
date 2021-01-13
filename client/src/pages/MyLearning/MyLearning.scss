@@ -19,11 +19,11 @@
 .my-learning-page-card {
   position: relative;
   box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
 
   &__image-container {
     width: 100%;
@@ -38,6 +38,7 @@
   &__description {
     display: flex;
     flex-direction: column;
+    padding: 1rem;
   }
 
   &__title {

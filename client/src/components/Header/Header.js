@@ -228,13 +228,13 @@ function Header({
             <Divider />
             <List onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
               {menusComponentMobile}
-              <ListItem onClick={handleLogout}>
-                <Typography variant='body1'>Logout</Typography>
-              </ListItem>
             </List>
             <Divider />
             <List onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
               {menusComponentMobileBottom}
+              <ListItem onClick={handleLogout}>
+                <Typography variant='body1'>Logout</Typography>
+              </ListItem>
             </List>
           </Drawer>
         )}

@@ -1,128 +1,21 @@
 @use '../../partials/typography'as *;
 @use '../../partials/mixins'as *;
 
-.course-landing-page {
+// .course-landing-page {
 
-  &__container {
-    padding: $mobile-padding;
-    background-color: color(global-black);
-    min-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+// }
 
-    @include tablet {
-      text-align: initial;
-      padding: $tablet-padding;
-    }
-
-    @include desktop {
-      padding: $desktop-padding;
-    }
-  }
-
-
-}
-
-.course-landing-page-description {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-
-  @include tablet {
-    align-items: center;
-    margin: 0 auto;
-    width: 50%;
-  }
+.course-landing-page-main {
+  margin: 3rem auto 0 auto !important;
+  padding: $desktop-padding;
+  width: 80%;
 
 
   &__title {
-    @include m-h1;
-    color: color(global-white);
-    margin-bottom: 1rem;
-  }
-
-  &__text {
-    color: color(global-white);
-    margin-bottom: 1rem;
-  }
-
-  &__button {
-    background-color: color(borders);
-    color: color(global-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    outline: none;
-    border: none;
-    height: 43px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto;
-
-    @include tablet {
-      margin: 0;
-    }
+    margin-bottom: 1rem !important;
   }
 }
 
-.course-landing-page-modules {
-  color: inherit;
-
-  width: 100%;
-
-  &__lectures-list {
-    width: 100%;
-
-    @include tablet {
-      flex-grow: 1;
-      margin-right: 2rem;
-    }
-
-  }
-}
-
-.course-landing-page-module {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-
-  // @include tablet {
-  //   width: 500px;
-  // }
-
-  &__title {
-    @include m-h2;
-  }
-}
-
-.course-landing-page-author {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-
-  // @include tablet {
-  //   width: 500px;
-  // }
-
-  &__title {
-    @include m-h2;
-  }
-
-  &__name {
-    margin-bottom: 1rem;
-  }
-}
 
 .enrollment-modal {
 
@@ -170,54 +63,6 @@
   }
 }
 
-.course-landing-page-modules-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 auto;
-  padding: $mobile-padding;
-
-
-  @include tablet {
-    width: 80%;
-    flex-direction: row;
-    padding: 1.5rem;
-    justify-content: space-between;
-    padding: $tablet-padding;
-  }
-
-  @include desktop {
-    padding: $desktop-padding;
-  }
-
-  &__lectures-list {
-    width: 100%;
-
-    @include tablet {
-      margin-right: 3rem;
-      border-right: 1px solid color(borders);
-      padding-right: 3rem;
-    }
-
-  }
-
-  &__title {
-    @include m-h2;
-    margin-bottom: 1rem;
-  }
-}
-
-.course-landing-page-author-list {
-  @include tablet {
-    width: 100%;
-    max-width: 320px;
-  }
-
-  &__name {
-    margin-bottom: 1rem;
-  }
-}
 
 // popup
 

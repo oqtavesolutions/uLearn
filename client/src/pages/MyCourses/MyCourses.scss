@@ -2,6 +2,12 @@
 
 .my-courses-page {
 
+  &__headline {
+    text-align: center;
+    font-weight: 700 !important;
+    margin: 1rem 0 2rem 0 !important;
+  }
+
   &__header {
     width: 100%;
     background-color: #004AAD !important;
@@ -24,8 +30,10 @@
     color: #fff;
   }
 
-  &__headline {
-    @include m-h1;
-    margin-bottom: 1rem;
-  }
+}
+
+.my-courses-page-container {
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
