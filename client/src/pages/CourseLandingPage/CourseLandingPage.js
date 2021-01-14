@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import "./CourseLandingPage.scss";
 import "reactjs-popup/dist/index.css";
-import striptags from "striptags";
-import { Grid, Typography } from "@material-ui/core";
+// import striptags from "striptags";
+import { Paper, Typography } from "@material-ui/core";
 import Vimeo from "@u-wave/react-vimeo";
+import avatarImg from "../../assets/images/avatar.svg";
 
 function CourseLandingPage({
   course,
@@ -15,12 +16,12 @@ function CourseLandingPage({
   isLoggedIn,
   handleGetCourseDetails,
   handleGetCourseDetailsLoggedInUser,
-  handleEnrollInCourse,
   isOwner,
   isSubscribed,
+  author,
+  handleEnrollInCourse,
   history,
   enrollSuccess,
-  author,
 }) {
   useEffect(() => {
     isLoggedIn
@@ -38,70 +39,116 @@ function CourseLandingPage({
       {success && (
         <div className='course-landing-page'>
           <div className='course-landing-page-main'>
-            <Typography
-              variant='h6'
-              className='course-landing-page-main__title'>
-              {course.course_title}
-            </Typography>
-            <Grid container wrap={true} spacing={3}>
-              <Grid item xs={6} sm={9}>
-                {course.lectures.length > 0 && (
-                  <Vimeo
-                    video={course.lectures[0].lecture_video_embed}
-                    autoplay
-                    responsive={true}
-                  />
-                )}
-              </Grid>
-              <Grid item xs={3} sm={3}>
-                <Typography variant='body2'>
-                  {course.lectures.length} lectures
-                </Typography>
-                {course.lectures.length > 0 &&
-                  course.lectures.map((lecture, i) =>
-                    isSubscribed || isOwner ? (
-                      <Link
-                        to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}
-                        key={lecture.lecture_id}>
-                        <div className='course-landing-page-module'>
-                          <p className='course-landing-page-module__module-title'>
+            <div className='course-landing-page-main__main'>
+              <Typography
+                variant='h6'
+                className='course-landing-page-main__main-title'>
+                {course.course_title}
+              </Typography>
+              <div className='course-landing-page-main-container'>
+                <Paper
+                  elevation={0}
+                  className='course-landing-page-main-container__video-text'>
+                  {course.lectures.length > 0 && (
+                    <Fragment>
+                      {course.lectures[0].lecture_type === "Text" && (
+                        <div
+                          className='course-landing-page-main-container-main-content'
+                          dangerouslySetInnerHTML={{
+                            __html: course.lectures[0].lecture_content,
+                          }}></div>
+                      )}
+                      {course.lectures[0].lecture_type === "Video" && (
+                        <Vimeo
+                          video={course.lectures[0].lecture_video_embed}
+                          autoplay={false}
+                          responsive={true}
+                        />
+                      )}
+                      {course.lectures[0].lecture_type === "Slide" && (
+                        <iframe
+                          title='google-slider'
+                          src={course.lectures[0].lecture_google_slide}
+                          frameBorder='0'
+                          width='960'
+                          height='569'
+                          allowFullScreen={true}></iframe>
+                      )}
+                    </Fragment>
+                  )}
+                </Paper>
+                <Paper
+                  elevation={0}
+                  className='course-landing-page-main-container__lecture-list'>
+                  <Typography
+                    variant='body2'
+                    className='course-landing-page-main-container__lecture-list-text'>
+                    {course.lectures.length} lectures
+                  </Typography>
+                  {course.lectures.length > 0 &&
+                    course.lectures.map((lecture, i) =>
+                      isSubscribed || isOwner ? (
+                        <Link
+                          to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}
+                          key={lecture.lecture_id}>
+                          <div className='course-landing-page-main-container-module'>
+                            <p className='course-landing-page-main-container-module__module-title'>
+                              {i + 1}. {lecture.lecture_title}
+                            </p>
+                          </div>
+                        </Link>
+                      ) : (
+                        <div
+                          className='course-landing-page-main-container-module'
+                          key={lecture.lecture_id}>
+                          <p className='course-landing-page-main-container-module__module-title'>
                             {i + 1}. {lecture.lecture_title}
                           </p>
                         </div>
-                      </Link>
-                    ) : (
-                      <div
-                        className='course-landing-page-module'
-                        key={lecture.lecture_id}>
-                        <p className='course-landing-page-module__module-title'>
-                          {i + 1}. {lecture.lecture_title}
-                        </p>
-                      </div>
-                    )
-                  )}
-              </Grid>
-            </Grid>
-          </div>
-          <Grid container className='course-landing-page-main'>
-            <Grid item xs={9} className='course-landing-page__container'>
-              <Typography
-                variant='body1'
-                className='course-landing-page-description__text'>
-                {striptags(course.course_description)}
-              </Typography>
-            </Grid>
-
-            <Grid item xs={3} className='course-landing-page-author'>
-              <div className='course-landing-page-author__description'>
-                <p className='course-landing-page-author__name'>
-                  <strong>Name:</strong> {author && author.author_name}
-                </p>
-                <p className='course-landing-page-author__bio'>
-                  <strong>Bio:</strong> {author && striptags(author.author_bio)}
-                </p>
+                      )
+                    )}
+                </Paper>
               </div>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
+          <div className='course-landing-page-course-description'>
+            <div className='course-landing-page-course-description__left-container'>
+              <Typography variant='h6'>About this course</Typography>
+              <div
+                variant='body2'
+                className='course-landing-page-course-description__text'
+                dangerouslySetInnerHTML={{
+                  __html: course.course_description,
+                }}></div>
+            </div>
+
+            <div className='course-landing-page-course-description__right-container'>
+              <div className='course-landing-page-course-description__avatar-container'>
+                <img
+                  src={
+                    author.profile_image_url
+                      ? author.profile_image_url
+                      : avatarImg
+                  }
+                  alt='avatar'
+                  className='course-landing-page-course-description__avatar'
+                />{" "}
+                <Typography
+                  variant='caption'
+                  className='course-landing-page-course-description__avatar-name'>
+                  {author.author_name ? author.author_name : "Awesome Author"}
+                </Typography>
+              </div>
+              <div className='course-landing-page-course-description__bio'>
+                {author && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: author.author_bio,
+                    }}></div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </Fragment>

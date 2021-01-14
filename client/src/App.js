@@ -115,15 +115,13 @@ function App() {
     return (
       <PrivateRoute>
         <Header />
-        <div className='app'>
-          <Switch>
-            <Route
-              exact
-              path='/course/:courseSlug/lecture/:lectureSlug'
-              component={Lecture}
-            />
-          </Switch>
-        </div>
+        <Switch>
+          <Route
+            exact
+            path='/course/:courseSlug/lecture/:lectureSlug'
+            component={Lecture}
+          />
+        </Switch>
       </PrivateRoute>
     );
   }
@@ -150,7 +148,6 @@ function App() {
       <Switch>
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />
-          <Route exact path='/explore' component={Explore} />
           <Route
             exact
             path='/course/:courseSlug'

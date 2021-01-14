@@ -3,7 +3,7 @@ exports.up = async function (knex) {
     table.increments("id").primary();
     table.uuid("author_id").defaultTo(knex.raw("(UUID())"));
     table.string("author_name");
-    table.string("author_bio");
+    table.string("author_bio", 2000);
     table.string("author_slug");
     table.string("profile_image_url");
     table

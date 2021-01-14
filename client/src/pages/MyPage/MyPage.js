@@ -207,7 +207,7 @@ function MyPage({
                   />
                 </div>
 
-                <EditorFooter />
+                <EditorFooter message='Update Author' />
               </Form>
             )}
           </Formik>

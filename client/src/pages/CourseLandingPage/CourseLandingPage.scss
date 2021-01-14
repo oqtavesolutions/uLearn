@@ -1,20 +1,140 @@
 @use '../../partials/typography'as *;
 @use '../../partials/mixins'as *;
 
-// .course-landing-page {
+.course-landing-page {
+  margin: 3rem auto 0 auto !important;
 
-// }
+}
 
 .course-landing-page-main {
-  margin: 3rem auto 0 auto !important;
   padding: $desktop-padding;
-  width: 80%;
+  //background-color: color(global-blue-main);
 
+  &__main {
+    margin: 0 auto;
 
-  &__title {
+    @include tablet {
+      width: 80%;
+    }
+  }
+
+  &__main-title {
+    //color: color(global-white);
     margin-bottom: 1rem !important;
   }
+
 }
+
+// course-landing-page-main-container
+
+.course-landing-page-main-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 500px;
+  //margin: 0 auto;
+
+
+  @include tablet {
+    //width: 80%;
+    flex-wrap: nowrap;
+  }
+
+  &__video-text {
+    width: 100%;
+    //padding: 1rem;
+    margin-bottom: 1rem;
+    overflow: auto;
+    background-color: transparent !important;
+
+    @include tablet {
+      margin-right: 1rem;
+      flex-grow: 1;
+    }
+  }
+
+  &__lecture-list {
+    //padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    overflow: auto;
+
+    background-color: transparent !important;
+
+    @include tablet {
+      width: 280px;
+    }
+
+
+  }
+
+  // &__lecture-list-text {
+  //   color: color(global-white);
+  // }
+}
+
+// main content
+
+// .course-landing-page-main-container-main-content {
+
+//   &>p,
+//   span {
+//     color: color(global-white);
+//   }
+// }
+
+// modules
+// .course-landing-page-main-container-module {
+//   &__module-title {
+//     color: color(global-white);
+//   }
+// }
+
+// bottom course description
+
+.course-landing-page-course-description {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 3rem auto;
+  flex-wrap: wrap;
+
+  @include tablet {
+    flex-wrap: nowrap;
+    width: 75%;
+  }
+
+  &__left-container {
+    flex-grow: 1;
+    margin-right: 1rem;
+
+    @include tablet {
+      width: 70%;
+    }
+  }
+
+  &__right-container {
+    @include tablet {
+      width: 30%;
+    }
+  }
+
+  &__avatar-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+  }
+
+  &__avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: .5rem;
+  }
+}
+
+// modal
 
 
 .enrollment-modal {

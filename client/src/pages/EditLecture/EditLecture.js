@@ -13,7 +13,6 @@ import CourseEditorIconContainer from "../../components/CourseEditorIconContaine
 
 const validationSchema = Yup.object().shape({
   lecture_title: Yup.string().required("Required"),
-  lecture_description: Yup.string().required("Required"),
   lecture_type: Yup.string()
     .oneOf(["Text", "Slide", "Video"], "Please choose a type")
     .required("Please choose a type"),
@@ -56,6 +55,7 @@ function EditLecture({
     lecture_length,
     lecture_type,
   }) => {
+    console.log("update lecture");
     handleUpdateLecture({
       lecture_title,
       lecture_content,
