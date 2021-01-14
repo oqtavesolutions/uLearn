@@ -8,11 +8,17 @@ const getAuthorEdit = async () => {
   };
 };
 
-const updateAuthor = async ({ author_name, author_bio, author_slug }) => {
+const updateAuthor = async ({
+  author_name,
+  author_bio,
+  author_slug,
+  profile_image_url,
+}) => {
   const response = await AuthenticatedRequest.post(`/author`, {
     author_slug,
     author_name,
     author_bio,
+    profile_image_url,
   });
   return {
     message: "author updated successfully",

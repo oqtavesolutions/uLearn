@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import "./MyPage.scss";
 import PropTypes from "prop-types";
@@ -21,6 +21,7 @@ const validationSchema = Yup.object().shape({
       message: "Cannot contain space or characters except for _ and -",
     })
     .required("Required"),
+  profile_image_url: Yup.string().url(),
 });
 
 function MyPage({
@@ -48,15 +49,27 @@ function MyPage({
     onDrop,
   });
 
+  const formik = useRef();
+
   useEffect(() => {
     handleGetAuthorEdit();
   }, [handleGetAuthorEdit]);
 
-  const handleSubmit = ({ author_name, author_bio, author_slug }) => {
+  useEffect(() => {
+    file_url && formik.current.setFieldValue("profile_image_url", file_url);
+  }, [file_url, formik]);
+
+  const handleSubmit = ({
+    author_name,
+    author_bio,
+    author_slug,
+    profile_image_url,
+  }) => {
     handleUpdateAuthor({
       author_name,
       author_bio,
       author_slug,
+      profile_image_url,
     });
   };
   return (
@@ -73,35 +86,54 @@ function MyPage({
             {...getRootProps({ className: "dropzone" })}
             className='mypage-page-form-container__dropzone'>
             <input {...getInputProps()} />
-            <Typography variant='body2'>
+            <Typography
+              variant='caption'
+              className='mypage-page-form-container__dropzone-text'>
               Drag 'n' drop some files here, or click to select files
             </Typography>
-            <Typography variant='body2'>
+            <Typography
+              variant='caption'
+              className='mypage-page-form-container__dropzone-text'>
               <em>
                 (Only .jpg and .png images will be accepted. Max file size is 1
                 Mb)
               </em>
             </Typography>
           </div>
-          {file_url && (
+          {(file_url || author.profile_image_url) && (
             <div className='mypage-page-form-container__image-area'>
               <img
-                src={file_url}
+                src={file_url || author.profile_image_url}
                 alt='course'
                 className='mypage-page-form-container__image'
               />
             </div>
           )}
           <Formik
+            innerRef={formik}
             initialValues={{
               author_name: author.author_name || "",
               author_bio: author.author_bio || "",
               author_slug: author.author_slug || "",
+              profile_image_url: author.profile_image_url || "",
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}>
             {({ isSubmitting }) => (
               <Form className='mypage-page-form'>
+                <div className='mypage-page-form__input-container mypage-page-form--no-display'>
+                  <Field
+                    type='text'
+                    name='profile_image_url'
+                    className='mypage-page-form__input'
+                  />
+                  <ErrorMessage
+                    name='profile_image_url'
+                    component='div'
+                    className='mypage-page-form__input-error'
+                  />
+                </div>
+
                 <div className='mypage-page-form__input-container'>
                   <label
                     htmlFor='Author Name'
@@ -151,13 +183,18 @@ function MyPage({
                     type='text'
                     name='author_slug'
                     placeholder='Author Slug'
-                    className='mypage-page-form__input mypage-page-form__input--disabled'
+                    className={
+                      author.author_slug === ""
+                        ? "mypage-page-form__input"
+                        : "mypage-page-form__input mypage-page-form__input--disabled"
+                    }
                     disabled={
-                      author.author_slug !== "" ||
-                      author.author_slug !== undefined ||
-                      author.author_slug !== null
-                        ? true
-                        : false
+                      author.author_slug === ""
+                        ? false
+                        : author.author_slug === undefined ||
+                          author.author_slug === null
+                        ? false
+                        : true
                     }
                   />
                   <ErrorMessage

@@ -64,23 +64,25 @@ module.exports = {
   },
   create: async ({
     lecture_title,
-    lecture_description,
     lecture_slug,
     lecture_content,
     lecture_google_slide,
     lecture_video_embed,
-    lecture_attachment,
+    //lecture_attachment,
+    lecture_length,
+    lecture_type,
     course_id,
   }) => {
     try {
       const lecture = new Lecture({
         lecture_title,
-        lecture_description,
         lecture_slug,
         lecture_content,
         lecture_google_slide,
         lecture_video_embed,
-        lecture_attachment,
+        //lecture_attachment,
+        lecture_length,
+        lecture_type,
         course_id,
       });
       return await lecture.save();

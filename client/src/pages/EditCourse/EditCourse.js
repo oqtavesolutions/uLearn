@@ -89,12 +89,11 @@ function EditCourse({
       {success && (
         <div className='edit-course-page'>
           <ToastContainer />
-          <div className='edit-course-top'>
-            <Typography variant='h6' className='edit-course-top__title'>
-              {course.course_title}
-            </Typography>
-          </div>
-          <CourseEditorIconContainer courseId={match.params.courseId} />
+
+          <CourseEditorIconContainer
+            courseId={match.params.courseId}
+            course={course}
+          />
           <div className='edit-course-container'>
             <div className='edit-course-details-form-container'>
               <div

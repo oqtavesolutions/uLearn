@@ -2,102 +2,14 @@
 @use '../../partials/mixins'as *;
 
 
-.edit-lecture-detail-card-container {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-
-}
-
-.edit-lecture-detail-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+.edit-lecture-detail-page {
+  max-width: $form-container-max-width-mobile;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 3rem;
 
   @include tablet {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-  &__description {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  &__title {
-    @include m-h2;
-  }
-
-  &__date {
-    @include m-p2;
-  }
-
-  &__collapsible {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    cursor: pointer;
-  }
-
-  &__button {
-    width: 100%;
-    background-color: color(global-black);
-    padding: .5rem;
-    color: color(global-white);
-    border-radius: 5px;
-    margin-right: 1.5rem;
-    width: 100%;
-
-    @include tablet {
-      width: 150px;
-    }
-
-    &--cancel {
-      background-color: transparent;
-    }
-
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 2rem;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
-  }
-}
-
-
-.edit-lecture-detail-form-container {
-  display: flex;
-  flex-direction: column;
-
-  &__link {
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-  }
-
-
-  &__title {
-    @include m-h1;
-    display: flex;
-    align-items: center;
-  }
-
-  &__icon {
-    margin-right: 1rem;
+    max-width: $form-container-max-width-tablet;
   }
 }
 
@@ -118,6 +30,10 @@
     margin-bottom: .5rem;
     font-weight: 600;
 
+  }
+
+  &__input-label-radio {
+    margin-right: 1rem;
   }
 
   &__input {
@@ -174,117 +90,4 @@
       border: 1px solid color(global-black);
     }
   }
-}
-
-
-.edit-lecture-lectures-card-container {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.edit-lecture-lectures-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  @include tablet {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-
-  &__description {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  &__title {
-    @include m-h2;
-  }
-
-  &__date {
-    @include m-p2;
-  }
-
-  &__collapsible {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    cursor: pointer;
-  }
-
-  &__button {
-    width: 100%;
-    background-color: color(global-black);
-    padding: .5rem;
-    color: color(global-white);
-    border-radius: 5px;
-    margin-right: 1.5rem;
-    width: 100%;
-
-    @include tablet {
-      width: 150px;
-    }
-
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 2rem;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
-  }
-}
-
-.edit-lecture-lectures-list-card {
-
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  @include tablet {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-
-  &__description {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  &__title {
-    @include m-h2;
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 2rem;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
-  }
-
 }

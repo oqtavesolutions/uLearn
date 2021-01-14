@@ -1,59 +1,43 @@
 @use '../../partials/typography'as *;
 @use '../../partials/mixins'as *;
 
-.edit-course-lectures-list-card {
+.lecture-list-page {
+  max-width: $form-container-max-width-mobile;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 3rem;
 
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+  @include tablet {
+    max-width: $form-container-max-width-tablet;
+  }
+}
+
+.lecture-list-page-container-paper {
   padding: 1rem;
   margin-bottom: 1rem;
 
-  &__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__right {
     display: flex;
-    flex-direction: column;
-
+    align-items: center;
   }
 
-  &__title {
-    @include m-h2;
+  &__right-button {
+    border-radius: 24px;
+    background-color: color(global-blue-main);
+    text-align: center;
+    padding: 5px 1rem;
+    margin-right: 1rem;
   }
 
-  &__sub {
-    @include m-p2;
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-    z-index: 1;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
-  }
-
-  &__collapsible {
-    cursor: pointer;
-  }
-
-}
-
-.add-lecture-fab-icon {
-  position: absolute !important;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: color(matching-pink) !important;
-
-  &__icon {
+  &__right-button-text {
     color: color(global-white);
+  }
+
+  &__horiz-icon {
+    cursor: pointer;
   }
 }

@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { format } from "date-fns";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import "./LectureList.scss";
-import { Link } from "react-router-dom";
 import CourseEditorIconContainer from "../../components/CourseEditorIconContainer/CourseEditorIconContainer";
-import { Fab } from "@material-ui/core";
-import { Add as AddIcon } from "@material-ui/icons";
-
+import { Menu, MenuItem, Paper, Typography } from "@material-ui/core";
+import { MoreHoriz as MoreHorizIcon } from "@material-ui/icons";
 function LectureList({
   handleGetCourseLectures,
   match,
@@ -19,70 +17,101 @@ function LectureList({
   course,
   lectures,
   loading,
+  handleGetCourseEdit,
 }) {
   useEffect(() => {
     handleGetCourseLectures(match.params.courseId);
-  }, [handleGetCourseLectures, match]);
+    handleGetCourseEdit(match.params.courseId);
+  }, [handleGetCourseLectures, handleGetCourseEdit, match]);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <div className='edit-course'>
+    <div className='lecture-list-page'>
       <ToastContainer />
 
-      <CourseEditorIconContainer courseId={match.params.courseId} />
-      <div className='edit-course-container'>
-        <div className='edit-course-lecture-list'>
-          <p className='edit-course-lecture-list__title'>
-            List of lectures created:
-          </p>
+      <CourseEditorIconContainer
+        courseId={match.params.courseId}
+        course={course}
+      />
+      <div className='lecture-list-page-container'>
+        <div>
           {loading && <CustomContentLoader />}
           {!loading && lectures && lectures.length === 0 && (
-            <p className='edit-course-lecture-list__empty'>
+            <Typography variant='body2'>
               You have not created any lecture yet
-            </p>
+            </Typography>
           )}
 
           {lectures &&
             lectures.length > 0 &&
-            lectures.map((lecture) => (
-              <article
-                className='edit-course-lectures-list-card'
-                key={lecture.id}>
-                <p className='edit-course-lectures-list-card__description'>
-                  <span className='edit-course-lectures-list-card__title'>
-                    {lecture.lecture_title}
-                  </span>
-                  <span className='edit-course-lectures-list-card__sub'>
-                    Created on:
-                    {format(new Date(lecture.created_at), "MM/dd/yyyy")}
-                  </span>
-                </p>
-
-                <ul className='edit-course-lectures-list-card__items'>
-                  <li className='edit-course-lectures-list-card__item'>
-                    <a
-                      href={
+            lectures.map((lecture, index) => (
+              <Paper
+                variant='outlined'
+                key={lecture.id}
+                className='lecture-list-page-container-paper'>
+                <div className='lecture-list-page-container-paper__left'>
+                  <Typography variant='body2'>
+                    <Link
+                      to={
                         "/edit/course/" +
                         match.params.courseId +
                         "/lecture/" +
                         lecture.lecture_id
                       }>
+                      {index + 1}. {lecture.lecture_title}
+                    </Link>
+                  </Typography>
+                  <Typography variant='caption'>
+                    Created {format(new Date(lecture.created_at), "MM/dd/yyyy")}
+                  </Typography>
+                </div>
+                <div className='lecture-list-page-container-paper__right'>
+                  <Link
+                    to={
+                      "/edit/course/" +
+                      match.params.courseId +
+                      "/lecture/" +
+                      lecture.lecture_id
+                    }
+                    className='lecture-list-page-container-paper__right-button'>
+                    <Typography
+                      variant='caption'
+                      className='lecture-list-page-container-paper__right-button-text'>
                       Edit
-                    </a>
-                  </li>
-                </ul>
-              </article>
+                    </Typography>
+                  </Link>
+
+                  <MoreHorizIcon
+                    onClick={handleClick}
+                    className='lecture-list-page-container-paper__horiz-icon'
+                  />
+                  <Menu
+                    id='long-menu'
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}>
+                    <MenuItem onClick={handleClose}>
+                      {" "}
+                      <Typography variant='caption'>
+                        <Link to={"/course/" + course.course_slug}>View</Link>
+                      </Typography>
+                    </MenuItem>
+                  </Menu>
+                </div>
+              </Paper>
             ))}
         </div>
       </div>
-      <Link to={`/create/${match.params.courseId}/lecture`}>
-        <Fab
-          color='secondary'
-          size='small'
-          aria-label='add'
-          className='add-lecture-fab-icon'>
-          <AddIcon className='add-lecture-fab-icon__icon' />
-        </Fab>
-      </Link>
     </div>
   );
 }
@@ -98,6 +127,7 @@ LectureList.propTypes = {
 const mapStateToProps = (state) => {
   return {
     lectures: state.getLectureList.lectures,
+    course: state.getCourseEdit.course,
   };
 };
 

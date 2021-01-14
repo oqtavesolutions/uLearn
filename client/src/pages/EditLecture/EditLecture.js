@@ -1,20 +1,29 @@
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./EditLecture.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import ReactQuill from "react-quill";
 import EditorFooter from "../../components/EditorFooter/EditorFooter";
+import CourseEditorIconContainer from "../../components/CourseEditorIconContainer/CourseEditorIconContainer";
 
 const validationSchema = Yup.object().shape({
   lecture_title: Yup.string().required("Required"),
   lecture_description: Yup.string().required("Required"),
+  lecture_type: Yup.string()
+    .oneOf(["Text", "Slide", "Video"], "Please choose a type")
+    .required("Please choose a type"),
+  lecture_length: Yup.string()
+    .matches(/^[0-9:]+$/, {
+      excludeEmptyString: true,
+      message:
+        "Please enter number followed by : e.g. 1:56 for 1 minute 56 seconds",
+    })
+    .required("Required"),
 });
 
 function EditLecture({
@@ -28,29 +37,32 @@ function EditLecture({
   location,
   updatedLoading,
   loading,
+  handleGetCourseEdit,
+  course,
 }) {
   useEffect(() => {
     handleGetLectureEdit({
       courseId: match.params.courseId,
       lectureId: match.params.lectureId,
     });
-  }, [handleGetLectureEdit, match]);
+    handleGetCourseEdit(match.params.courseId);
+  }, [handleGetLectureEdit, handleGetCourseEdit, match]);
 
   const handleSubmit = ({
     lecture_title,
-    lecture_description,
     lecture_content,
     lecture_google_slide,
     lecture_video_embed,
-    lecture_attachment,
+    lecture_length,
+    lecture_type,
   }) => {
     handleUpdateLecture({
       lecture_title,
-      lecture_description,
       lecture_content,
       lecture_google_slide,
       lecture_video_embed,
-      lecture_attachment,
+      lecture_length,
+      lecture_type,
       course_id: match.params.courseId,
       lecture_id: match.params.lectureId,
     });
@@ -61,41 +73,36 @@ function EditLecture({
   }, [location]);
 
   return (
-    <div className='edit-lecture-detail-form-container'>
+    <div className='edit-lecture-detail-page'>
       <ToastContainer />
-      <Link
-        to={`/edit/course/${match.params.courseId}/lectures`}
-        className='edit-lecture-detail-form-container__link'>
-        <FontAwesomeIcon
-          icon={faArrowLeft}
-          className='edit-lecture-detail-form-container__icon'
-          size='1x'
-        />
-        <h1 className='edit-lecture-detail-form-container__title'>
-          Editing Lecture
-        </h1>
-      </Link>{" "}
+
+      <CourseEditorIconContainer
+        courseId={match.params.courseId}
+        course={course}
+      />
+
       {!success && loading && <CustomContentLoader />}
       {success && (
         <Formik
           initialValues={{
             lecture_title: lecture.lecture_title,
-            lecture_description: lecture.lecture_description,
             lecture_slug: lecture.lecture_slug,
             lecture_content: lecture.lecture_content || "",
             lecture_google_slide: lecture.lecture_google_slide || "",
             lecture_video_embed: lecture.lecture_video_embed || "",
             lecture_attachment: lecture.lecture_attachment || "",
+            lecture_length: lecture.lecture_length || "",
+            lecture_type: lecture.lecture_type || "",
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
-          {({ isSubmitting }) => (
+          {({ isSubmitting, values }) => (
             <Form className='edit-lecture-detail-form'>
               <div className='edit-lecture-detail-form__input-container'>
                 <label
                   htmlFor='Lecture Title'
                   className='edit-lecture-detail-form__input-label'>
-                  Category
+                  Title
                 </label>
                 <Field
                   type='text'
@@ -106,87 +113,95 @@ function EditLecture({
                 <ErrorMessage
                   name='lecture_title'
                   component='div'
-                  className='edit-course-details-form__input-error'
-                />
-              </div>
-              <div className='edit-lecture-detail-form__input-container'>
-                <label
-                  htmlFor='Lecture Description'
-                  className='edit-lecture-detail-form__input-label'>
-                  Short Description
-                </label>
-                <Field name='lecture_description'>
-                  {({ field }) => (
-                    <ReactQuill
-                      value={field.value}
-                      onChange={field.onChange(field.name)}
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  name='lecture_description'
-                  component='div'
-                  className='edit-course-details-form__input-error'
-                />
-              </div>
-              <div className='edit-lecture-detail-form__input-container'>
-                <label
-                  htmlFor='Lecture Content'
-                  className='edit-lecture-detail-form__input-label'>
-                  Content (This is what students see in their lectures as
-                  content)
-                </label>
-                <Field name='lecture_content'>
-                  {({ field }) => (
-                    <ReactQuill
-                      value={field.value}
-                      onChange={field.onChange(field.name)}
-                    />
-                  )}
-                </Field>
-                <ErrorMessage
-                  name='lecture_content'
-                  component='div'
-                  className='edit-course-details-form__input-error'
-                />
-              </div>
-              <div className='edit-lecture-detail-form__input-container'>
-                <label
-                  htmlFor='Lecture Google Slide'
-                  className='edit-lecture-detail-form__input-label'>
-                  Google Slide
-                </label>
-                <Field
-                  type='text'
-                  name='lecture_google_slide'
-                  placeholder='Google Slide Embed Url'
-                  className='edit-lecture-detail-form__input'
-                />
-                <ErrorMessage
-                  name='lecture_google_slide'
-                  component='div'
-                  className='edit-course-details-form__input-error'
+                  className='edit-lecture-detail-form__input-error'
                 />
               </div>
 
               <div className='edit-lecture-detail-form__input-container'>
                 <label
-                  htmlFor='Lecture Vimeo Url'
+                  htmlFor='Lecture Type'
                   className='edit-lecture-detail-form__input-label'>
-                  Vimeo Url
+                  Please choose a type
                 </label>
-                <Field
-                  type='text'
-                  name='lecture_video_embed'
-                  placeholder='Video Embed Url'
-                  className='edit-lecture-detail-form__input'
-                />
+
+                <label className='edit-lecture-detail-form__input-label-radio'>
+                  <Field name='lecture_type' type='radio' value='Text' /> Text
+                </label>
+                <label className='edit-lecture-detail-form__input-label-radio'>
+                  <Field name='lecture_type' type='radio' value='Video' /> Video
+                </label>
+                <label className='edit-lecture-detail-form__input-label-radio'>
+                  <Field name='lecture_type' type='radio' value='Slide' /> Slide
+                </label>
                 <ErrorMessage
-                  name='lecture_video_embed'
+                  name='lecture_type'
                   component='div'
-                  className='edit-course-details-form__input-error'
+                  className='edit-lecture-detail-form__input-error'
                 />
               </div>
+
+              {values.lecture_type === "Text" && (
+                <div className='edit-lecture-detail-form__input-container'>
+                  <label
+                    htmlFor='Lecture Content'
+                    className='edit-lecture-detail-form__input-label'>
+                    Content
+                  </label>
+                  <Field name='lecture_content'>
+                    {({ field }) => (
+                      <ReactQuill
+                        value={field.value}
+                        onChange={field.onChange(field.name)}
+                      />
+                    )}
+                  </Field>
+                  <ErrorMessage
+                    name='lecture_content'
+                    component='div'
+                    className='edit-lecture-detail-form__input-error'
+                  />
+                </div>
+              )}
+              {values.lecture_type === "Slide" && (
+                <div className='edit-lecture-detail-form__input-container'>
+                  <label
+                    htmlFor='Lecture Google Slide'
+                    className='edit-lecture-detail-form__input-label'>
+                    Google Slide
+                  </label>
+                  <Field
+                    type='text'
+                    name='lecture_google_slide'
+                    placeholder='Google Slide Embed Url'
+                    className='edit-lecture-detail-form__input'
+                  />
+                  <ErrorMessage
+                    name='lecture_google_slide'
+                    component='div'
+                    className='edit-lecture-detail-form__input-error'
+                  />
+                </div>
+              )}
+              {values.lecture_type === "Video" && (
+                <div className='edit-lecture-detail-form__input-container'>
+                  <label
+                    htmlFor='Lecture Vimeo Url'
+                    className='edit-lecture-detail-form__input-label'>
+                    Vimeo Url
+                  </label>
+                  <Field
+                    type='text'
+                    name='lecture_video_embed'
+                    placeholder='Video Embed Url'
+                    className='edit-lecture-detail-form__input'
+                  />
+                  <ErrorMessage
+                    name='lecture_video_embed'
+                    component='div'
+                    className='edit-lecture-detail-form__input-error'
+                  />
+                </div>
+              )}
 
               <div className='edit-lecture-detail-form__input-container'>
                 <label
@@ -210,20 +225,20 @@ function EditLecture({
 
               <div className='edit-lecture-detail-form__input-container'>
                 <label
-                  htmlFor='Lecture Attachment'
+                  htmlFor='Lecture Length'
                   className='edit-lecture-detail-form__input-label'>
-                  Attachment Url
+                  Lecture Length
                 </label>
                 <Field
                   type='text'
-                  name='lecture_attachment'
-                  placeholder='Attachment'
+                  name='lecture_length'
+                  placeholder='Lecture Length'
                   className='edit-lecture-detail-form__input'
                 />
                 <ErrorMessage
-                  name='lecture_attachment'
+                  name='lecture_length'
                   component='div'
-                  className='edit-course-details-form__input-error'
+                  className='edit-lecture-detail-form__input-error'
                 />
               </div>
 
@@ -253,6 +268,7 @@ const mapStateToProps = (state) => {
   return {
     updatedSuccess: state.getLectureEdit.updatedLecture.success,
     updatedLoading: state.getLectureEdit.updatedLecture.loading,
+    course: state.getCourseEdit.course,
   };
 };
 

@@ -2,7 +2,15 @@
 @use '../../partials/typography'as *;
 
 /* editor icons */
-.course-editor-icons {
+
+.course-editor-with-icons {
+
+  &__title {
+    margin-bottom: 1rem !important;
+  }
+}
+
+.course-editor-with-icons-navlinks {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +18,34 @@
 
 }
 
-.course-editor-icons-container {
+.course-editor-with-icons-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem !important;
+
+  &__text-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__back-icon-link {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 1rem;
+  }
+
+  &__back-icon {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+
+  &__horiz-icon {
+    cursor: pointer;
+  }
+}
+
+.course-editor-with-icons-container {
 
   display: flex;
   align-items: center;
@@ -42,15 +77,15 @@
 
   &--active {
 
-    &>.course-editor-icons-container__button-container {
+    &>.course-editor-with-icons-container__button-container {
       background-color: color(matching-pink);
     }
 
-    &>.course-editor-icons-container__button-container>.course-editor-icons-container__button {
+    &>.course-editor-with-icons-container__button-container>.course-editor-with-icons-container__button {
       color: color(global-white) !important;
     }
 
-    &>.course-editor-icons-container__text {
+    &>.course-editor-with-icons-container__text {
       font-weight: bold !important;
     }
 
