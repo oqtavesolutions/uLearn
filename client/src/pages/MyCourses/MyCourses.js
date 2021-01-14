@@ -5,7 +5,7 @@ import "./MyCourses.scss";
 import PropTypes from "prop-types";
 import MyCourseList from "./components/MyCourseList";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
-import { Grid, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 function MyCourses({
   loading,
@@ -29,17 +29,11 @@ function MyCourses({
         <p>You have not created any course yet.</p>
       )}
       {success && courses.length > 0 && (
-        <Grid
-          container
-          spacing={3}
-          wrap='wrap'
-          className='my-courses-page-container'>
+        <div className='my-courses-page-container'>
           {courses.map((course) => (
-            <Grid item xs={12} sm={4} key={course.id}>
-              <MyCourseList course={course} />
-            </Grid>
+            <MyCourseList course={course} key={course.id} />
           ))}
-        </Grid>
+        </div>
       )}
     </div>
   );

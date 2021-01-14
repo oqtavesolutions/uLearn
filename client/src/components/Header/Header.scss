@@ -35,11 +35,12 @@
 
   &__avatar {
     cursor: pointer;
+    background-color: color(matching-pink) !important;
   }
 
   &__create {
     margin-right: 1rem;
-    border: 1px solid #004AAD;
+    border: 1px solid color(global-blue-main);
     border-radius: 20px;
     padding: .325rem 1rem;
   }

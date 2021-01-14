@@ -6,7 +6,7 @@ const createCourse = async (payload) => {
     ...payload,
   });
   return {
-    message: "user logged in successfully",
+    message: "course is created successfully",
     ...response.data,
   };
 };

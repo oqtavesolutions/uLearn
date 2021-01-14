@@ -1,4 +1,5 @@
 @use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
 
 .my-courses-page {
 
@@ -33,7 +34,13 @@
 }
 
 .my-courses-page-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+
+  @include tablet {
+    flex-direction: row;
+  }
 }

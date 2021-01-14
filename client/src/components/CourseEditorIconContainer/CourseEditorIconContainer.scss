@@ -1,3 +1,6 @@
+@use '../../partials/mixins'as *;
+@use '../../partials/typography'as *;
+
 /* editor icons */
 .course-editor-icons {
   display: flex;
@@ -5,15 +8,18 @@
   justify-content: center;
   margin-bottom: 1rem;
 
-  &__container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+}
 
-    &:first-of-type {
-      margin-right: 1rem;
-    }
+.course-editor-icons-container {
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 1rem;
+
+  &:last-of-type {
+    margin-right: 0;
   }
 
   &__button-container {
@@ -23,12 +29,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: red;
-
-
+    border: 1px solid color(matching-pink);
   }
 
   &__button {
-    color: #fff;
+    color: color(matching-pink);
   }
+
+  &__text {
+    color: color(global-black);
+  }
+
+  &--active {
+
+    &>.course-editor-icons-container__button-container {
+      background-color: color(matching-pink);
+    }
+
+    &>.course-editor-icons-container__button-container>.course-editor-icons-container__button {
+      color: color(global-white) !important;
+    }
+
+    &>.course-editor-icons-container__text {
+      font-weight: bold !important;
+    }
+
+    &:first-of-type {
+      margin-right: 1rem;
+    }
+  }
+
+
 }

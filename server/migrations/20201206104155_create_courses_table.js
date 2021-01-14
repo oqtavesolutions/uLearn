@@ -5,6 +5,7 @@ exports.up = async function (knex) {
     table.string("course_title").notNullable();
     table.string("course_description", 1000).notNullable();
     table.string("course_slug").notNullable();
+    table.string("course_image").notNullable();
     table
       .enum("course_categories", [
         "IT & Software",

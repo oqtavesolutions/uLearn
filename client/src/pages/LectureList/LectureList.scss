@@ -46,3 +46,14 @@
   }
 
 }
+
+.add-lecture-fab-icon {
+  position: absolute !important;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: color(matching-pink) !important;
+
+  &__icon {
+    color: color(global-white);
+  }
+}

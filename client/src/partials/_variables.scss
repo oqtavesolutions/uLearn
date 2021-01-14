@@ -7,6 +7,7 @@ $desktop-padding: 2rem;
 
 $app-bar-menu: 64px;
 $main-drawer-width: 240px;
+$form-container-max-width-mobile: 300px;
 $form-container-max-width-tablet: 500px;
 
 $color: (global-black: #323232,
@@ -20,9 +21,10 @@ $color: (global-black: #323232,
     dark-grey: #ccc,
     darker-grey: #8e8e8e,
     global-blue-main: #0066FF,
+    matching-pink: #FF52A2,
     dark-black: #000000,
     font-grey: #7d7c83,
-    background-grey: f7f7f8,
+    background-grey: #f7f7f8,
     category-green: rgb(59 194 113 / 11%));
 
 @function color($color-name) {

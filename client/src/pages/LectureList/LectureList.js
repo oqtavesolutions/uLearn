@@ -7,8 +7,10 @@ import { ToastContainer } from "react-toastify";
 import { format } from "date-fns";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
 import "./LectureList.scss";
-
+import { Link } from "react-router-dom";
 import CourseEditorIconContainer from "../../components/CourseEditorIconContainer/CourseEditorIconContainer";
+import { Fab } from "@material-ui/core";
+import { Add as AddIcon } from "@material-ui/icons";
 
 function LectureList({
   handleGetCourseLectures,
@@ -72,6 +74,15 @@ function LectureList({
             ))}
         </div>
       </div>
+      <Link to={`/create/${match.params.courseId}/lecture`}>
+        <Fab
+          color='secondary'
+          size='small'
+          aria-label='add'
+          className='add-lecture-fab-icon'>
+          <AddIcon className='add-lecture-fab-icon__icon' />
+        </Fab>
+      </Link>
     </div>
   );
 }

@@ -5,28 +5,40 @@ import {
 } from "@material-ui/icons";
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./CourseEditorIconContainer.scss";
 
 function CourseEditorIconContainer({ courseId }) {
   return (
     <div className='course-editor-icons'>
-      <Link
+      <NavLink
+        exact
         to={`/edit/course/${courseId}`}
-        className='course-editor-icons__container'>
-        <div className='course-editor-icons__button-container'>
-          <LibraryBooksOutlinedIcon className='course-editor-icons__button' />
+        className='course-editor-icons-container'
+        activeClassName='course-editor-icons-container--active'>
+        <div className='course-editor-icons-container__button-container'>
+          <LibraryBooksOutlinedIcon className='course-editor-icons-container__button' />
         </div>
-        <Typography variant='body2'>Edit Course</Typography>
-      </Link>
-      <Link
+        <Typography
+          variant='caption'
+          className='course-editor-icons-container__text'>
+          Edit Course
+        </Typography>
+      </NavLink>
+      <NavLink
+        exact
         to={`/edit/course/${courseId}/lectures`}
-        className='course-editor-icons__container'>
-        <div className='course-editor-icons__button-container'>
-          <QueuePlayNextIcon className='course-editor-icons__button' />
+        className='course-editor-icons-container'
+        activeClassName='course-editor-icons-container--active'>
+        <div className='course-editor-icons-container__button-container'>
+          <QueuePlayNextIcon className='course-editor-icons-container__button' />
         </div>
-        <Typography variant='body2'>Edit Lectures</Typography>
-      </Link>
+        <Typography
+          variant='caption'
+          className='course-editor-icons-container__text'>
+          Edit Lectures
+        </Typography>
+      </NavLink>
     </div>
   );
 }

@@ -78,13 +78,14 @@ module.exports = {
   },
   update: async (
     course,
-    { course_title, course_description, course_categories }
+    { course_title, course_description, course_categories, course_image }
   ) => {
     try {
       return await course.save({
         course_title: course_title || course.course_title,
         course_description: course_description || course.course_description,
         course_categories: course_categories || course.course_categories,
+        course_image: course_image || course.course_image,
       });
     } catch (error) {
       throw error;
@@ -96,6 +97,7 @@ module.exports = {
     course_slug,
     user_id,
     course_categories,
+    course_image,
   }) => {
     try {
       const course = new Course({
@@ -104,6 +106,7 @@ module.exports = {
         course_slug,
         course_categories,
         user_id,
+        course_image,
       });
       const data = await course.save(null, {
         method: "insert",

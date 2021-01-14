@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from "react";
+import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import "./EditCourse.scss";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -32,6 +32,7 @@ const validationSchema = Yup.object().shape({
       "Please choose category"
     )
     .required("Please choose category"),
+  course_image: Yup.string().url(),
 });
 
 function EditCourse({
@@ -54,6 +55,8 @@ function EditCourse({
     [handleUpload]
   );
 
+  const formik = useRef();
+
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
     maxSize: 1000000,
@@ -69,6 +72,10 @@ function EditCourse({
     location.search && toast.dark("Course has been created successfully");
   }, [location]);
 
+  useEffect(() => {
+    file_url && formik.current.setFieldValue("course_image", file_url);
+  }, [file_url, formik]);
+
   const handleFormSubmit = (values) => {
     handleUpdateCourse({
       ...values,
@@ -80,12 +87,12 @@ function EditCourse({
     <Fragment>
       {loading && <CustomContentLoader />}
       {success && (
-        <div className='edit-course'>
+        <div className='edit-course-page'>
           <ToastContainer />
-          <div className='edit-course-collapsible'>
-            <h1 className='edit-course-collapsible__title'>
+          <div className='edit-course-top'>
+            <Typography variant='h6' className='edit-course-top__title'>
               {course.course_title}
-            </h1>
+            </Typography>
           </div>
           <CourseEditorIconContainer courseId={match.params.courseId} />
           <div className='edit-course-container'>
@@ -94,36 +101,55 @@ function EditCourse({
                 {...getRootProps({ className: "dropzone" })}
                 className='edit-course-details-form-container__dropzone'>
                 <input {...getInputProps()} />
-                <Typography variant='body2'>
+                <Typography
+                  variant='caption'
+                  className='edit-course-details-form-container__dropzone-text'>
                   Drag 'n' drop some files here, or click to select files
                 </Typography>
-                <Typography variant='body2'>
+                <Typography
+                  variant='caption'
+                  className='edit-course-details-form-container__dropzone-text'>
                   <em>
                     (Only .jpg and .png images will be accepted. Max file size
                     is 1 Mb)
                   </em>
                 </Typography>
               </div>
-              {file_url && (
+              {(file_url || course.course_image) && (
                 <div className='edit-course-details-form-container__image-area'>
                   <img
-                    src={file_url}
+                    src={file_url || course.course_image}
                     alt='course'
                     className='edit-course-details-form-container__image'
                   />
                 </div>
               )}
               <Formik
+                innerRef={formik}
                 initialValues={{
                   course_title: course.course_title,
                   course_description: course.course_description,
                   course_slug: course.course_slug,
                   course_categories: course.course_categories,
+                  course_image: course.course_image,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}>
                 {({ isSubmitting }) => (
                   <Form className='edit-course-details-form'>
+                    <div className='edit-course-details-form__input-container edit-course-details-form--no-display'>
+                      <Field
+                        type='text'
+                        name='course_image'
+                        className='edit-course-details-form__input'
+                      />
+                      <ErrorMessage
+                        name='course_image'
+                        component='div'
+                        className='edit-course-details-form__input-error'
+                      />
+                    </div>
+
                     <div className='edit-course-details-form__input-container'>
                       <label
                         htmlFor='Course Title'

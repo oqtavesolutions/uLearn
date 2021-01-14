@@ -1,3 +1,6 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
 .editor-footer {
   top: auto !important;
   bottom: 0;
@@ -11,13 +14,13 @@
   &__cancel {
     text-transform: initial !important;
     border-radius: 20px !important;
-    border-color: #ED548F !important;
+    border-color: color(matching-pink) !important;
   }
 
   &__save {
     text-transform: initial !important;
     border-radius: 20px !important;
-    background-color: #004aad !important;
+    background-color: color(global-blue-main) !important;
 
     &>span {
       color: #ffffff !important;

@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch) => {
       course_description,
       course_slug,
       course_categories,
+      course_image,
     }) => {
       dispatch(
         createCourse({
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch) => {
           course_description,
           course_slug,
           course_categories,
+          course_image,
         })
       );
     },

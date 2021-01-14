@@ -4,7 +4,6 @@ import "./MyCourseList.scss";
 import PropTypes from "prop-types";
 import { Paper, Typography, Menu, MenuItem } from "@material-ui/core";
 import { format } from "date-fns";
-import softwaresImage from "../../../assets/images/softwares.jpg";
 import { MoreVert as MoreVertIcon } from "@material-ui/icons";
 
 function MyCourseList({ course }) {
@@ -48,8 +47,8 @@ function MyCourseList({ course }) {
         </div>
         <Link to={"/edit/course/" + course.course_id}>
           <img
-            src={softwaresImage}
-            alt='softwares'
+            src={course.course_image}
+            alt='course'
             className='my-courses-page-card__image'
           />
         </Link>
