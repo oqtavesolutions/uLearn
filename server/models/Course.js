@@ -6,6 +6,9 @@ const Course = db.model("Course", {
   users: function () {
     return this.belongsTo("User");
   },
+  authors: function () {
+    return this.belongsTo("Author");
+  },
   lectures: function () {
     return this.hasMany("Lecture");
   },

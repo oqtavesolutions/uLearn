@@ -47,7 +47,7 @@ const validationSchema = Yup.object().shape({
       "Please choose category"
     )
     .required("Please choose category"),
-  course_image: Yup.string().url(),
+  course_image: Yup.string().url().required("Required"),
 });
 
 function CreateCourse({ handleSubmit, handleUpload, file_url }) {

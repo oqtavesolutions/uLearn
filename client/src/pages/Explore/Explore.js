@@ -3,8 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import "./Explore.scss";
 import PropTypes from "prop-types";
 //import striptags from "striptags";
-import { Grid, Paper, Typography } from "@material-ui/core";
-import softwaresImage from "../../assets/images/softwares.jpg";
+import { Paper, Typography } from "@material-ui/core";
+import avatarImg from "../../assets/images/avatar.svg";
 
 function Explore({ success, handleGetExplorePageCourses, courses }) {
   useEffect(() => {
@@ -16,45 +16,63 @@ function Explore({ success, handleGetExplorePageCourses, courses }) {
       <div className='course-explore-page-description'>
         <div className='course-explore-page-description__left'>
           <Typography
-            variant='h6'
+            variant='h4'
             className='course-explore-page-description__title'>
-            Explore. Learn something new.
+            Explore
           </Typography>
         </div>
       </div>
       {success && courses.length === 0 && <p>No courses found</p>}
       {success && courses.length > 0 && (
-        <Grid container spacing={3} wrap='wrap'>
+        <div className='course-explore-page-paper-container'>
           {courses.map((course) => {
             return (
-              <Grid item xs={12} sm={4} key={course.course_id}>
-                <Link
-                  to={`/course/${course.course_slug}`}
-                  key={course.course_id}>
-                  <Paper className='course-explore-page-card'>
-                    <div className='course-explore-page-card__image-container'>
-                      <img
-                        src={softwaresImage}
-                        alt='softwares'
-                        className='course-explore-page-card__image'
-                      />
-                    </div>
-                    <div className='course-explore-page-card__text-container'>
-                      <div className='course-explore-page-card__text'>
-                        <Typography
-                          gutterBottom
-                          variant='body1'
-                          className='course-explore-page-card__text-title'>
-                          {course.course_title}
-                        </Typography>
-                      </div>
-                    </div>
-                  </Paper>
-                </Link>
-              </Grid>
+              <Paper
+                className='course-explore-page-paper'
+                key={course.course_id}>
+                <div className='course-explore-page-paper__image-container'>
+                  <Link to={`/course/${course.course_slug}`}>
+                    <img
+                      src={course.course_image}
+                      alt='softwares'
+                      className='course-explore-page-paper__image'
+                    />
+                  </Link>
+                </div>
+                <div className='course-explore-page-paper__text-container'>
+                  <div className='course-explore-page-paper__text'>
+                    <Link to={`/course/${course.course_slug}`}>
+                      <Typography
+                        gutterBottom
+                        variant='body2'
+                        className='course-explore-page-paper__text-title'>
+                        {course.course_title}
+                      </Typography>
+                    </Link>
+                  </div>
+                  <div className='course-explore-page-paper__avatar-container'>
+                    <img
+                      src={
+                        course.authors.profile_image_url
+                          ? course.authors.profile_image_url
+                          : avatarImg
+                      }
+                      alt='avatar'
+                      className='course-explore-page-paper__avatar'
+                    />{" "}
+                    <Typography
+                      variant='caption'
+                      className='course-explore-page-paper__avatar-name'>
+                      {course.authors.author_name
+                        ? course.authors.author_name
+                        : "Awesome Author"}
+                    </Typography>
+                  </div>
+                </div>
+              </Paper>
             );
           })}
-        </Grid>
+        </div>
       )}
     </div>
   );

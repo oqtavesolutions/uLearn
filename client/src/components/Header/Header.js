@@ -111,7 +111,7 @@ function Header({
         {!isLoggedIn && !signupRoute && !loginRoute && (
           <div className='header-public'>
             <Link to='/login'>
-              <Typography variant='body1'>Login</Typography>
+              <Typography variant='body2'>Login</Typography>
             </Link>
           </div>
         )}
@@ -177,7 +177,7 @@ function Header({
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <Link to='my-account'>
+                  <Link to='/my-account'>
                     <Typography variant='body2'>My account</Typography>{" "}
                   </Link>
                 </MenuItem>

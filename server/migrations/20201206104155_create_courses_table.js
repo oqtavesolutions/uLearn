@@ -25,6 +25,12 @@ exports.up = async function (knex) {
       .notNullable()
       .references("id")
       .inTable("users");
+    table
+      .integer("author_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("authors");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });

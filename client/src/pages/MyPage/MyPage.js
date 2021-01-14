@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
       message: "Cannot contain space or characters except for _ and -",
     })
     .required("Required"),
-  profile_image_url: Yup.string().url(),
+  profile_image_url: Yup.string().url().required(),
 });
 
 function MyPage({
@@ -185,6 +185,9 @@ function MyPage({
                     placeholder='Author Slug'
                     className={
                       author.author_slug === ""
+                        ? "mypage-page-form__input"
+                        : author.author_slug === undefined ||
+                          author.author_slug === null
                         ? "mypage-page-form__input"
                         : "mypage-page-form__input mypage-page-form__input--disabled"
                     }

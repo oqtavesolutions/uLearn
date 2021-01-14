@@ -1,6 +1,7 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("../key.json");
 const user = require("../services/user");
+const authorServices = require("../services/author");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -21,6 +22,10 @@ exports.requiresAuth = async (req, res, next) => {
       const newUser = await user.create({
         email,
         user_id: uid,
+      });
+
+      await authorServices.create({
+        user_id: newUser.id,
       });
 
       req.user = {

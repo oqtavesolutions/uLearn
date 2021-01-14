@@ -2,9 +2,9 @@ exports.up = async function (knex) {
   await knex.schema.createTable("authors", function (table) {
     table.increments("id").primary();
     table.uuid("author_id").defaultTo(knex.raw("(UUID())"));
-    table.string("author_name").notNullable();
-    table.string("author_bio").notNullable();
-    table.string("author_slug").notNullable();
+    table.string("author_name");
+    table.string("author_bio");
+    table.string("author_slug");
     table.string("profile_image_url");
     table
       .integer("user_id")

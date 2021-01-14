@@ -38,7 +38,7 @@ module.exports = {
       throw error;
     }
   },
-  update: async (author, { author_name, author_bio }) => {
+  update: async (author, { author_name, author_bio, profile_image_url }) => {
     try {
       return await author.save({
         author_name,
