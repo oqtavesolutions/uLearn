@@ -5,7 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import "./CourseLandingPage.scss";
 import "reactjs-popup/dist/index.css";
 // import striptags from "striptags";
-import { Paper, Typography } from "@material-ui/core";
+import { Button, Paper, Typography } from "@material-ui/core";
 import Vimeo from "@u-wave/react-vimeo";
 import avatarImg from "../../assets/images/avatar.svg";
 
@@ -51,29 +51,51 @@ function CourseLandingPage({
                   className='course-landing-page-main-container__video-text'>
                   {course.lectures.length > 0 && (
                     <Fragment>
-                      {course.lectures[0].lecture_type === "Text" && (
-                        <div
-                          className='course-landing-page-main-container-main-content'
-                          dangerouslySetInnerHTML={{
-                            __html: course.lectures[0].lecture_content,
-                          }}></div>
+                      {!isOwner ? (
+                        <div className='course-landing-page-main-container-enroll'>
+                          <Typography
+                            variant='h6'
+                            className='course-landing-page-main-container-enroll__text'>
+                            Please enroll into the course to check it out
+                          </Typography>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            className='course-landing-page-main-container-enroll__button'>
+                            Enroll
+                          </Button>
+                        </div>
+                      ) : (
+                        ""
                       )}
-                      {course.lectures[0].lecture_type === "Video" && (
-                        <Vimeo
-                          video={course.lectures[0].lecture_video_embed}
-                          autoplay={false}
-                          responsive={true}
-                        />
-                      )}
-                      {course.lectures[0].lecture_type === "Slide" && (
-                        <iframe
-                          title='google-slider'
-                          src={course.lectures[0].lecture_google_slide}
-                          frameBorder='0'
-                          width='960'
-                          height='569'
-                          allowFullScreen={true}></iframe>
-                      )}
+                      {isSubscribed ||
+                        (isOwner && (
+                          <Fragment>
+                            {course.lectures[0].lecture_type === "Text" && (
+                              <div
+                                className='course-landing-page-main-container-main-content'
+                                dangerouslySetInnerHTML={{
+                                  __html: course.lectures[0].lecture_content,
+                                }}></div>
+                            )}
+                            {course.lectures[0].lecture_type === "Video" && (
+                              <Vimeo
+                                video={course.lectures[0].lecture_video_embed}
+                                autoplay={false}
+                                responsive={true}
+                              />
+                            )}
+                            {course.lectures[0].lecture_type === "Slide" && (
+                              <iframe
+                                title='google-slider'
+                                src={course.lectures[0].lecture_google_slide}
+                                frameBorder='0'
+                                width='960'
+                                height='569'
+                                allowFullScreen={true}></iframe>
+                            )}
+                          </Fragment>
+                        ))}
                     </Fragment>
                   )}
                 </Paper>
@@ -86,27 +108,20 @@ function CourseLandingPage({
                     {course.lectures.length} lectures
                   </Typography>
                   {course.lectures.length > 0 &&
-                    course.lectures.map((lecture, i) =>
-                      isSubscribed || isOwner ? (
-                        <Link
-                          to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}
-                          key={lecture.lecture_id}>
-                          <div className='course-landing-page-main-container-module'>
-                            <p className='course-landing-page-main-container-module__module-title'>
-                              {i + 1}. {lecture.lecture_title}
-                            </p>
-                          </div>
-                        </Link>
-                      ) : (
-                        <div
-                          className='course-landing-page-main-container-module'
-                          key={lecture.lecture_id}>
-                          <p className='course-landing-page-main-container-module__module-title'>
+                    course.lectures.map((lecture, i) => (
+                      <Link
+                        to={`/course/${course.course_slug}/lecture/${lecture.lecture_slug}`}
+                        key={lecture.lecture_id}>
+                        <div className='course-landing-page-main-container-module'>
+                          <span className='course-landing-page-main-container-module__module-title'>
                             {i + 1}. {lecture.lecture_title}
-                          </p>
+                          </span>
+                          <span className='course-landing-page-main-container-module__module-title'>
+                            {lecture.lecture_length}
+                          </span>
                         </div>
-                      )
-                    )}
+                      </Link>
+                    ))}
                 </Paper>
               </div>
             </div>

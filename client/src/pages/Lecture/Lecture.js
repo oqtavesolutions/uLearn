@@ -83,27 +83,17 @@ function Lecture({
                     {lecture.course.lectures.length} lectures
                   </Typography>
                   {lecture.course.lectures.length > 0 &&
-                    lecture.course.lectures.map((lecture, i) =>
-                      isSubscribed || isOwner ? (
-                        <Link
-                          to={`/course/${lecture.course.course_slug}/lecture/${lecture.lecture_slug}`}
-                          key={lecture.lecture_id}>
-                          <div className='course-landing-page-main-container-module'>
-                            <p className='course-landing-page-main-container-module__module-title'>
-                              {i + 1}. {lecture.lecture_title}
-                            </p>
-                          </div>
-                        </Link>
-                      ) : (
-                        <div
-                          className='course-landing-page-main-container-module'
-                          key={lecture.lecture_id}>
+                    lecture.course.lectures.map((lecture, i) => (
+                      <Link
+                        to={`/course/${match.params.courseSlug}/lecture/${match.params.lectureSlug}`}
+                        key={lecture.lecture_id}>
+                        <div className='course-landing-page-main-container-module'>
                           <p className='course-landing-page-main-container-module__module-title'>
                             {i + 1}. {lecture.lecture_title}
                           </p>
                         </div>
-                      )
-                    )}
+                      </Link>
+                    ))}
                 </Paper>
               </div>
             </div>

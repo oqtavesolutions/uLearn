@@ -68,9 +68,29 @@
 
   }
 
-  // &__lecture-list-text {
-  //   color: color(global-white);
-  // }
+  &__lecture-list-text {
+    margin-bottom: 1rem !important;
+  }
+}
+
+.course-landing-page-main-container-enroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+
+  &__text {
+    margin-bottom: 1rem !important;
+  }
+
+  &__button {
+    background-color: color(global-blue-main) !important;
+
+    &>span {
+      color: color(global-white) !important;
+    }
+  }
 }
 
 // main content
@@ -131,6 +151,17 @@
     object-fit: cover;
     border-radius: 50%;
     margin-right: .5rem;
+  }
+}
+
+// module
+
+.course-landing-page-main-container-module {
+  display: flex;
+  justify-content: space-between;
+
+  &__module-title {
+    margin-bottom: 1rem;
   }
 }
 
