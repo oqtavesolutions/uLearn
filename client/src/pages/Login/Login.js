@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
 
 function Login({ handleLogin, isLoggedIn, error, loading }) {
   if (isLoggedIn) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/my-courses' />;
   }
 
   return (

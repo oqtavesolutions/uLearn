@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
-import createCourse from "./middlewares";
+import createCourse, { uploadImage } from "./middlewares";
 import history from "../../../utils/history";
 import { toast } from "react-toastify";
 
@@ -30,6 +30,27 @@ function* createCourseSaga(action) {
   }
 }
 
+function* uploadCourseImageSaga(action) {
+  console.log("saga");
+  try {
+    const payload = yield call(uploadImage, action.payload);
+
+    yield put({
+      type: types.UPLOAD_IMAGE_SUCCESSFUL,
+      payload,
+    });
+  } catch (error) {
+    yield put({
+      type: types.UPLOAD_IMAGE_FAILURE,
+      payload: error,
+    });
+  }
+}
+
 export default function* watchCreateCourse() {
   yield takeLatest(types.CREATE_COURSE, createCourseSaga);
+}
+
+export function* watchUploadCourseImageSaga() {
+  yield takeLatest(types.UPLOAD_IMAGE, uploadCourseImageSaga);
 }

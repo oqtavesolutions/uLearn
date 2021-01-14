@@ -32,7 +32,9 @@ module.exports = {
 
   findAllNonAuth: async () => {
     try {
-      const course = await Course.fetchAll();
+      const course = await Course.fetchAll({
+        withRelated: ["authors"],
+      });
       return course;
     } catch (error) {
       throw error;
@@ -43,7 +45,9 @@ module.exports = {
     try {
       const courses = await Course.where({
         course_categories: category,
-      }).fetchAll();
+      }).fetchAll({
+        withRelated: ["authors"],
+      });
       return courses;
     } catch (error) {
       throw error;
@@ -78,13 +82,14 @@ module.exports = {
   },
   update: async (
     course,
-    { course_title, course_description, course_categories }
+    { course_title, course_description, course_categories, course_image }
   ) => {
     try {
       return await course.save({
         course_title: course_title || course.course_title,
         course_description: course_description || course.course_description,
         course_categories: course_categories || course.course_categories,
+        course_image: course_image || course.course_image,
       });
     } catch (error) {
       throw error;
@@ -96,6 +101,8 @@ module.exports = {
     course_slug,
     user_id,
     course_categories,
+    course_image,
+    author_id,
   }) => {
     try {
       const course = new Course({
@@ -104,6 +111,8 @@ module.exports = {
         course_slug,
         course_categories,
         user_id,
+        author_id,
+        course_image,
       });
       const data = await course.save(null, {
         method: "insert",

@@ -1,0 +1,29 @@
+@use '../../partials/typography'as *;
+@use '../../partials/mixins'as *;
+
+.editor-footer {
+  top: auto !important;
+  bottom: 0;
+  z-index: 1201 !important;
+
+
+  &__container {
+    justify-content: space-between;
+  }
+
+  &__cancel {
+    text-transform: initial !important;
+    border-radius: 20px !important;
+    border-color: color(matching-pink) !important;
+  }
+
+  &__save {
+    text-transform: initial !important;
+    border-radius: 20px !important;
+    background-color: color(global-blue-main) !important;
+
+    &>span {
+      color: #ffffff !important;
+    }
+  }
+}

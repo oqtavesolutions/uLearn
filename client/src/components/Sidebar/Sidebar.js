@@ -1,85 +1,72 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHome,
-  faChalkboardTeacher,
-  faGraduationCap,
-  faUserCog,
-  faSchool,
-  faUserCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { Drawer, List, ListItem } from "@material-ui/core";
+
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import "./Sidebar.scss";
+import { categories } from "../../utils/categories";
+import { connect } from "react-redux";
+import {
+  getExplorePageCoursesByCategory,
+  getExplorePageCourses,
+} from "../../pages/Explore/redux/actions";
+import PropTypes from "prop-types";
 
-function Sidebar() {
+function Sidebar({
+  exploreRoute,
+  handleGetExplorePageCoursesByCategory,
+  handleGetExplorePageCourses,
+  categoryName,
+}) {
+  const handleCategoryClick = (e) => {
+    handleGetExplorePageCoursesByCategory(e.target.innerText);
+  };
+
   return (
-    <div className='sidebar'>
-      <div className='sidebar__list'>
-        <NavLink
-          activeClassName='sidebar__list-item--selected'
-          to='/dashboard'
-          className='sidebar__list-item'>
-          <FontAwesomeIcon icon={faHome} className='sidebar__list-item-icon' />
-          <span className='sidebar__list-item-text'>Dashboard</span>
-        </NavLink>
+    <Drawer variant='permanent' anchor='left' className='sidebar-container'>
+      <div className='sidebar'>
+        {exploreRoute && (
+          <Fragment>
+            <List>
+              <Link to='/explore' onClick={handleGetExplorePageCourses}>
+                <ListItem button>All Categories</ListItem>
+              </Link>
 
-        <NavLink
-          activeClassName='sidebar__list-item--selected'
-          to='/my-courses'
-          className='sidebar__list-item'>
-          <FontAwesomeIcon
-            icon={faChalkboardTeacher}
-            className='sidebar__list-item-icon'
-          />
-          <span className='sidebar__list-item-text'>My Course</span>
-        </NavLink>
-
-        <NavLink
-          activeClassName='sidebar__list-item--selected'
-          to='/my-learning'
-          className='sidebar__list-item'>
-          <FontAwesomeIcon
-            icon={faGraduationCap}
-            className='sidebar__list-item-icon'
-          />
-          <span className='sidebar__list-item-text'>My Learning</span>
-        </NavLink>
-
-        <NavLink
-          activeClassName='sidebar__list-item--selected'
-          to='/explore'
-          className='sidebar__list-item'>
-          <FontAwesomeIcon
-            icon={faSchool}
-            className='sidebar__list-item-icon'
-          />
-          <span className='sidebar__list-item-text'>Explore</span>
-        </NavLink>
-
-        <NavLink
-          activeClassName='sidebar__list-item--selected'
-          to='/my-page'
-          className='sidebar__list-item'>
-          <FontAwesomeIcon
-            icon={faUserCog}
-            className='sidebar__list-item-icon'
-          />
-          <span className='sidebar__list-item-text'>My Page</span>
-        </NavLink>
-
-        <NavLink
-          activeClassName='sidebar__list-item--selected'
-          to='/my-account'
-          className='sidebar__list-item'>
-          <FontAwesomeIcon
-            icon={faUserCircle}
-            className='sidebar__list-item-icon'
-          />
-          <span className='sidebar__list-item-text'>My Account</span>
-        </NavLink>
+              {categories.map((category) => (
+                <ListItem
+                  button
+                  key={category.id}
+                  onClick={handleCategoryClick}>
+                  {category.value}
+                </ListItem>
+              ))}
+            </List>
+          </Fragment>
+        )}
       </div>
-    </div>
+    </Drawer>
   );
 }
 
-export default Sidebar;
+Sidebar.propType = {
+  categoryName: PropTypes.string.isRequired,
+  handleGetExplorePageCoursesByCategory: PropTypes.func.isRequired,
+  handleGetExplorePageCourses: PropTypes.func.isRequired,
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleGetExplorePageCourses: () => {
+      dispatch(getExplorePageCourses());
+    },
+    handleGetExplorePageCoursesByCategory: (category) => {
+      dispatch(getExplorePageCoursesByCategory(category));
+    },
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    categoryName: state.getExplorePageCourses.category,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

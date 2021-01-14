@@ -14,7 +14,6 @@ import MyLearning from "./pages/MyLearning";
 import MyPage from "./pages/MyPage";
 import LandingPage from "./pages/LandingPage";
 import MyAccount from "./pages/MyAccount";
-import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
@@ -23,9 +22,10 @@ import CreateLecture from "./pages/CreateLecture";
 import "react-toastify/dist/ReactToastify.css";
 import "react-quill/dist/quill.snow.css";
 import "./App.scss";
+import LectureList from "./pages/LectureList/";
 
 function App() {
-  //const exploreRoute = useRouteMatch("/explore");
+  const exploreRoute = useRouteMatch("/explore");
   // const courseRoute = useRouteMatch("/course");
   // const lectureRoute = useRouteMatch("/lecture");
   // const loginRoute = useRouteMatch("/login");
@@ -46,7 +46,6 @@ function App() {
     strict: true,
     sensitive: true,
   });
-  const dashboardRoute = useRouteMatch("/dashboard");
   const myCoursesRoute = useRouteMatch("/my-courses");
   const myLearningRoute = useRouteMatch("/my-learning");
   const myPageRoute = useRouteMatch("/my-page");
@@ -60,11 +59,22 @@ function App() {
     query: "(min-device-width: 768px)",
   });
 
+  if (myCoursesRoute || myLearningRoute) {
+    return (
+      <PrivateRoute>
+        <Header />
+        <div className='app'>
+          <Switch>
+            <Route exact path='/my-courses' component={MyCourses} />
+            <Route exact path='/my-learning' component={MyLearning} />
+          </Switch>
+        </div>
+      </PrivateRoute>
+    );
+  }
+
   if (
     createCourseRoute ||
-    dashboardRoute ||
-    myCoursesRoute ||
-    myLearningRoute ||
     myPageRoute ||
     editCourseRoute ||
     editLectureRoute ||
@@ -75,32 +85,27 @@ function App() {
       <PrivateRoute>
         <Header />
         <div className='app'>
-          {isDesktop && <Sidebar />}
-          <main className='main-container'>
-            <Switch>
-              <Route exact path='/create/course' component={CreateCourse} />
-              <Route
-                exact
-                path='/create/:courseId/lecture'
-                component={CreateLecture}
-              />
-              <Route exact path='/dashboard' component={Dashboard} />
-              <Route exact path='/my-courses' component={MyCourses} />
-              <Route exact path='/my-learning' component={MyLearning} />
-              <Route exact path='/my-page' component={MyPage} />
-              <Route
-                exact
-                path='/edit/course/:courseId'
-                component={EditCourse}
-              />
-              <Route
-                exact
-                path='/edit/course/:courseId/lecture/:lectureId'
-                component={EditLecture}
-              />
-              <Route exact path='/my-account' component={MyAccount} />
-            </Switch>
-          </main>
+          <Switch>
+            <Route exact path='/create/course' component={CreateCourse} />
+            <Route
+              exact
+              path='/create/:courseId/lecture'
+              component={CreateLecture}
+            />
+            <Route exact path='/my-page' component={MyPage} />
+            <Route exact path='/edit/course/:courseId' component={EditCourse} />
+            <Route
+              exact
+              path='/edit/course/:courseId/lectures'
+              component={LectureList}
+            />
+            <Route
+              exact
+              path='/edit/course/:courseId/lecture/:lectureId'
+              component={EditLecture}
+            />
+            <Route exact path='/my-account' component={MyAccount} />
+          </Switch>
         </div>
       </PrivateRoute>
     );
@@ -110,16 +115,30 @@ function App() {
     return (
       <PrivateRoute>
         <Header />
-        <div className='app'>
-          <Switch>
-            <Route
-              exact
-              path='/course/:courseSlug/lecture/:lectureSlug'
-              component={Lecture}
-            />
-          </Switch>
-        </div>
+        <Switch>
+          <Route
+            exact
+            path='/course/:courseSlug/lecture/:lectureSlug'
+            component={Lecture}
+          />
+        </Switch>
       </PrivateRoute>
+    );
+  }
+
+  if (exploreRoute) {
+    return (
+      <ErrorBoundary>
+        <Header />
+        <div className='app'>
+          {isDesktop && <Sidebar exploreRoute={exploreRoute} />}
+          <main className='main-container'>
+            <Switch>
+              <Route exact path='/explore' component={Explore} />
+            </Switch>
+          </main>
+        </div>
+      </ErrorBoundary>
     );
   }
 
@@ -129,7 +148,6 @@ function App() {
       <Switch>
         <React.Fragment>
           <Route exact path='/' component={LandingPage} />
-          <Route exact path='/explore' component={Explore} />
           <Route
             exact
             path='/course/:courseSlug'

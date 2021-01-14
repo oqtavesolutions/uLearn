@@ -1,48 +1,67 @@
 @use '../../../partials/typography'as *;
-
+@use '../../../partials/mixins'as *;
 
 .my-courses-page-card {
-  position: relative;
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 2rem;
 
-  &__description {
+  @include tablet {
+    margin-right: 2rem;
+
+    &:last-of-type {
+      margin-right: 0rem;
+    }
+  }
+
+  &__icon-container {
+    position: relative;
+  }
+
+
+  &__image-container {
+
+    @include tablet {
+      height: 150px;
+      width: 200px;
+    }
+  }
+
+
+  &__image {
+    object-fit: cover;
+
+    height: 100%;
+    width: 100%;
+  }
+
+  &__text-container {
+    //width: 200px;
     display: flex;
-    flex-direction: column;
-  }
-
-  &__title {
-    @include m-h2;
-    margin-bottom: .5rem;
-  }
-
-  &__date {
-    @include m-p2;
-  }
-
-  &__collapsible {
-    margin-left: auto;
-    cursor: pointer;
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 115px;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
+    align-items: center;
+    justify-content: space-between;
     padding: 1rem;
-    z-index: 1;
   }
 
-  &__item {
-    padding: .125rem;
-    @include m-p1;
+  &__text {
+    flex-grow: 1;
+  }
+
+  &__text-title {
+    word-wrap: break-word;
+    font-weight: bold !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__icon {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background: #fff;
+    height: 2rem !important;
+    border-radius: 4px;
   }
 }

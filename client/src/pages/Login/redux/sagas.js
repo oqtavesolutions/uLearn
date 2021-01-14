@@ -16,7 +16,7 @@ function* userLoginSaga(action) {
       type: types.USER_LOGIN_SUCCESSFUL,
       payload,
     });
-    yield call(forwardTo, "/dashboard");
+    yield call(forwardTo, "/my-courses");
   } catch (error) {
     yield put({
       type: types.USER_LOGIN_FAILURE,

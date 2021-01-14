@@ -2,127 +2,171 @@
 @use '../../partials/mixins'as *;
 
 .course-landing-page {
-
-  &__container {
-    padding: $mobile-padding;
-    background-color: color(global-black);
-    min-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    @include tablet {
-      text-align: initial;
-      padding: $tablet-padding;
-    }
-
-    @include desktop {
-      padding: $desktop-padding;
-    }
-  }
-
+  margin: 3rem auto 0 auto !important;
 
 }
 
-.course-landing-page-description {
-  text-align: center;
+.course-landing-page-main {
+  padding: $desktop-padding;
+  //background-color: color(global-blue-main);
+
+  &__main {
+    margin: 0 auto;
+
+    @include tablet {
+      width: 80%;
+    }
+  }
+
+  &__main-title {
+    //color: color(global-white);
+    margin-bottom: 1rem !important;
+  }
+
+}
+
+// course-landing-page-main-container
+
+.course-landing-page-main-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 500px;
+  //margin: 0 auto;
+
 
   @include tablet {
-    align-items: center;
-    margin: 0 auto;
-    width: 50%;
+    //width: 80%;
+    flex-wrap: nowrap;
   }
 
-
-  &__title {
-    @include m-h1;
-    color: color(global-white);
+  &__video-text {
+    width: 100%;
+    //padding: 1rem;
     margin-bottom: 1rem;
+    overflow: auto;
+    background-color: transparent !important;
+
+    @include tablet {
+      margin-right: 1rem;
+      flex-grow: 1;
+    }
   }
+
+  &__lecture-list {
+    //padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    overflow: auto;
+
+    background-color: transparent !important;
+
+    @include tablet {
+      width: 280px;
+    }
+
+
+  }
+
+  &__lecture-list-text {
+    margin-bottom: 1rem !important;
+  }
+}
+
+.course-landing-page-main-container-enroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
 
   &__text {
-    color: color(global-white);
-    margin-bottom: 1rem;
+    margin-bottom: 1rem !important;
   }
 
   &__button {
-    background-color: color(borders);
-    color: color(global-black);
+    background-color: color(global-blue-main) !important;
+
+    &>span {
+      color: color(global-white) !important;
+    }
+  }
+}
+
+// main content
+
+// .course-landing-page-main-container-main-content {
+
+//   &>p,
+//   span {
+//     color: color(global-white);
+//   }
+// }
+
+// modules
+// .course-landing-page-main-container-module {
+//   &__module-title {
+//     color: color(global-white);
+//   }
+// }
+
+// bottom course description
+
+.course-landing-page-course-description {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 3rem auto;
+  flex-wrap: wrap;
+
+  @include tablet {
+    flex-wrap: nowrap;
+    width: 75%;
+  }
+
+  &__left-container {
+    flex-grow: 1;
+    margin-right: 1rem;
+
+    @include tablet {
+      width: 70%;
+    }
+  }
+
+  &__right-container {
+    @include tablet {
+      width: 30%;
+    }
+  }
+
+  &__avatar-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 200px;
-    outline: none;
-    border: none;
-    height: 43px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto;
+    margin-bottom: 1rem;
 
-    @include tablet {
-      margin: 0;
-    }
+  }
+
+  &__avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: .5rem;
   }
 }
 
-.course-landing-page-modules {
-  color: inherit;
+// module
 
-  width: 100%;
-
-  &__lectures-list {
-    width: 100%;
-
-    @include tablet {
-      flex-grow: 1;
-      margin-right: 2rem;
-    }
-
-  }
-}
-
-.course-landing-page-module {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
-  margin-bottom: 1rem;
+.course-landing-page-main-container-module {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 
-  // @include tablet {
-  //   width: 500px;
-  // }
-
-  &__title {
-    @include m-h2;
-  }
-}
-
-.course-landing-page-author {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-
-  // @include tablet {
-  //   width: 500px;
-  // }
-
-  &__title {
-    @include m-h2;
-  }
-
-  &__name {
+  &__module-title {
     margin-bottom: 1rem;
   }
 }
+
+// modal
+
 
 .enrollment-modal {
 
@@ -170,54 +214,6 @@
   }
 }
 
-.course-landing-page-modules-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 auto;
-  padding: $mobile-padding;
-
-
-  @include tablet {
-    width: 80%;
-    flex-direction: row;
-    padding: 1.5rem;
-    justify-content: space-between;
-    padding: $tablet-padding;
-  }
-
-  @include desktop {
-    padding: $desktop-padding;
-  }
-
-  &__lectures-list {
-    width: 100%;
-
-    @include tablet {
-      margin-right: 3rem;
-      border-right: 1px solid color(borders);
-      padding-right: 3rem;
-    }
-
-  }
-
-  &__title {
-    @include m-h2;
-    margin-bottom: 1rem;
-  }
-}
-
-.course-landing-page-author-list {
-  @include tablet {
-    width: 100%;
-    max-width: 320px;
-  }
-
-  &__name {
-    margin-bottom: 1rem;
-  }
-}
 
 // popup
 

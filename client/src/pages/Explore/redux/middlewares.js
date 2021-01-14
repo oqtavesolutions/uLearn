@@ -13,6 +13,7 @@ const getExplorePageCoursesByCategory = async (category) => {
   return {
     message: "courses retreived successfully",
     courses: response.data,
+    category: category,
   };
 };
 

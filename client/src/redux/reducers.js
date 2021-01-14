@@ -4,6 +4,7 @@ import userLogin from "../pages/Login/redux/reducers";
 import createCourse from "../pages/CreateCourse/redux/reducers";
 import createLecture from "../pages/CreateLecture/redux/reducers";
 import getCourseEdit from "../pages/EditCourse/redux/reducers";
+import getLectureList from "../pages/LectureList/redux/reducers";
 import getCoursesByUser from "../pages/MyCourses/redux/reducers";
 import getLectureEdit from "../pages/EditLecture/redux/reducers";
 import getCourseLandingPage from "../pages/CourseLandingPage/redux/reducers";
@@ -65,6 +66,7 @@ export default combineReducers({
   userStatus,
   createCourse,
   getCourseEdit,
+  getLectureList,
   getCoursesByUser,
   getLectureEdit,
   createLecture,

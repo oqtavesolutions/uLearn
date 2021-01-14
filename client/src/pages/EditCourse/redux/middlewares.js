@@ -9,16 +9,6 @@ const getCourseEdit = async (courseId) => {
   };
 };
 
-const getCourseLectureList = async (courseId) => {
-  const response = await AuthenticatedRequest.get(
-    `/lecture/course/${courseId}`
-  );
-  return {
-    message: "lectures retrieved successfully",
-    lectures: response.data,
-  };
-};
-
 const updateCourse = async (payload) => {
   const response = await AuthenticatedRequest.put(
     "/course/edit/" + payload.course_id,
@@ -32,4 +22,19 @@ const updateCourse = async (payload) => {
   };
 };
 
-export { getCourseEdit, getCourseLectureList, updateCourse };
+const updateImage = async (payload) => {
+  const data = new FormData();
+  data.append("thumbnail", payload[0]);
+  const response = await AuthenticatedRequest.post("/upload", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  console.log(response.data);
+  return {
+    message: "file uploaded successfully",
+    ...response.data,
+  };
+};
+
+export { getCourseEdit, updateCourse, updateImage };

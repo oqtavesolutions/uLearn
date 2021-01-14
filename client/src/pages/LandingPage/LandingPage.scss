@@ -1,7 +1,9 @@
 @use '../../partials/typography'as *;
 @use '../../partials/mixins'as *;
 
-
+.landing-page {
+  margin-top: 3rem;
+}
 
 .landing-page-hero {
   display: flex;

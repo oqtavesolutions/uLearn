@@ -1,13 +1,15 @@
 @use '../../partials/typography'as *;
 @use '../../partials/mixins'as *;
 
-.create-lecture {
+.create-lecture-page {
   display: flex;
   flex-direction: column;
+  max-width: $form-container-max-width-tablet;
+  width: 100%;
+  padding-bottom: 3rem;
 
   &__title {
-    @include m-h1;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem !important;
   }
 }
 
@@ -28,6 +30,10 @@
     margin-bottom: .5rem;
     font-weight: 600;
 
+  }
+
+  &__input-label-radio {
+    margin-right: 1rem;
   }
 
   &__input {

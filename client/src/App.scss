@@ -4,31 +4,22 @@
 
 .app {
   padding: $mobile-padding;
+  margin-top: $app-bar-menu;
 
   @include tablet {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: center;
-    margin: 0 auto;
     padding: $tablet-padding;
   }
 
-  @include desktop {
-    width: 80%;
-    padding: $desktop-padding;
-  }
 }
 
 .main-container {
 
   @include tablet {
-    flex: 0 65%;
-    padding-top: 1rem;
-  }
-
-  @include desktop {
-    flex: 0 80%;
-    padding-top: 1rem;
+    margin-left: $main-drawer-width;
+    width: 100%;
   }
 
 }

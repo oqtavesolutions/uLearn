@@ -1,37 +1,40 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./MyCourses.scss";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import MyCourseList from "./components/MyCourseList";
 import CustomContentLoader from "../../components/CustomContentLoader/CustomContentLoader";
+import { Typography } from "@material-ui/core";
 
-function MyCourses({ loading, success, courses, handleGetCoursesByUser }) {
+function MyCourses({
+  loading,
+  success,
+  courses,
+  handleGetCoursesByUser,
+  displayName,
+}) {
   useEffect(() => {
     handleGetCoursesByUser();
   }, [handleGetCoursesByUser]);
 
   return (
     <div className='my-courses-page'>
-      <h1 className='my-courses-page__headline'>My Courses</h1>
-      <Link to='/create/course' className='my-courses-page__create-course'>
-        <FontAwesomeIcon
-          icon={faUserEdit}
-          className='my-courses-page__create-course-icon'
-        />{" "}
-        Create a course
-      </Link>
+      <Typography variant='h4' className='my-courses-page__headline'>
+        My Courses
+      </Typography>
+
       {loading && <CustomContentLoader />}
       {success && courses.length === 0 && (
         <p>You have not created any course yet.</p>
       )}
-      {success &&
-        courses.length > 0 &&
-        courses.map((course) => (
-          <MyCourseList key={course.id} course={course} />
-        ))}
+      {success && courses.length > 0 && (
+        <div className='my-courses-page-container'>
+          {courses.map((course) => (
+            <MyCourseList course={course} key={course.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -42,11 +45,13 @@ MyCourses.propTypes = {
   success: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   courses: PropTypes.array.isRequired,
+  displayName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     courses: state.getCoursesByUser.courses,
+    displayName: state.userStatus.displayName,
   };
 };
 

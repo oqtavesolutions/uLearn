@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import "./CreateCourse.scss";
 import PropTypes from "prop-types";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AuthenticatedRequest } from "../../utils/axios";
 import ReactQuill from "react-quill";
+import { useDropzone } from "react-dropzone";
+import EditorFooter from "../../components/EditorFooter/EditorFooter";
+import { connect } from "react-redux";
+import { Typography } from "@material-ui/core";
 
 const validationSchema = Yup.object().shape({
   course_title: Yup.string().required("Required"),
@@ -43,9 +47,31 @@ const validationSchema = Yup.object().shape({
       "Please choose category"
     )
     .required("Please choose category"),
+  course_image: Yup.string().url().required("Required"),
 });
 
-function CreateCourse({ handleSubmit }) {
+function CreateCourse({ handleSubmit, handleUpload, file_url }) {
+  const formik = useRef();
+
+  const onDrop = useCallback(
+    (acceptedFiles, rejectedFiles) => {
+      if (rejectedFiles.length === 0) handleUpload(acceptedFiles);
+      if (rejectedFiles.length > 0) toast.error("File too large or is invalid");
+    },
+    [handleUpload]
+  );
+
+  const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
+    maxSize: 1000000,
+    accept: "image/jpeg, image/jpg, image/png",
+    onDrop,
+  });
+
+  useEffect(() => {
+    file_url && formik.current.setFieldValue("course_image", file_url);
+  }, [file_url, formik]);
+
   return (
     <div className='create-course'>
       <ToastContainer
@@ -62,12 +88,32 @@ function CreateCourse({ handleSubmit }) {
       {/* Same as */}
       <ToastContainer />
       <h1 className='create-course__title'>Create Course</h1>
+      <div
+        {...getRootProps({ className: "dropzone" })}
+        className='create-course__dropzone'>
+        <input {...getInputProps()} />
+        <Typography variant='caption' className='create-course__dropzone-text'>
+          Drag 'n' drop some files here, or click to select files
+        </Typography>
+        <Typography variant='caption' className='create-course__dropzone-text'>
+          <em>
+            (Only .jpg and .png images will be accepted. Max file size is 1 Mb)
+          </em>
+        </Typography>
+      </div>
+      {file_url && (
+        <div className='create-course__image-area'>
+          <img src={file_url} alt='course' className='create-course__image' />
+        </div>
+      )}
       <Formik
+        innerRef={formik}
         initialValues={{
           course_title: "",
           course_description: "",
           course_slug: "",
           course_categories: "",
+          course_image: file_url,
         }}
         validationSchema={validationSchema}
         validateOnChange={false}
@@ -75,6 +121,19 @@ function CreateCourse({ handleSubmit }) {
         onSubmit={handleSubmit}>
         {({ isSubmitting }) => (
           <Form className='create-course-form'>
+            <div className='create-course-form__input-container create-course-form--no-display'>
+              <Field
+                type='text'
+                name='course_image'
+                className='create-course-form__input'
+              />
+              <ErrorMessage
+                name='course_image'
+                component='div'
+                className='create-course-form__input-error'
+              />
+            </div>
+
             <div className='create-course-form__input-container'>
               <label
                 htmlFor='Title'
@@ -161,12 +220,7 @@ function CreateCourse({ handleSubmit }) {
               />
             </div>
 
-            <button
-              type='submit'
-              className='create-course-form__button'
-              disabled={isSubmitting}>
-              SUBMIT
-            </button>
+            <EditorFooter message='Create new course' />
           </Form>
         )}
       </Formik>
@@ -176,6 +230,13 @@ function CreateCourse({ handleSubmit }) {
 
 CreateCourse.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  handleUpload: PropTypes.func.isRequired,
 };
 
-export default withRouter(CreateCourse);
+const mapStateToProps = (state) => {
+  return {
+    file_url: state.createCourse.uploadImage.file_url,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(CreateCourse));

@@ -4,15 +4,15 @@ const initialState = {
   loading: false,
   success: false,
   course: {},
-  updatedCourse: {
+  uploadImage: {
     loading: false,
     success: false,
     error: "",
+    file_url: "",
   },
-  lectures: {
+  updatedCourse: {
     loading: false,
     success: false,
-    lectures: [],
     error: "",
   },
   error: "",
@@ -38,37 +38,6 @@ const getCourseEdit = (state = initialState, action) => {
         error: action.payload.message,
         course: {},
       };
-    case types.GET_COURSE_LECTURE_LIST:
-      return {
-        ...state,
-        lectures: {
-          ...state.lectures,
-          loading: true,
-        },
-      };
-    case types.GET_COURSE_LECTURE_LIST_SUCCESSFUL:
-      return {
-        ...state,
-        lectures: {
-          ...state.lectures,
-          loading: false,
-          success: true,
-          error: "",
-          lectures: action.payload.lectures,
-        },
-      };
-    case types.GET_COURSE_LECTURE_LIST_FAILURE:
-      return {
-        ...state,
-        lectures: {
-          ...state.lectures,
-          loading: false,
-          success: false,
-          error: action.payload.message,
-          lectures: [],
-        },
-      };
-
     // update course:
 
     case types.UPDATE_COURSE:
@@ -109,6 +78,37 @@ const getCourseEdit = (state = initialState, action) => {
         },
       };
 
+    case types.UPDATE_IMAGE:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: true,
+          success: false,
+          error: "",
+        },
+      };
+    case types.UPDATE_IMAGE_SUCCESSFUL:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: false,
+          success: true,
+          error: "",
+          file_url: action.payload.file_url,
+        },
+      };
+    case types.UPDATE_IMAGE_FAILURE:
+      return {
+        ...state,
+        uploadImage: {
+          ...state.uploadImage,
+          loading: false,
+          success: false,
+          error: "file upload failed",
+        },
+      };
     default:
       return state;
   }

@@ -1,14 +1,19 @@
 import { fork, call, takeLatest, put } from "redux-saga/effects";
 import watchUserLogin from "../pages/Login/redux/sagas";
 import watchUserSignup from "../pages/Signup/redux/sagas";
-import watchCreateCourse from "../pages/CreateCourse/redux/sagas";
+import watchCreateCourse, {
+  watchUploadCourseImageSaga,
+} from "../pages/CreateCourse/redux/sagas";
 import userStatus from "./middleware";
 import * as types from "./constants";
 import {
   watchGetCourseEditSaga,
-  watchGetCourseLectureListSaga,
   watchUpdateCourseSaga,
+  watchUpdateImageSaga,
 } from "../pages/EditCourse/redux/sagas";
+
+import { watchGetCourseLectureListSaga } from "../pages/LectureList/redux/sagas";
+
 import watchGetCoursesByUserSaga from "../pages/MyCourses/redux/sagas";
 import {
   watchGetLectureEditSaga,
@@ -23,6 +28,7 @@ import {
 import { watchGetSingleLectureSaga } from "../pages/Lecture/redux/sagas";
 import {
   watchGetAuthorEditSaga,
+  watchUpdateAuthorImageSaga,
   watchUpdateAuthorSaga,
 } from "../pages/MyPage/redux/sagas";
 import {
@@ -58,8 +64,10 @@ export default function* rootSaga() {
   yield fork(watchUserStatusSaga);
   // create course
   yield fork(watchCreateCourse);
+  yield fork(watchUploadCourseImageSaga);
   // get edit course
   yield fork(watchGetCourseEditSaga);
+  yield fork(watchUpdateImageSaga);
   // get all course
   yield fork(watchGetCoursesByUserSaga);
   // get all lectures for that course
@@ -80,6 +88,7 @@ export default function* rootSaga() {
   yield fork(watchGetSingleLectureSaga);
   // get edit author
   yield fork(watchGetAuthorEditSaga);
+  yield fork(watchUpdateAuthorImageSaga);
   // get edit update
   yield fork(watchUpdateAuthorSaga);
   // get courses for explore page

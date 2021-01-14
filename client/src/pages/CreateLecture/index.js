@@ -1,30 +1,34 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { getCourseEdit } from "../EditCourse/redux/actions";
 import CreateLecture from "./CreateLecture";
 import { createLecture } from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handleGetCourseEdit: (courseId) => {
+      dispatch(getCourseEdit(courseId));
+    },
     handleCreateLecture: ({
       lecture_title,
-      lecture_description,
       lecture_slug,
       course_id,
       lecture_content,
       lecture_google_slide,
       lecture_video_embed,
-      lecture_attachment,
+      lecture_length,
+      lecture_type,
     }) => {
       dispatch(
         createLecture({
           lecture_title,
-          lecture_description,
           lecture_slug,
           course_id,
           lecture_content,
           lecture_google_slide,
           lecture_video_embed,
-          lecture_attachment,
+          lecture_length,
+          lecture_type,
         })
       );
     },

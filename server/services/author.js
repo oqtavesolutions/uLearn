@@ -19,23 +19,31 @@ module.exports = {
       throw error;
     }
   },
-  create: async ({ user_id, author_name, author_bio, author_slug }) => {
+  create: async ({
+    user_id,
+    author_name,
+    author_bio,
+    author_slug,
+    profile_image_url,
+  }) => {
     try {
       return await new Author({
         author_name,
         author_bio,
         author_slug,
+        profile_image_url,
         user_id,
       }).save();
     } catch (error) {
       throw error;
     }
   },
-  update: async (author, { author_name, author_bio }) => {
+  update: async (author, { author_name, author_bio, profile_image_url }) => {
     try {
       return await author.save({
         author_name,
         author_bio,
+        profile_image_url,
       });
     } catch (error) {
       throw error;

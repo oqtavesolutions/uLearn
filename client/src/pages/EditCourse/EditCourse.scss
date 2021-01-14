@@ -1,122 +1,20 @@
 @use '../../partials/typography'as *;
 @use '../../partials/mixins'as *;
 
-.edit-course-collapsible {
+.edit-course-page {
+  max-width: $form-container-max-width-mobile;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 3rem;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  margin-bottom: 1rem;
-  padding: 1rem;
-
-  &__title {
-    @include m-h1;
+  @include tablet {
+    max-width: $form-container-max-width-tablet;
   }
-
-  &__nav-bar {
-    cursor: pointer;
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 0rem;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-    z-index: 1;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
-    cursor: pointer;
-  }
-
-  &__item-link {
-    @include m-p1;
-    cursor: pointer;
-  }
-
 }
 
-.edit-course-details-card-container {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-
-}
-
-.edit-course-details-card {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-
-  &__description {
-    display: flex;
-    flex-direction: column;
-
-    @include tablet {
-      margin-bottom: 0rem;
-    }
-  }
-
+.edit-course-top {
   &__title {
-    @include m-h2;
-  }
-
-  &__sub {
-    @include m-p2;
-  }
-
-  &__collapsible {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    cursor: pointer;
-  }
-
-  &__button {
-    @include m-p1;
-    line-height: 1rem;
-    width: 100%;
-    background-color: color(global-black);
-    padding: .5rem;
-    color: color(global-white);
-    border-radius: 5px;
-    margin-right: 1.5rem;
-    width: 100%;
-    border: none;
-
-
-    @include tablet {
-      width: 80px;
-    }
-
-    &--cancel {
-      background-color: transparent;
-    }
-
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 2rem;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
+    margin-bottom: 1rem !important;
   }
 }
 
@@ -124,12 +22,47 @@
 .edit-course-details-form-container {
   display: flex;
   flex-direction: column;
-  padding: 0 1.5rem 1.5rem 1.5rem;
 
   &__title {
     @include m-h2;
     margin-bottom: 1rem;
 
+  }
+
+
+
+  &__dropzone {
+    border: 2px dashed color(matching-pink);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  &__dropzone-text {
+    color: color(font-grey);
+  }
+
+  &__image-area {
+    max-width: 100%;
+    width: 400px;
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    padding: 1rem;
+
+  }
+
+  &__image {
+    object-fit: cover;
+    margin-bottom: 1rem;
+    width: 100%;
   }
 }
 
@@ -137,6 +70,9 @@
   display: flex;
   flex-direction: column;
 
+  &--no-display {
+    display: none;
+  }
 
 
   &__input-container {
@@ -216,119 +152,5 @@
       color: color(global-black);
       border: 1px solid color(global-black);
     }
-  }
-}
-
-
-.edit-course-lectures-card-container {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.edit-course-lectures-card {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-
-
-  &__description {
-    display: flex;
-    flex-direction: column;
-
-    @include tablet {
-      margin-bottom: 0rem;
-    }
-  }
-
-  &__title {
-    @include m-h2;
-  }
-
-  &__sub {
-    @include m-p2;
-  }
-
-  &__collapsible {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    cursor: pointer;
-  }
-
-  &__button {
-    @include m-p1;
-    line-height: 1rem;
-    width: 100%;
-    background-color: color(global-black);
-    padding: .5rem;
-    color: color(global-white);
-    border-radius: 5px;
-    margin-right: 1.5rem;
-    border: none;
-
-
-    @include tablet {
-      width: 80px;
-    }
-
-
-
-
-  }
-
-
-  &__button-create {
-    @include m-p1;
-    line-height: 1rem;
-    width: 100%;
-    background-color: color(global-black);
-    padding: .5rem;
-    color: color(global-white);
-    border-radius: 5px;
-    text-align: center;
-    border: none;
-    margin-bottom: 1rem;
-
-
-    @include tablet {
-      width: 160px;
-      margin-bottom: 0rem;
-      margin-right: 1rem;
-    }
-
-    @include desktop {
-      margin-right: 0rem;
-    }
-
-
-
-
-  }
-
-  &__items {
-    background-color: color(global-white);
-    list-style: none;
-    position: absolute;
-    top: 2rem;
-    right: 0;
-    box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-    padding: 1rem;
-  }
-
-  &__item {
-    padding: .125rem;
-    @include m-p1;
-    cursor: pointer;
-  }
-}
-
-.edit-course-lecture-list {
-  &__title {
-    @include m-h3;
-    margin-bottom: 1rem;
   }
 }

@@ -1,4 +1,5 @@
 const userServices = require("../services/user");
+const authorServices = require("../services/author");
 
 module.exports = {
   find: async (req, res) => {
@@ -27,10 +28,13 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      console.log(req.user);
+      //console.log(req.user);
       const user = await userServices.create({
         email: req.user.email,
         user_id: req.user.uid,
+      });
+      await authorServices.create({
+        user_id: user.id,
       });
       return res
         .status(200)

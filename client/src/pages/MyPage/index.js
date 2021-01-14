@@ -1,10 +1,17 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import MyPage from "./MyPage";
-import { getAuthorEdit, updateAuthor } from "./redux/actions";
+import {
+  getAuthorEdit,
+  updateAuthor,
+  updateAuthorImage,
+} from "./redux/actions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handleUpload: (file) => {
+      dispatch(updateAuthorImage(file));
+    },
     handleGetAuthorEdit: () => {
       dispatch(getAuthorEdit());
     },

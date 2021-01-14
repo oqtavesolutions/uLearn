@@ -1,64 +1,74 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import "./MyCourseList.scss";
 import PropTypes from "prop-types";
+import { Paper, Typography, Menu, MenuItem } from "@material-ui/core";
 import { format } from "date-fns";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { MoreVert as MoreVertIcon } from "@material-ui/icons";
 
 function MyCourseList({ course }) {
-  const [showNav, setShowNav] = useState(false);
-  const kebabWrapper = useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = () => {
-    setShowNav(!showNav);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", (e) => {
-      if (
-        kebabWrapper.current !== null &&
-        !kebabWrapper.current.contains(e.target)
-      ) {
-        setShowNav(false);
-      }
-    });
-    // returned function will be called on component unmount
-    return () => {
-      document.removeEventListener("mousedown", () => {
-        setShowNav(false);
-      });
-    };
-  }, [kebabWrapper]);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <article className='my-courses-page-card'>
-      <p className='my-courses-page-card__description'>
-        <span className='my-courses-page-card__title'>
-          {course.course_title}
-        </span>
-        <span className='my-courses-page-card__date'>
-          Created on: {format(new Date(course.created_at), "MM/dd/yyyy")}
-        </span>
-      </p>
-      <FontAwesomeIcon
-        icon={faEllipsisH}
-        className='my-courses-page-card__collapsible'
-        onClick={handleClick}
-      />
-      <nav className='my-courses-page-card__nav'>
-        {showNav && (
-          <ul className='my-courses-page-card__items' ref={kebabWrapper}>
-            <li className='my-courses-page-card__item'>
-              <Link to={"/edit/course/" + course.course_id}>Edit</Link>
-            </li>
-            <li className='my-courses-page-card__item'>
-              <Link to={"/course/" + course.course_slug}>View</Link>
-            </li>
-          </ul>
-        )}
-      </nav>
-    </article>
+    <Paper className='my-courses-page-card'>
+      {" "}
+      <div className='my-courses-page-card__image-container'>
+        <div className='my-courses-page-card__icon-container'>
+          <MoreVertIcon
+            onClick={handleClick}
+            className='my-courses-page-card__icon'
+          />
+          <Menu
+            id='long-menu'
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}>
+            <MenuItem onClick={handleClose}>
+              <Typography variant='body2'>
+                <Link to={"/edit/course/" + course.course_id}>Edit</Link>
+              </Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              {" "}
+              <Typography variant='body2'>
+                <Link to={"/course/" + course.course_slug}>View</Link>
+              </Typography>
+            </MenuItem>
+          </Menu>
+        </div>
+        <Link to={"/edit/course/" + course.course_id}>
+          <img
+            src={course.course_image}
+            alt='course'
+            className='my-courses-page-card__image'
+          />
+        </Link>
+      </div>
+      <div className='my-courses-page-card__text-container'>
+        <div className='my-courses-page-card__text'>
+          <Link to={"/edit/course/" + course.course_id}>
+            <Typography
+              gutterBottom
+              variant='subtitle2'
+              className='my-courses-page-card__text-title'>
+              {course.course_title}
+            </Typography>
+          </Link>
+          <Typography variant='caption' color='textSecondary' component='p'>
+            Created on: {format(new Date(course.created_at), "MM/dd/yyyy")}
+          </Typography>
+        </div>
+      </div>
+    </Paper>
   );
 }
 

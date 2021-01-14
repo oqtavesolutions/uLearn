@@ -187,9 +187,11 @@ module.exports = {
 
   create: async (req, res) => {
     try {
+      const author = await authorServices.find({ user_id: req.user.id });
       const data = await courseServices.create({
         ...req.body,
         user_id: req.user.id,
+        author_id: author.id,
       });
       res.status(200).json({ message: "course created successfully", data });
     } catch (error) {

@@ -2,168 +2,103 @@
 @use '../../partials/mixins'as *;
 
 .course-explore-page-description {
-  padding: $mobile-padding;
-  background-color: color(global-black);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-height: 200px;
-  justify-content: center;
-
-  @include tablet {
-    padding: $tablet-padding;
-    min-height: 300px;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-  }
-
-  @include desktop {
-    padding: $desktop-padding;
-  }
 
   &__title {
-    @include m-h1;
-    color: color(global-white);
-    margin-bottom: 1rem;
+    //text-align: center;
+    font-weight: 700 !important;
+    margin: 0rem 0 2rem 0 !important;
   }
 
   &__text {
-    color: color(global-white);
     margin-bottom: 1rem;
   }
 
-  &__button {
-    background-color: color(global-black);
-    color: color(global-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    outline: none;
-    border: none;
-    height: 43px;
-    border-radius: 5px;
-  }
 }
 
-.course-explore-page-search-form {
-
-  position: relative;
-
-  &__input {
-    width: 200px;
-    height: 43px;
-    padding-left: 1rem;
-    border-radius: 5px;
-    outline: none;
-    border: none;
-  }
-
-  &__button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 43px;
-    height: 43px;
-    background-color: transparent;
-    outline: none;
-    border: none;
-  }
-}
-
-.course-explore-page-categories {
-  padding: $mobile-padding;
+.course-explore-page-paper-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-
-  @include tablet {
-    padding: $tablet-padding;
-  }
-
-  @include desktop {
-    padding: $desktop-padding;
-  }
-
-  &__title {
-    @include m-h1;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-
-}
-
-.course-explore-page-main {
-  @include tablet {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 1rem;
-
-  }
-}
-
-.course-explore-page-categories-cloud {
-  display: flex;
+  //justify-content: center;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  margin: 0 auto;
 
   @include tablet {
-    max-width: 280px;
+    flex-direction: row;
   }
+}
 
-  &__button {
-    width: 100%;
-    height: auto;
-    padding: 1rem;
-    outline: none;
-    background-color: transparent;
-    border-radius: 20px;
-    border: 2px solid color(global-black);
-    cursor: pointer;
-    margin-bottom: 1rem;
 
-    @include tablet {
-      width: 230px;
-      margin-right: 1rem;
+.course-explore-page-paper {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 2rem;
+
+  @include tablet {
+    width: 200px;
+    margin-right: 2rem;
+
+    &:last-of-type {
+      margin-right: 0rem;
     }
   }
-}
 
-.course-explore-page-categories-highlights {
-  padding: 0 $mobile-padding;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  &__image-container {
 
-  @include tablet {
-    padding: $tablet-padding;
-    width: 500px;
+    @include tablet {
+      height: 150px;
+      width: 200px;
+    }
   }
 
 
-  @include desktop {
-    padding: $desktop-padding;
+  &__image {
+    object-fit: cover;
+
+    height: 100%;
+    width: 100%;
   }
-}
 
-.course-explore-page-categories-highlights-card {
-  box-shadow: 0 2px 16px rgba(13, 12, 34, .1);
-  padding: 2rem;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  &__text-container {
+    //width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
 
+  &__text {
+    flex-grow: 1;
+  }
 
-  &__title {
-    @include m-h2;
+  &__text-title {
+    word-wrap: break-word;
+    font-weight: bold !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1rem !important;
+  }
+
+  &__icon {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background: #fff;
+    height: 2rem !important;
+    border-radius: 4px;
+  }
+
+  &__avatar-container {
+    display: flex;
+    align-items: center;
+
+  }
+
+  &__avatar {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 1rem;
   }
 }
